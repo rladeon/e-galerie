@@ -1,0 +1,19 @@
+{
+    "name": "rudi/e-galerie",
+    "type": "project",
+    "require": {
+        "vlucas/spot2": "^2.2"
+    },
+    "authors": [
+        {
+            "name": "rladeon",
+            "email": "rladeon@gmail.com"
+        }
+    ],
+	"autoload": {
+      "psr-4": {
+        "Controller\\": "controller/",
+        "Model\\": "model/"
+      }
+    }
+}
