@@ -2,7 +2,8 @@
     "name": "rudi/e-galerie",
     "type": "project",
     "require": {
-        "vlucas/spot2": "^2.2"
+        "vlucas/spot2": "^2.2",
+        "twig/twig": "^1.35"
     },
     "authors": [
         {
@@ -13,7 +14,8 @@
 	"autoload": {
       "psr-4": {
         "Controller\\": "controller/",
-        "Model\\": "model/"
+        "Model\\": "model/",
+		"Component\\": "component/"
       }
     }
 }

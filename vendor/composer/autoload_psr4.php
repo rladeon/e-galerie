@@ -7,6 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Valitron\\' => array($vendorDir . '/vlucas/valitron/src/Valitron'),
+    'Twig\\' => array($vendorDir . '/twig/twig/src'),
+    'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
     'Spot\\' => array($vendorDir . '/vlucas/spot2/lib'),
     'SpotTest\\' => array($vendorDir . '/vlucas/spot2/tests'),
     'Sabre\\Event\\' => array($vendorDir . '/sabre/event/lib'),
@@ -15,4 +17,5 @@ return array(
     'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations'),
     'Doctrine\\Common\\' => array($vendorDir . '/doctrine/common/lib/Doctrine/Common'),
     'Controller\\' => array($baseDir . '/controller'),
+    'Component\\' => array($baseDir . '/component'),
 );

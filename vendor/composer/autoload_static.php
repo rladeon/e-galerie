@@ -6,13 +6,22 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit875fd26db772f7ab3aac48a7f413a02d
 {
+    public static $files = array (
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'V' => 
         array (
             'Valitron\\' => 9,
         ),
+        'T' => 
+        array (
+            'Twig\\' => 5,
+        ),
         'S' => 
         array (
+            'Symfony\\Polyfill\\Ctype\\' => 23,
             'Spot\\' => 5,
             'SpotTest\\' => 9,
             'Sabre\\Event\\' => 12,
@@ -30,6 +39,7 @@ class ComposerStaticInit875fd26db772f7ab3aac48a7f413a02d
         'C' => 
         array (
             'Controller\\' => 11,
+            'Component\\' => 10,
         ),
     );
 
@@ -37,6 +47,14 @@ class ComposerStaticInit875fd26db772f7ab3aac48a7f413a02d
         'Valitron\\' => 
         array (
             0 => __DIR__ . '/..' . '/vlucas/valitron/src/Valitron',
+        ),
+        'Twig\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twig/twig/src',
+        ),
+        'Symfony\\Polyfill\\Ctype\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
         'Spot\\' => 
         array (
@@ -70,9 +88,20 @@ class ComposerStaticInit875fd26db772f7ab3aac48a7f413a02d
         array (
             0 => __DIR__ . '/../..' . '/controller',
         ),
+        'Component\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/component',
+        ),
     );
 
     public static $prefixesPsr0 = array (
+        'T' => 
+        array (
+            'Twig_' => 
+            array (
+                0 => __DIR__ . '/..' . '/twig/twig/lib',
+            ),
+        ),
         'D' => 
         array (
             'Doctrine\\DBAL\\' => 

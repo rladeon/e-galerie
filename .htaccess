@@ -5,7 +5,9 @@ RewriteBase /e-galerie/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^/$ /e-galerie/index.php [L]
-RewriteRule ^([a-z]+)/([a-z]+)/$ /e-galerie/index.php?c=$1&t=$2 [L]
+RewriteRule ^([a-z]+)/([a-z]+)$ /e-galerie/index.php?c=$1&t=$2 [L]
+RewriteRule ^admin$ /e-galerie/admin/index.html [L]
+RewriteRule ^([a-z]+)/([a-z]+)/([a-z]+)/([a-z0-9]+(?:-[a-z0-9]+)*)$ /e-galerie/index.php?c=$1&t=$2&params[$3]=$4 [L]
 ErrorDocument 404 /e-galerie/view/error/404-not-found-page.html
 </IfModule>
 
