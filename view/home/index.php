@@ -2,6 +2,44 @@
 
 {% block content %}
 
+<div id="demo1">
+      <div class="slide">
+        <img src="public/images/slides/1.jpg" />
+        <!--Slider Description example-->
+         <div class="slide-desc">
+            <h2>Slider Title 1</h2>
+            <p>Demo description here. Demo description here. Demo description here. Demo description here. Demo description here. <a class="more" href="#">more</a></p>
+        </div>
+     </div>
+    <div class="slide">
+       <img src="public/images/slides/2.jpg" />
+       <div class="slide-desc">
+        <h2>Slider Title 2</h2>
+        <p>Demo description here. Demo description here. Demo description here. Demo description here. Demo description here. <a class="more" href="#">more</a></p>
+      </div>
+   </div>
+   <div class="slide">
+      <img src="public/images/slides/3.jpeg" />
+      <!--NO Description Here-->
+   </div>
+   <div class="slide">
+     <img src="public/images/slides/4.jpg" />
+     <div class="slide-desc">
+      <h2>Slider Title 4</h2>
+      <p>Demo description here. Demo description here. Demo description here. Demo description here. Demo description here. <a class="more" href="#">more</a></p>
+     </div>
+  </div>
+ <div class="slide">
+    <img src="public/images/slides/5.jpg" />
+ </div>
+ <div class="slide">
+   <img src="public/images/slides/6.jpg" />
+    <div class="slide-desc">
+    <h2>Slider Title 6</h2>
+    <p>Demo description here. Demo description here. Demo description here. Demo description here. Demo description here. <a class="more" href="#">more</a></p>
+   </div>
+ </div>
+</div>
 	  <section id="section" class="main-section first-section">
 			<div class="container">
 				<p class="bigtxt txtcenter">Some awesome calls to action</p>

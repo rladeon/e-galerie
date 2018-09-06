@@ -13,8 +13,7 @@ body {
 	background: #B13C2E;
 	color: #F1EEDD;
 	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-	/* Margin bottom by footer height */
-  margin-bottom: 60px;
+	
 }
 .main-header {
 	background: #FFF;
