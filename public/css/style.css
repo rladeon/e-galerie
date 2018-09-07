@@ -150,6 +150,7 @@ body {
   /* Set the fixed height of the footer here */
   height: 60px;
   background-color: #333;
+  color: white;
 }
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
@@ -195,8 +196,7 @@ ul.social-buttons li a {
   -moz-transition: all 0.3s;
   transition: all 0.3s;
   margin-bottom: 20px;
-  margin-left :45%;
-  
+    
 }
 ul.social-buttons li a:hover,
 ul.social-buttons li a:focus,
@@ -233,7 +233,7 @@ a.bttn:focus {
 .bttn {
   font-size: 18px;
   letter-spacing: 2px;
-  
+  margin-bottom: 10px;
   display: inline-block;
   text-align: center;
   width: 270px;
@@ -270,4 +270,19 @@ a.bttn:focus {
   right: 0;
   opacity: 1;
 }
-
+/* actu images	
+---------------------------------------------------*/
+.frontimage{
+	height: 200px;
+	margin-bottom: 20px;
+	
+}
+.peaceplace{
+	margin-right: 10px;
+}
+/* pimp my date	
+---------------------------------------------------*/
+.artdate{
+font-family: Playlist Script, cursive; 
+font-size: 20px
+}

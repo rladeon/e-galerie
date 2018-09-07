@@ -87,7 +87,7 @@
                     </span>
                     <h4 class="service-heading">Réseaux sociaux</h4>
 						
-                        <ul class=" social-buttons">
+                        <ul class=" social-buttons" style="margin-left :45%;">
                             <li><a href="#"><i class="fa fa-facebook-square"></i></a>
                             </li>
                             <li><a href="#"><i class="fa fa-linkedin"></i></a>
@@ -96,5 +96,46 @@
                 </div>
 				
 			</div>
+		</section>
+		 <section id="latest" class="main-section second-section">
+			<div class="container">
+				<h1>Mes derniers travaux</h1>
+				<div class="row text-center">
+					<div class="col-md-4">
+						<div>
+							<b>Tout</b> &nbsp;&nbsp;&nbsp; Catégorie1 &nbsp;&nbsp;&nbsp;Catégorie2
+						</div>
+						<img src="{{root}}public/images/last_work.jpg"/>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section id="latest" class="main-section second-section">
+			<div class="container">
+				<h1>Mon actualité</h1>
+				<div class="row text-center">
+					<div class="col-md-4 peaceplace">
+						<div class="artdate">01/01/1972</div>
+						<img src="{{root}}public/images/actu01.jpg" class="frontimage"/>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+						
+					</div>
+				
+					<div class="col-md-4 peaceplace">
+						<div class="artdate">01/01/1971</div>
+						<img src="{{root}}public/images/actu02.jpg" class="frontimage"/>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					</div>
+				
+					<div class="col-md-4 peaceplace">
+						<div class="artdate">01/01/1970</div>
+						<img src="{{root}}public/images/actu03.jpg" class="frontimage"/>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					</div>
+				</div>
+				<a href="#0" class="bttn" >Toute l'actualité</a>
+			</div>
+						
+					
 		</section>
 	{% endblock %}

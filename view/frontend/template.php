@@ -17,7 +17,7 @@
 		 
 				<div class="header-logo">
 					<!--<img src="{{ root }}public/images/logo.png" alt="Creative Juiz" width="150" height="45">-->
-					<span class="logo">Christiann'Art</span>
+					<span class="logo">Galerie Christ 'l</span>
 				</div>
 		 
 				<nav class="header-nav">
@@ -50,8 +50,8 @@
 		
 		<!-- FOOTER -->
       <footer class="sticky-footer">
-        <div class="center-text">
-			<p>&copy; 2016 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        <div class="container">
+			<p>&copy; 2018 Christiane Ladéon &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
 		</div>
       </footer> 
 	  <script>
