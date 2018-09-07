@@ -42,7 +42,7 @@
 </div>
 	  <section id="section" class="main-section first-section">
 			<div class="container">
-				<p class="bigtxt txtcenter">Some awesome calls to action</p>
+				<p class="bigtxt txtcenter">{{breadcrumb}}</p>
 			</div>
 		</section>
 

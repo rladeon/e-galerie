@@ -4,11 +4,13 @@ namespace Controller;
 
 use \Twig_Loader_Filesystem;
 use \Twig_Environment;
-
+use Cocur\Slugify\Slugify;
 class Controller
 {
     protected $twig;
 	protected $className;
+	protected $seo;
+	protected $root;
 	
     function __construct()
     {
@@ -18,6 +20,8 @@ class Controller
       $this->twig = new Twig_Environment($loader, array(
           'cache' => false,
       ));
+	  $this->seo = new Slugify();
+	  $this->root = "/e-galerie/";
       //
 	  
     }

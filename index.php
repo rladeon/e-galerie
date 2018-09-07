@@ -27,7 +27,7 @@ $params = [
     "get"  => $getParams,
     "post" => $postParams
 ];
-//echo $class;
+//var_dump($params);
 if (class_exists($class, true)) {
     $class = new $class();
     if (in_array($target, get_class_methods($class))) {

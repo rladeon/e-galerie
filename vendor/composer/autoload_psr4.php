@@ -18,4 +18,5 @@ return array(
     'Doctrine\\Common\\' => array($vendorDir . '/doctrine/common/lib/Doctrine/Common'),
     'Controller\\' => array($baseDir . '/controller'),
     'Component\\' => array($baseDir . '/component'),
+    'Cocur\\Slugify\\' => array($vendorDir . '/cocur/slugify/src'),
 );

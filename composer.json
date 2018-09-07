@@ -3,7 +3,8 @@
     "type": "project",
     "require": {
         "vlucas/spot2": "^2.2",
-        "twig/twig": "^1.35"
+        "twig/twig": "^1.35",
+        "cocur/slugify": "^3.1"
     },
     "authors": [
         {

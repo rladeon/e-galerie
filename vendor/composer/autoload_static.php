@@ -40,6 +40,7 @@ class ComposerStaticInit875fd26db772f7ab3aac48a7f413a02d
         array (
             'Controller\\' => 11,
             'Component\\' => 10,
+            'Cocur\\Slugify\\' => 14,
         ),
     );
 
@@ -91,6 +92,10 @@ class ComposerStaticInit875fd26db772f7ab3aac48a7f413a02d
         'Component\\' => 
         array (
             0 => __DIR__ . '/../..' . '/component',
+        ),
+        'Cocur\\Slugify\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cocur/slugify/src',
         ),
     );
 
