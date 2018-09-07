@@ -16,7 +16,8 @@
 			<div class="header-inner">
 		 
 				<div class="header-logo">
-					<img src="{{ root }}public/images/logo.png" alt="Creative Juiz" width="150" height="45">
+					<!--<img src="{{ root }}public/images/logo.png" alt="Creative Juiz" width="150" height="45">-->
+					<span class="logo">Christiann'Art</span>
 				</div>
 		 
 				<nav class="header-nav">
