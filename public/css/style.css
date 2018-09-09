@@ -173,7 +173,7 @@ p {  text-align: justify;
 
 /* span / logo / caligraphy
 ---------------------------------------------------*/
-.logo{
+.logo-inc{
 	font-family: Playlist Script;
 	font-size: 59px;
 }
@@ -211,9 +211,10 @@ ul.social-buttons li a:active {
 
 .flex {
   margin-bottom: 10px;
-  display: flex;
+  /*display: flex;*/
   align-items: center;
   justify-content: center;
+  margin-left: 5%;
 }
 
 a.bttn {

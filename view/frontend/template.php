@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width" />
 		
 		<!-- Bootstrap core CSS -->
+	
+	<link rel="stylesheet" href="{{ root }}public/css/layout.css">	
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="{{ root }}public/css/skdslider.css" rel="stylesheet">
@@ -17,7 +19,7 @@
 		 
 				<div class="header-logo">
 					<!--<img src="{{ root }}public/images/logo.png" alt="Creative Juiz" width="150" height="45">-->
-					<span class="logo">Galerie Christ 'l</span>
+					<span class="logo-inc">Galerie Christ 'l</span>
 				</div>
 		 
 				<nav class="header-nav">
@@ -69,6 +71,7 @@ function myFunction() {
     <script>window.jQuery || document.write('<script src="./js/vendor/jquery.min.js"><\/script>')</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="{{ root }}public/js/skdslider.min.js"></script>
+	<script type="text/javascript" src="{{ root }}public/js/jquery.mixitup.min.js"></script>
 	<script type="text/javascript">
     jQuery(document).ready(function(){
         jQuery('#demo1').skdslider({
@@ -92,5 +95,34 @@ function myFunction() {
         });
     });
 </script>
+<script type="text/javascript">
+	$(function () {
+		
+		var filterList = {
+		
+			init: function () {
+			
+				// MixItUp plugin
+				// http://mixitup.io
+				$('#portfoliolist').mixItUp({
+  				selectors: {
+    			  target: '.portfolio',
+    			  filter: '.filter'	
+    		  },
+    		  load: {
+      		  filter: '.app'  
+      		}     
+				});								
+			
+			}
+
+		};
+		
+		// Run the show!
+		filterList.init();
+		
+		
+	});	
+	</script>
     </body>
 </html>
