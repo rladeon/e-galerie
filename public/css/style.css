@@ -287,3 +287,16 @@ a.bttn:focus {
 font-family: Playlist Script, cursive; 
 font-size: 20px
 }
+/* Livre image thumbnail
+---------------------------------------------------*/
+#small-images img{
+	
+	border: solid 3px grey;
+}
+#big-image img{
+	padding-bottom: 10px;
+	display: none;
+	
+}
+#small-images a, #big-images a {display:inline-block}
+#small-images a.selected {border:1px solid red}

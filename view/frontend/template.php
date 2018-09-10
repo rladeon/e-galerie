@@ -74,6 +74,7 @@ function myFunction() {
 	<script src="{{ root }}public/js/skdslider.min.js"></script>
 	<script type="text/javascript" src="{{ root }}public/js/jquery.mixitup.min.js"></script>
 	<script src="{{ root }}public/js/jquery-smartphoto.min.js"></script>
+	<!--Banner-->
 	<script type="text/javascript">
     jQuery(document).ready(function(){
         jQuery('#demo1').skdslider({
@@ -97,6 +98,7 @@ function myFunction() {
         });
     });
 </script>
+<!--Portfolio-->
 <script type="text/javascript">
 	$(function () {
 		
@@ -126,10 +128,22 @@ function myFunction() {
 		
 	});	
 	</script>
+	<!--LightBox-->
 	<script>
 	$(function(){
 		$(".js-smartPhoto").SmartPhoto();
 		});
+		</script>
+		<!--Switch Big images and thumbnails-->
+		<script>
+		$(function(){
+    $("#big-image img:eq(0)").show();
+    $("#small-images").on('click','img',function(e){
+		
+        var index = $(this).index();
+        $("#big-image img").eq(index).show().siblings().hide();
+    });
+});
 		</script>
     </body>
 </html>

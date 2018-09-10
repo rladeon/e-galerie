@@ -4,13 +4,21 @@
 <div class="container">
      <h1 > {{titre}} </h1>
     <div class="row">
-		<div class="col-md-4">
+		<div class="col-md-6">
 			
 				<div><p>{{auteur}} - {{date}}</p></div>
-				<div><img src="{{root}}public/images/2018/1/couverture-du-livre-thumb.jpg" alt="Livre" /></div>
+				<div id="big-image">
+				
+				<img src="{{root}}public/images/2018/1/couverture-du-livre-mid.jpg" alt="Livre" />
+				<img src="{{root}}public/images/actu01-mid.jpg" >
+				</div>
+				<div id="small-images">
+				<img src="{{root}}public/images/2018/1/couverture-du-livre-thumb.jpg" alt="Livre" />
+				<img src="{{root}}public/images/actu01-thumb.jpg" >
+				</div>
 			
 		</div>
-		<div class="col-md-8">
+		<div class="col-md-5">
 			
 			  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam faucibus luctus ligula, vitae lacinia eros faucibus ut. Vestibulum eget iaculis ligula. Integer posuere sed nulla nec elementum. Nulla convallis nisl id sagittis convallis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam id ex et turpis sollicitudin fermentum vitae sit amet urna. Vestibulum faucibus libero non eleifend eleifend. Mauris a lectus ac justo dictum porttitor ac id nisi. Donec dapibus dapibus velit, eget convallis lorem tempor nec. Fusce malesuada justo ac nibh facilisis imperdiet. Vestibulum lectus diam, mollis eget rutrum vitae, aliquet a lorem. Etiam dignissim sem non orci ultricies hendrerit. Nam a augue sed tortor tempor interdum. Etiam eget arcu pretium, molestie massa et, posuere justo.
 
