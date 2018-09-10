@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="{{ root }}public/css/skdslider.css" rel="stylesheet">
 	<link rel="stylesheet" href="{{ root }}public/css/smartphoto.min.css">
+	<link rel="stylesheet" href="{{ root }}public/css/justifiedGallery.min.css" />
 	<link href="{{ root }}public/css/style.css" rel="stylesheet">
     </head>
     <body>
@@ -27,7 +28,7 @@
 					<ul>
 						<li><a href="{{ root }}">Accueil</a></li>
 						<li><a href="#">Présentation</a></li>
-						<li><a href="#">Galerie photo</a></li>
+						<li><a href="{{ root }}gallery/index">Galerie photo</a></li>
 						<li><a href="#">Expositions</a></li>
 						<li><a href="{{ root }}book/show/page/christiane-ladeon-l-endometriose-de-l-ombre-a-la-lumiere">Livre</a></li>
 						<li><a href="#">Presse</a></li>
@@ -74,6 +75,7 @@ function myFunction() {
 	<script src="{{ root }}public/js/skdslider.min.js"></script>
 	<script type="text/javascript" src="{{ root }}public/js/jquery.mixitup.min.js"></script>
 	<script src="{{ root }}public/js/jquery-smartphoto.min.js"></script>
+	<script src="{{ root }}public/js/jquery.justifiedGallery.min.js"></script>
 	<!--Banner-->
 	<script type="text/javascript">
     jQuery(document).ready(function(){
@@ -144,6 +146,10 @@ function myFunction() {
         $("#big-image img").eq(index).show().siblings().hide();
     });
 });
+		</script>
+		<!--Galerie-->
+		<script>
+			$("#mygallery").justifiedGallery();
 		</script>
     </body>
 </html>

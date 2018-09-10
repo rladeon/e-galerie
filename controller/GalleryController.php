@@ -2,10 +2,10 @@
 
 namespace Controller;
 
-class HomeController extends Controller
+class GalleryController extends Controller
 {
-    public function index()
-    {
+	public function index()
+	{
 		$list = array(
 				2=>array(
 					"title" => 'banane',
@@ -18,8 +18,8 @@ class HomeController extends Controller
 					"extension" =>"jpg",
 					"category" => "carte postale",
 					"datacateg" => "cartepostale"
-					)
-				,
+					
+				),
 				3=>array(
 					"title" => 'cacao',
 					"path_large" =>"public/images/2018/3/cacao-large.jpg",
@@ -35,12 +35,12 @@ class HomeController extends Controller
 				),
 		);
 		echo $this->twig->render($this->className.'/index.php',
-		[
-          "title" => "Accueil",
-		  "breadcrumb" => "",
-		  "root" => $this->root,
-		  "gallery" => $list
-        ]);
-    }
+			["title" => "Galerie",
+			"breadcrumb" => "",
+			"root" => $this->root,
+			"gallery" =>$list
+			]
+		);
+	}
 }
 ?>
