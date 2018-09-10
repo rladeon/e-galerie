@@ -10,6 +10,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="{{ root }}public/css/skdslider.css" rel="stylesheet">
+	<link rel="stylesheet" href="{{ root }}public/css/smartphoto.min.css">
 	<link href="{{ root }}public/css/style.css" rel="stylesheet">
     </head>
     <body>
@@ -72,6 +73,7 @@ function myFunction() {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="{{ root }}public/js/skdslider.min.js"></script>
 	<script type="text/javascript" src="{{ root }}public/js/jquery.mixitup.min.js"></script>
+	<script src="{{ root }}public/js/jquery-smartphoto.min.js"></script>
 	<script type="text/javascript">
     jQuery(document).ready(function(){
         jQuery('#demo1').skdslider({
@@ -109,9 +111,9 @@ function myFunction() {
     			  target: '.portfolio',
     			  filter: '.filter'	
     		  },
-    		  load: {
-      		  filter: '.app'  
-      		}     
+    		  /*load: {
+      		  filter: '.all'  
+      		}   */  
 				});								
 			
 			}
@@ -124,5 +126,10 @@ function myFunction() {
 		
 	});	
 	</script>
+	<script>
+	$(function(){
+		$(".js-smartPhoto").SmartPhoto();
+		});
+		</script>
     </body>
 </html>

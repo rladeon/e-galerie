@@ -48,7 +48,7 @@
 
 
 		<section id="main" class="main-section cleanbg">
-			<div class="container">
+			<div class="container" >
 				<h1>Qui suis-je?</h1>
 				
 				<div class="row text-center">
@@ -109,11 +109,13 @@
 			<li><span class="filter" data-filter=".web">Web</span></li>
 		</ul>
 
-		<div id="portfoliolist">
+		<div id="portfoliolist" >
 			
 			<div class="portfolio logo" data-cat="logo">
-				<div class="portfolio-wrapper">				
+				<div class="portfolio-wrapper">			
+					<a href="{{root}}public/images/2018/2/banane-large.jpg" class="js-smartPhoto" data-caption="bear" data-id="bear" data-group="animal">
 					<img src="{{root}}public/images/2018/2/banane.jpg" />
+					</a>
 					<div class="label">
 						<div class="label-text">
 							<a class="text-title">Banane</a>
@@ -458,4 +460,5 @@
 						
 					
 		</section>
+		
 	{% endblock %}
