@@ -12,7 +12,9 @@
 	<link href="{{ root }}public/css/skdslider.css" rel="stylesheet">
 	<link rel="stylesheet" href="{{ root }}public/css/smartphoto.min.css">
 	<link rel="stylesheet" href="{{ root }}public/css/justifiedGallery.min.css" />
-	<link href="{{ root }}public/css/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="{{ root }}public/css/form.css" >
+    <link href="{{ root }}public/css/style.css" rel="stylesheet">
+	<script src="https://www.google.com/recaptcha/api.js"></script>
     </head>
     <body>
 	<div>
@@ -32,7 +34,7 @@
 						<li><a href="#">Expositions</a></li>
 						<li><a href="{{ root }}book/show/page/christiane-ladeon-l-endometriose-de-l-ombre-a-la-lumiere">Livre</a></li>
 						<li><a href="#">Presse</a></li>
-						<li><a href="#">Contact</a></li>
+						<li><a href="{{ root }}contact/index">Contact</a></li>
 					</ul>
 				</nav>
 		 
@@ -76,6 +78,7 @@ function myFunction() {
 	<script type="text/javascript" src="{{ root }}public/js/jquery.mixitup.min.js"></script>
 	<script src="{{ root }}public/js/jquery-smartphoto.min.js"></script>
 	<script src="{{ root }}public/js/jquery.justifiedGallery.min.js"></script>
+	<script src="{{ root }}public/js/form.js"></script>
 	<!--Banner-->
 	<script type="text/javascript">
     jQuery(document).ready(function(){

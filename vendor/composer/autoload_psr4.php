@@ -12,6 +12,7 @@ return array(
     'Spot\\' => array($vendorDir . '/vlucas/spot2/lib'),
     'SpotTest\\' => array($vendorDir . '/vlucas/spot2/tests'),
     'Sabre\\Event\\' => array($vendorDir . '/sabre/event/lib'),
+    'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'Model\\' => array($baseDir . '/model'),
     'Doctrine\\Common\\Cache\\' => array($vendorDir . '/doctrine/cache/lib/Doctrine/Common/Cache'),
     'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations'),

@@ -26,6 +26,10 @@ class ComposerStaticInit875fd26db772f7ab3aac48a7f413a02d
             'SpotTest\\' => 9,
             'Sabre\\Event\\' => 12,
         ),
+        'P' => 
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
         'M' => 
         array (
             'Model\\' => 6,
@@ -68,6 +72,10 @@ class ComposerStaticInit875fd26db772f7ab3aac48a7f413a02d
         'Sabre\\Event\\' => 
         array (
             0 => __DIR__ . '/..' . '/sabre/event/lib',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Model\\' => 
         array (
