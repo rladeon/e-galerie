@@ -3,10 +3,18 @@ $(function()
 {
     function after_form_submitted(data) 
     {
-		if(data.result == 'captcha')
+		if(data.result == 'form')
 		{
-			$('#error_message').append(data.errors);
+			$('#error_message').html(data.errors);
 			$('#error_message').show();
+			$('#success_message').hide();
+			$btn.text('Envoyer');
+		}
+		else if(data.result == 'captcha')
+		{
+			$('#error_message').html(data.errors);
+			$('#error_message').show();
+			$('#success_message').hide();
 			$btn.text('Envoyer');
 		}
         else if(data.result == 'success')
@@ -42,10 +50,11 @@ $(function()
         }//else
     }
 
-	$('#reused_form').submit(function(e)
+	$('#reused_form').on('click', function(e)
       {
         e.preventDefault();
-
+		$('#success_message').hide();
+        $('#error_message').hide();
         $form = $(this);
         //show some response on the button
         $('button[type="submit"]', $form).each(function()
@@ -57,7 +66,7 @@ $(function()
         });
         
 
-                    $.ajax({
+            $.ajax({
                 type: "POST",
                 url: '/e-galerie/contact/handler',
                 data: $form.serialize(),

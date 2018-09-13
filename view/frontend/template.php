@@ -2,19 +2,15 @@
 <html>
     <head>
         <title>{{ title }}</title>
-        <meta name="viewport" content="width=device-width" />
-		
-		<!-- Bootstrap core CSS -->
-	
-	<link rel="stylesheet" href="{{ root }}public/css/layout.css">	
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link href="{{ root }}public/css/skdslider.css" rel="stylesheet">
-	<link rel="stylesheet" href="{{ root }}public/css/smartphoto.min.css">
-	<link rel="stylesheet" href="{{ root }}public/css/justifiedGallery.min.css" />
-	<link rel="stylesheet" href="{{ root }}public/css/form.css" >
-    <link href="{{ root }}public/css/style.css" rel="stylesheet">
-	<script src="https://www.google.com/recaptcha/api.js"></script>
+        <meta name="viewport" content="width=device-width" />		
+		<link rel="stylesheet" href="{{ root }}public/css/layout.css">	
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link href="{{ root }}public/css/skdslider.css" rel="stylesheet">
+		<link rel="stylesheet" href="{{ root }}public/css/smartphoto.min.css">
+		<link rel="stylesheet" href="{{ root }}public/css/justifiedGallery.min.css" />
+		<link href="{{ root }}public/css/style.css" rel="stylesheet">
+		<script src="https://www.google.com/recaptcha/api.js"></script>
     </head>
     <body>
 	<div>
@@ -29,11 +25,11 @@
 				<nav class="header-nav">
 					<ul>
 						<li><a href="{{ root }}">Accueil</a></li>
-						<li><a href="#">Présentation</a></li>
+						<li><a href="{{ root }}about/index">Présentation</a></li>
 						<li><a href="{{ root }}gallery/index">Galerie photo</a></li>
 						<li><a href="#">Expositions</a></li>
 						<li><a href="{{ root }}book/show/page/christiane-ladeon-l-endometriose-de-l-ombre-a-la-lumiere">Livre</a></li>
-						<li><a href="#">Presse</a></li>
+						<li><a href="{{ root }}presse/index">Presse</a></li>
 						<li><a href="{{ root }}contact/index">Contact</a></li>
 					</ul>
 				</nav>

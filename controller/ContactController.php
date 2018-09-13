@@ -19,15 +19,36 @@ class ContactController extends Controller
 	public function handler()
 	{
 		// Check for empty fields
-		if(empty($_POST['name'])      ||
-		   empty($_POST['email'])     ||
-		   empty($_POST['subject'])     ||
-		   empty($_POST['message'])   ||
-		   !filter_var($_POST['email'],FILTER_VALIDATE_EMAIL))
-		   {
-			   echo "noargumentsprovided!";
-			   return false;
-		   }
+		if(empty($_POST['name']))
+		{
+			echo json_encode(array("result"=>'form', 
+				"errors"=>"Il faut renseigner le nom."));
+				die();
+		}
+		else if(empty($_POST['email']))
+		{
+			echo json_encode(array("result"=>'form', 
+				"errors"=>"Il faut renseigner l'e-mail."));
+				die();
+		}
+		else if(empty($_POST['subject']))
+		{
+			echo json_encode(array("result"=>'form', 
+				"errors"=>"Il faut renseigner le sujet."));
+				die();
+		}
+		else if(empty($_POST['message']))
+		{
+			echo json_encode(array("result"=>'form', 
+				"errors"=>"Il faut renseigner le message."));
+				die();
+		}
+		else if(!filter_var($_POST['email'],FILTER_VALIDATE_EMAIL))
+		{
+			echo json_encode(array("result"=>'form', 
+				"errors"=>"Il faut renseigner une adresse e-mail valide."));
+				die();
+		}
 		
     	
 			// Ma clé privée pour un serveur localhost
