@@ -139,7 +139,7 @@ function myFunction() {
 		<script>
 		$(function(){
     $("#big-image img:eq(0)").show();
-    $("#small-images").on('click','img',function(e){
+    $("#small-images").on('click','a',function(e){
 		
         var index = $(this).index();
         $("#big-image img").eq(index).show().siblings().hide();

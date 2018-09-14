@@ -2,19 +2,30 @@
 
 {% block content %}
 <div class="container">
-     <h1 > {{titre}} </h1>
+     <h1 > {{book.titre}} </h1>
     <div class="row">
 		<div class="col-md-6">
 			
-				<div><p>{{auteur}} - {{date}}</p></div>
-				<div id="big-image">
+				<div><p>{{book.author}} - {{book.date}}</p></div>				
+					
+					<div id="big-image" >
+					
+						{% for index,value in media %}
+							{% if value.id_book == book.id and value.default_img == book.id%}
+								<img src="{{root}}{{value.path_mid}}" />
+							{% endif %}
+						{% endfor %}
+					</div>
 				
-				<img src="{{root}}public/images/2018/1/couverture-du-livre-large.jpg" alt="Livre" />
-				<img src="{{root}}public/images/actu01-large.jpg" >
-				</div>
 				<div id="small-images">
-				<img src="{{root}}public/images/2018/1/couverture-du-livre-thumb.jpg" alt="Livre" />
-				<img src="{{root}}public/images/actu01-thumb.jpg" >
+				{% for index,value in media %}
+						{% if value.id_book == book.id %}
+						<a href="{{root}}{{value.path_large}}" class="js-smartPhoto">
+							<img src="{{root}}{{value.path_thumb}}" />
+						</a>								
+						{% endif %}
+					{% endfor %}
+				
 				</div>
 			
 		</div>
@@ -29,9 +40,9 @@
 	<div class="row text-center">
 		<div class="col-md-4">
 			<h2>Détails</h2>
-			<p>Nombre de pages: {{nombre_de_pages}}</p>
-			<p>Collection: {{collection}}</p>
-			<p>Format: {{format}}</p>
+			<p><b>Nombre de pages:</b> {{book.pages_number}}</p>
+			<p><b>Collection:</b> {{book.collection}}</p>
+			<p><b>Format:</b> {{book.format}}</p>
 		</div>
 		<div class="col-md-4">
 			<h2>Partager</h2>
