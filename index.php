@@ -1,6 +1,7 @@
 <?php  
 
 require_once "vendor/autoload.php";
+//use Cocur\Slugify\Slugify;
 // Spot2 ORM Configuration
 function spot() {
     static $spot;
@@ -27,7 +28,9 @@ $params = [
     "get"  => $getParams,
     "post" => $postParams
 ];
-//var_dump($params);
+//$slugify = new Slugify();
+//var_dump($slugify->slugify('Hello World!')); // hello-world
+
 if (class_exists($class, true)) {
     $class = new $class();
     if (in_array($target, get_class_methods($class))) {

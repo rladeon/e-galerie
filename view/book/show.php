@@ -9,8 +9,8 @@
 				<div><p>{{auteur}} - {{date}}</p></div>
 				<div id="big-image">
 				
-				<img src="{{root}}public/images/2018/1/couverture-du-livre-mid.jpg" alt="Livre" />
-				<img src="{{root}}public/images/actu01-mid.jpg" >
+				<img src="{{root}}public/images/2018/1/couverture-du-livre-large.jpg" alt="Livre" />
+				<img src="{{root}}public/images/actu01-large.jpg" >
 				</div>
 				<div id="small-images">
 				<img src="{{root}}public/images/2018/1/couverture-du-livre-thumb.jpg" alt="Livre" />

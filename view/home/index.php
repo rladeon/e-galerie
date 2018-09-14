@@ -62,7 +62,7 @@
 						
 					</p>
 					<div class="flex">
-						<a href="#0" class="bttn" >En savoir plus?</a>
+						<a href="{{ root }}about/index" class="bttn" >En savoir plus?</a>
 					</div>
 
                 </div>
@@ -139,24 +139,16 @@
 				<div class="row text-center">
 					<div class="col-md-4 peaceplace">
 						<div class="artdate">01/01/1972</div>
-						<img src="{{root}}public/images/actu01.jpg" class="frontimage"/>
+						<a href="{{root}}press/show/page/catalogue-numero-1-du-concours-devenez-l-artiste-de-l-annee-2017">
+						<img src="{{root}}public/images/2018/17/catalogue-mid.jpg" class="frontimage"/>
+						</a>
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 						
 					</div>
 				
-					<div class="col-md-4 peaceplace">
-						<div class="artdate">01/01/1971</div>
-						<img src="{{root}}public/images/actu02.jpg" class="frontimage"/>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-					</div>
-				
-					<div class="col-md-4 peaceplace">
-						<div class="artdate">01/01/1970</div>
-						<img src="{{root}}public/images/actu03.jpg" class="frontimage"/>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-					</div>
+					
 				</div>
-				<a href="#0" class="bttn" >Toute l'actualité</a>
+				<a href="{{root}}press/index" class="bttn" >Toute l'actualité</a>
 			</div>
 						
 					

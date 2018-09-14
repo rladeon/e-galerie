@@ -29,7 +29,7 @@
 						<li><a href="{{ root }}gallery/index">Galerie photo</a></li>
 						<li><a href="#">Expositions</a></li>
 						<li><a href="{{ root }}book/show/page/christiane-ladeon-l-endometriose-de-l-ombre-a-la-lumiere">Livre</a></li>
-						<li><a href="{{ root }}presse/index">Presse</a></li>
+						<li><a href="{{ root }}press/index">Presse</a></li>
 						<li><a href="{{ root }}contact/index">Contact</a></li>
 					</ul>
 				</nav>
