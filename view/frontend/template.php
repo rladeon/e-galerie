@@ -114,9 +114,9 @@ function myFunction() {
     			  target: '.portfolio',
     			  filter: '.filter'	
     		  },
-    		  /*load: {
-      		  filter: '.all'  
-      		}   */  
+    		  load: {
+      		  filter: '.fruit'  
+      		}     
 				});								
 			
 			}

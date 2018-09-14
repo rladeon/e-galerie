@@ -101,10 +101,10 @@
 			<div class="container">
 				<h1>Mes derniers travaux</h1>
 				<ul id="filters" class="clearfix">
-			<li><span class="filter active" data-filter=".cartepostale, .card, .icon">Tout</span></li>
-			<li><span class="filter" data-filter=".cartepostale">Carte postale</span></li>
-			<li><span class="filter" data-filter=".card">Card</span></li>
-			<li><span class="filter" data-filter=".icon">Icon</span></li>
+			<li><span class="filter active" data-filter=".fruit, .paysage">Tout</span></li>
+			<li><span class="filter" data-filter=".fruit">Fruit</span></li>
+			<li><span class="filter" data-filter=".paysage">Paysage</span></li>
+			
 			
 		</ul>
 
