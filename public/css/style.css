@@ -318,3 +318,29 @@ font-size: 20px
 }
 #small-images a, #big-images a {display:inline-block}
 #small-images a.selected {border:1px solid red}
+/* Error
+---------------------------------------------------*/
+@import url(https://fonts.googleapis.com/css?family=Raleway:700);
+
+$color1: #ee4b5e;
+$color2: #342643;
+$color3: #1fa9d6;
+.error-text-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-title {
+    font-size: 6em;
+    font-weight: 700;
+    color: $color1;
+}
+
+.error-subtitle {
+    font-size: 40px;
+    font-weight: 700;
+    color: $color3;
+}
