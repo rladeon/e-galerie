@@ -27,7 +27,7 @@
 						<li><a href="{{ root }}">Accueil</a></li>
 						<li><a href="{{ root }}about/index">Présentation</a></li>
 						<li><a href="{{ root }}gallery/index">Galerie photo</a></li>
-						<li><a href="#">Expositions</a></li>
+						<li><a href="{{ root }}exposure/index">Expositions</a></li>
 						<li><a href="{{ root }}book/show/page/christiane-ladeon-l-endometriose-de-l-ombre-a-la-lumiere">Livre</a></li>
 						<li><a href="{{ root }}press/index">Presse</a></li>
 						<li><a href="{{ root }}contact/index">Contact</a></li>
@@ -38,10 +38,14 @@
 	
 		</header>
       <div class="topnav" id="myTopnav">
-  <a href="#home" class="active">Home</a>
-  <a href="#news">News</a>
-  <a href="#contact">Contact</a>
-  <a href="#about">About</a>
+  <a href="{{ root }}" class="active">Accueil</a>
+  <a href="{{ root }}about/index">Présentation</a>
+  <a href="{{ root }}gallery/index">Galerie photo</a>
+  <a href="{{ root }}exposure/index">Expositions</a>
+  <a href="{{ root }}book/show/page/christiane-ladeon-l-endometriose-de-l-ombre-a-la-lumiere">Livre</a>
+  <a href="{{ root }}press/index">Presse</a>
+  <a href="{{ root }}contact/index">Contact</a>
+  
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>

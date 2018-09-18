@@ -31,15 +31,24 @@ $params = [
 //$slugify = new Slugify();
 //var_dump($slugify->slugify('Hello World!')); // hello-world
 
-if (class_exists($class, true)) {
+if (class_exists($class, true)) 
+{
     $class = new $class();
-    if (in_array($target, get_class_methods($class))) {
+    if (in_array($target, get_class_methods($class))) 
+	{
         call_user_func_array([$class, $target], $params);
-    } else {
-        call_user_func([$class, "index"]);
     }
-} else {
-    echo "404 - Error";
+	else
+	{
+        //call_user_func([$class, "index"]);
+		header('HTTP/1.0 404 Not Found');
+		header("Location: /e-galerie/error/error_404"); 
+    }
+}
+else
+{
+    header('HTTP/1.0 404 Not Found');
+	header("Location: /e-galerie/error/error_404"); 
 }
 
 ?>

@@ -1,7 +1,7 @@
 {% extends 'frontend/template.php' %}
 {% block content %}
 <div class="container">
-	<h1> Galerie photo </h1>
+	<h1> {{title}} </h1>
 		
 		{# Loop through several photos #}
 		<ul id="filters" class="clearfix">
