@@ -15,6 +15,7 @@ class User extends \Spot\Entity
 		'firstname'      => ['type' => 'string', 'required' => true],
         'email'     => ['type' => 'string', 'required' => true, 'unique' => true],
         'password'  => ['type' => 'string', 'required' => true],
+		'hash'  => ['type' => 'string', 'required' => true],
 		'role' => ['type' => 'integer', 'default' => null, 'value' => null],
         'admin'     => ['type' => 'boolean', 'default' => false, 'value' => false],
 		'activate' => ['type' => 'boolean', 'default' => false, 'value' => false],

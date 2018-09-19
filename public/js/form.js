@@ -1,4 +1,3 @@
-
 $(function()
 {
     function after_form_submitted(data) 
@@ -71,6 +70,41 @@ $(function()
                 url: '/e-galerie/contact/handler',
                 data: $form.serialize(),
                 success: after_form_submitted,
+                dataType: 'json' 
+            });        
+        
+      });	
+});
+$(function()
+{
+    function after_login_submitted(data) 
+    {
+		if(data.result == 'error')
+        {               
+            $('.alert-danger').html(data.errors);
+            
+            $('.alert-success').hide();
+            $('.alert-danger').show();
+              
+        }
+		else
+		{
+			window.location.replace("/e-galerie/user/account");
+		}
+    }
+
+	$('#login_form').on('click', function(e)
+      {
+        e.preventDefault();
+		$('.alert-success').hide();
+        $('.alert-danger').hide();
+        $form = $(this);
+        
+            $.ajax({
+                type: "POST",
+                url: '/e-galerie/user/verify',
+                data: $form.serialize(),
+                success: after_login_submitted,
                 dataType: 'json' 
             });        
         

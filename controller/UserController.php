@@ -16,16 +16,15 @@ class UserController extends Controller
       $userMapper = spot()->mapper('Model\User');
       $userMapper->migrate();
 	  
-	  $name = 'your name';
-	  
-	  $sPwd = 'your password';
-	  $sPwd = password_hash($sPwd , PASSWORD_BCRYPT, array('cost' => 14));
+	  $sPwd = '*******************';
+	  $hash = password_hash($sPwd , PASSWORD_BCRYPT, array('cost' => 14));
       $myNewUser = $userMapper->create([
 	    'pseudo' => 'admin',
-        'name'      => $name,
-		'firstname' => 'your firstname',
-        'email'     => 'your email',
+        'name'      => "ladeon",
+		'firstname' => 'rudi',
+        'email'     => '**************',
         'password'  => $sPwd,
+		'hash' => $hash,
 		'admin' => true
       ]);
       echo "A new user has been created: " . $myNewUser->name;
@@ -42,6 +41,74 @@ class UserController extends Controller
       }
       echo "---";
     }
-	
+	public function login()
+	{
+		echo $this->twig->render($this->className.'/login.php',
+			["title" => "Login",
+			"breadcrumb" => "",
+			"root" => $this->root,
+			
+			
+			]
+		);
+	}
+	public function verify()
+	{
+		if(empty($_POST["username"]))
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Il faut renseigner l'identifiant."));
+				die();
+		}
+		else if(empty($_POST["password"]))
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Il faut renseigner le mot de passe."));
+				die();
+		}
+		else
+		{
+			$mapper = spot()->mapper('Model\User');
+			$user = $mapper->where(['pseudo' => $_POST["username"] ])->first();
+			//var_dump($user);
+			if (password_verify($_POST["password"], $user->hash))
+			{
+				$_SESSION['logged_in'] = true;
+				$_SESSION['user'] = array("id"=>$user->id, "is_admin"=>$user->admin);
+				echo json_encode(array("result"=>'success', 
+				"message"=>"OK"));
+				die();
+			} 
+			else
+			{
+				echo json_encode(array("result"=>'error', 
+				"errors"=>"Le mot de passe est incorrect!"));
+				die();
+			}
+		}
+	}
+	public function logout()
+	{
+		session_destroy();
+		header('HTTP/1.0 302');
+		header("Location: ". $this->root. "user/login"); 
+	}
+	public function reset_password()
+	{
+		
+	}
+	public function account()
+	{
+		
+			echo $this->twig->render($this->className.'/account.php',
+			["title" => "Compte",
+			"breadcrumb" => "",
+			"root" => $this->root,
+			
+			
+			]
+			);
+		
+	}
 }
 ?>

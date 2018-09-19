@@ -5,7 +5,8 @@
         "vlucas/spot2": "^2.2",
         "twig/twig": "^1.35",
         "cocur/slugify": "^3.1",
-        "phpmailer/phpmailer": "^6.0"
+        "phpmailer/phpmailer": "^6.0",
+        "symfony/http-foundation": "^3.4"
     },
     "authors": [
         {

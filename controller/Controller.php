@@ -5,12 +5,15 @@ namespace Controller;
 use \Twig_Loader_Filesystem;
 use \Twig_Environment;
 use Cocur\Slugify\Slugify;
+use Symfony\Component\HttpFoundation\Session\Session;
+
 class Controller
 {
     protected $twig;
 	protected $className;
 	protected $seo;
 	protected $root;
+	protected $session;
 	
     function __construct()
     {
@@ -20,6 +23,10 @@ class Controller
       $this->twig = new Twig_Environment($loader, array(
           'cache' => false,
       ));
+	  $this->session = new Session();
+	  $this->session->start();
+	 
+	  $this->twig->addGlobal('session', $_SESSION);
 	  $this->seo = new Slugify();
 	  $this->root = "/e-galerie/";
       //

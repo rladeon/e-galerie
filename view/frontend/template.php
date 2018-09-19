@@ -31,6 +31,13 @@
 						<li><a href="{{ root }}book/show/page/christiane-ladeon-l-endometriose-de-l-ombre-a-la-lumiere">Livre</a></li>
 						<li><a href="{{ root }}press/index">Presse</a></li>
 						<li><a href="{{ root }}contact/index">Contact</a></li>
+						<li><a href="{{ root }}user/account">Mon compte</a></li>
+						{% if (session.logged_in != null) and (session.logged_in == true) %}
+							<li >
+						   	  <a href="{{ root }}user/logout"><span class='glyphicon glyphicon-off' aria-hidden="true"></span></a>
+							</li>
+							
+						{% endif %}
 					</ul>
 				</nav>
 		 
@@ -45,6 +52,11 @@
   <a href="{{ root }}book/show/page/christiane-ladeon-l-endometriose-de-l-ombre-a-la-lumiere">Livre</a>
   <a href="{{ root }}press/index">Presse</a>
   <a href="{{ root }}contact/index">Contact</a>
+  <a href="{{ root }}user/account">Mon compte </a>
+  {% if (session.logged_in != null) and (session.logged_in == true) %}
+						
+  <a href="{{ root }}user/logout"><span class='glyphicon glyphicon-off' aria-hidden="true"></span></a>
+ {% endif %}
   
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
