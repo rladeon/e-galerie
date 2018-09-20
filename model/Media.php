@@ -23,8 +23,10 @@ class Media extends \Spot\Entity
         'datacateg'     => ['type' => 'string'],
 		'default_img' => ['type' => 'boolean', 'default' => false],
 		'gallery' => ['type' => 'boolean', 'default' => false],
+		'timestamp' => ['type' => 'integer', 'default' => time()],
 
       ];
     }
+	
 }
 ?>

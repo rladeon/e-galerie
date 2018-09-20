@@ -40,6 +40,7 @@
    </div>
  </div>
 </div>
+<div class="container">
 	  <section id="section" class="main-section first-section">
 			<div class="container">
 				<p class="bigtxt txtcenter">{{breadcrumb}}</p>
@@ -96,43 +97,38 @@
                 </div>
 				
 			</div>
+			</div>
 		</section>
-		 <section id="latest" class="main-section second-section">
+		<section id="latest" class="main-section second-section">
 			<div class="container">
-				<h1>Mes derniers travaux</h1>
-				<ul id="filters" class="clearfix">
-			<li><span class="filter active" data-filter=".fruit, .paysage">Tout</span></li>
-			<li><span class="filter" data-filter=".fruit">Fruit</span></li>
-			<li><span class="filter" data-filter=".paysage">Paysage</span></li>
-			
-			
-		</ul>
+				<h1>Mes derniers travaux</h1>		
 
-		<div id="portfoliolist" >
-			{% for key,entry in gallery %}
-				<div class="portfolio {{entry.datacateg}}" data-cat="{{entry.datacateg}}">
-					<div class="portfolio-wrapper">			
-						<a href="{{root}}{{entry.path_large}}" class="js-smartPhoto" data-caption="{{entry.title}}" data-id="{{entry.title}}" data-group="{{entry.category}}">
-						<img src="{{root}}{{entry.path_large}}" />
-						</a>
-						<div class="label">
-							<div class="label-text">
-								<a class="text-title">{{entry.title}}</a>
-								
-							</div>
-							<div class="label-bg"></div>
-						</div>
-					</div>
-				
-			</div>								
-			{% endfor %}							
+				<div class="row">
+					{% for key,entry in gallery %}
+						<div class="col-md-4 polaroid">
+								<a href="{{root}}{{entry.path_large}}" class="js-smartPhoto" data-caption="{{entry.title}}" data-id="{{entry.title}}" data-group="{{entry.category}}">
+								<img src="{{root}}{{entry.path_thumb}}" />
+								</a>
+								<div class="label">
+									<div class="label-text">
+										<a class="text-title">{{entry.title}}</a>
+										
+									</div>
+									<div class="label-bg"></div>
+								</div>
+						
+						
+						</div>								
+					{% endfor %}	
+				</div>
 			
-		</div>
+			</div>
 		
-		</section><div class="flex" style="float: left; width:100%">
+		</section>
+		<div class="flex" style="float: left; width:100%">
 						<a href="{{root}}gallery/index" class="bttn" >Voir tous les tableaux</a>
 					</div>
-			</div>
+			
 		<section id="latest" class="main-section second-section">
 			<div class="container">
 				<h1>Mon actualité</h1>
@@ -153,5 +149,5 @@
 						
 					
 		</section>
-		
+</div>
 	{% endblock %}

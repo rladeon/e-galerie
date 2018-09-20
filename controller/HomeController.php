@@ -1,39 +1,31 @@
 <?php
 
 namespace Controller;
+use Model\Media;
 
 class HomeController extends Controller
 {
     public function index()
     {
-		$list = array(
-				2=>array(
-					"title" => 'banane',
-					"path_large" =>"public/images/2018/2/banane-large.jpg",
-					"path_mid" => "public/images/2018/2/banane-mid.jpg",
-					"path_thumb" =>"public/images/2018/2/banane-thumb.jpg",
-					"size" => null,
-					"width" =>null,
-					"heigh" =>null,
-					"extension" =>"jpg",
-					"category" => "Fruit",
-					"datacateg" => "fruit"
-					)
-				,
-				3=>array(
-					"title" => 'cacao',
-					"path_large" =>"public/images/2018/3/cacao-large.jpg",
-					"path_mid" => "public/images/2018/3/cacao-mid.jpg",
-					"path_thumb" =>"public/images/2018/3/cacao-thumb.jpg",
-					"size" => null,
-					"width" =>null,
-					"heigh" =>null,
-					"extension" =>"jpg",
-					"category" => "Fruit",
-					"datacateg" => "fruit"
+		$mapper = spot()->mapper('Model\Media');
+		$posts = $mapper->where(['gallery' => 1])
+		->order(['timestamp' => 'DESC'])
+		->limit(4);
+		$list = null;
+		
+		foreach( $posts as $key=>$value)
+		{
+			$list[$value->id] = array(
+					"title" => $value->title,
+					"path_large" => $value->path_large,
+					"path_mid" => $value->path_mid,
+					"path_thumb" => $value->path_thumb,
+					"category" => $value->category,
+					"datacateg" => $value->datacateg
 					
-				),
-		);
+				);
+		}
+		
 		echo $this->twig->render($this->className.'/index.php',
 		[
           "title" => "Accueil",
