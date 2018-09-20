@@ -2,23 +2,26 @@
 
 namespace Model;
 
-class User extends \Spot\Entity
+class Content extends \Spot\Entity
 {
-    protected static $table = 'user';
+    protected static $table = 'content';
 
     public static function fields()
     {
       return [
         'id'        => ['type' => 'integer', 'primary' => true, 'autoincrement' => true],
-        'pseudo'      => ['type' => 'string', 'required' => true, 'unique' => true],
-		'name'      => ['type' => 'string', 'required' => true],
-		'firstname'      => ['type' => 'string', 'required' => true],
-        'email'     => ['type' => 'string', 'required' => true, 'unique' => true],
-        'password'  => ['type' => 'string', 'required' => true],
-		'hash'  => ['type' => 'string', 'required' => true],
-		'role' => ['type' => 'integer', 'default' => null, 'value' => null],
-        'admin'     => ['type' => 'boolean', 'default' => false, 'value' => false],
-		'activate' => ['type' => 'boolean', 'default' => false, 'value' => false],
+        'title'      => ['type' => 'string', 'required' => true, 'unique' => true],
+		'slug'      => ['type' => 'string', 'required' => true],
+		'category'      => ['type' => 'string'],
+		'date_publish'     => ['type' => 'date'],
+
+        'published'     => ['type' => 'boolean', 'default' => false, 'value'=>false],
+        'description'  => ['type' => 'text', 'required' => true],
+		'resume'  => ['type' => 'string'],
+		'view' => ['type' => 'integer', 'default' => 0, 'value' => 0],
+        'author'     => ['type' => 'string'],
+		'timestamp' => ['type' => 'integer', 'default' => 0, 'value' => 0],
+		
       ];
     }
 }
