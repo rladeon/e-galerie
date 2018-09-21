@@ -7,15 +7,16 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
     <!-- styles -->
-    <link href="{{ root }}public/css/style.css" rel="stylesheet">
+    
+	<link href="{{ root }}public/css/admin.css" rel="stylesheet">
 
     
   </head>
   <body>
-  <div>
-  	<nav class="navbar navbar-default">
+  <div> <!-- Brand and toggle get grouped for better mobile display -->
+  	<!--<nav class="navbar navbar-default">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
+   
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
@@ -38,26 +39,60 @@
           </ul>
         </li>
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+    </div>
+  </div>
+</nav>-->
+<div class="s-layout">
+<!-- Sidebar -->
+<div class="s-layout__sidebar">
+  <a class="s-sidebar__trigger" href="#0">
+     <i class="fa fa-bars"></i>
+  </a>
 
-		  {% block content %}{% endblock %}
+  <nav class="s-sidebar__nav">
+     <ul>
+        <li>
+           <a class="s-sidebar__nav-link" href="{{root}}">
+              <i class="fa fa-home"></i><em>Frontend</em>
+           </a>
+        </li>
+        <li>
+           <a class="s-sidebar__nav-link" href="{{root}}admin/booklist">
+             <i class="fa fa-book"></i><em>Livres</em>
+           </a>
+        </li>
+        <li>
+           <a class="s-sidebar__nav-link" href="{{root}}user/logout">
+              <i class="fa fa-power-off"></i><em>Se déconnecter</em>
+           </a>
+        </li>
+     </ul>
+  </nav>
+</div>
+
+<!-- Content -->
+<main class="s-layout__content">
+  <h1>Full View, Please!</h1>
+  {% block content %}{% endblock %}
+</main>
+</div>
+		  
 	
 </div>
     <footer class="sticky-footer">
          <div class="container">
          
             <div class="copy text-center">
-               Copyright 2014 <a href='#'>Website</a>
+               Copyright 2018 <a href="{{root}}">Website</a>
             </div>
             
          </div>
       </footer>
+	
 
     		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script>window.jQuery || document.write('<script src="./js/vendor/jquery.min.js"><\/script>')</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
+    <script src="{{ root }}public/js/admin.js"></script>
   </body>
 </html>

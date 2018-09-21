@@ -52,7 +52,7 @@ class UserController extends Controller
 			]
 		);
 	}
-	public function verify()
+	public function verify($param=null)
 	{
 		if(empty($_POST["username"]))
 		{
@@ -70,8 +70,46 @@ class UserController extends Controller
 		{
 			$mapper = spot()->mapper('Model\User');
 			$user = $mapper->where(['pseudo' => $_POST["username"] ])->first();
-			//var_dump($user);
-			if (password_verify($_POST["password"], $user->hash))
+			
+			if($user == false)
+			{
+				echo json_encode(array("result"=>'error', 
+					"errors"=>"L'identifiant: ".$_POST["username"]." n'existe pas dans la base de données."));
+					die();
+			}
+			else if($param != null && $param["access"]== "admin")
+			{
+				if (password_verify($_POST["password"], $user->hash) )
+				{
+					if($user->admin != true)
+					{
+						echo json_encode(array("result"=>'error', 
+						"errors"=>"Désolé la partie administration est réservé aux utilisateurs ayant le statut admin."));
+						die();
+					}
+					else if($user->admin == true)
+					{
+						$_SESSION['logged_in'] = true;
+						$_SESSION['user'] = array("id"=>$user->id, "is_admin"=>$user->admin);
+						echo json_encode(array("result"=>'success', 
+						"message"=>"OK"));
+						die();
+					}
+					else
+					{
+						echo json_encode(array("result"=>'error', 
+						"errors"=>"Erreur inexplicable ;-; "));
+						die();
+					}
+				}
+				else
+				{
+					echo json_encode(array("result"=>'error', 
+					"errors"=>"Le mot de passe est incorrect!"));
+					die();
+				}
+			}
+			else if (password_verify($_POST["password"], $user->hash))
 			{
 				$_SESSION['logged_in'] = true;
 				$_SESSION['user'] = array("id"=>$user->id, "is_admin"=>$user->admin);

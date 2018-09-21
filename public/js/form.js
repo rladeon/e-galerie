@@ -93,12 +93,31 @@ $(function()
 		}
     }
 
-	$('#login_form').on('click', function(e)
+	$('#login_form').on('submit', function(e)
       {
         e.preventDefault();
 		$('.alert-success').hide();
         $('.alert-danger').hide();
-        $form = $(this);
+        var u = $('#username').val();
+		var p = $('#password').val();
+		if(u == "")
+		{
+			$('.alert-danger').html("Il manque l'identifiant");
+            
+            $('.alert-success').hide();
+            $('.alert-danger').show();
+		}
+		else if(p== "")
+		{
+			$('.alert-danger').html("Il manque le mot de passe");
+            
+            $('.alert-success').hide();
+            $('.alert-danger').show();
+		}
+		else
+		{
+		
+			$form = $(this);
         
             $.ajax({
                 type: "POST",
@@ -106,7 +125,8 @@ $(function()
                 data: $form.serialize(),
                 success: after_login_submitted,
                 dataType: 'json' 
-            });        
+            }); 
+		}	       
         
       });	
 });
