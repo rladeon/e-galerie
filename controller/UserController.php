@@ -69,7 +69,7 @@ class UserController extends Controller
 		else
 		{
 			$mapper = spot()->mapper('Model\User');
-			$user = $mapper->where(['pseudo' => $_POST["username"] ])->first();
+			$user = $mapper->where(['pseudo' => filter_var($_POST["username"], FILTER_SANITIZE_STRING) ])->first();
 			
 			if($user == false)
 			{

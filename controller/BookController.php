@@ -116,7 +116,7 @@ class BookController extends Controller
 	{
 		
 	}
-	public function list()
+	public function booklist()
 	{
 		
 	}

@@ -59,6 +59,8 @@ class PressController extends Controller
 	{
 		$mapper = spot()->mapper('Model\Content');
 		$posts = $mapper->first(['slug' => $slug["page"]]);
+		
+		
 		$list_presse = array(
 			$posts->id=>array(
 				"id"=>$posts->id,
