@@ -23,6 +23,11 @@ class Exposure extends \Spot\Entity
 		'booked' => ['type' => 'integer','default' => 0, 'value' => 0],
 		'notfullback' => ['type'=>'boolean','default' => true, 'value' => true],
 		'timestamp' => ['type' => 'integer', 'default' => 0, 'value' => 0],
+		'address'  => ['type' => 'text'],
+		'zipcode'  => ['type' => 'string'],
+		'city'  => ['type' => 'string'],
+		'country'  => ['type' => 'string'],
+		'tel1'  => ['type' => 'string'],
 		
       ];
     }

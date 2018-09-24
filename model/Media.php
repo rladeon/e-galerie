@@ -14,6 +14,7 @@ class Media extends \Spot\Entity
 		'path_large'      => ['type' => 'string', 'required' => true],
 		'path_mid'      => ['type' => 'string', 'required' => true],
 		'path_thumb'      => ['type' => 'string', 'required' => true],
+		'path_flyer'      => ['type' => 'string'],
 		'extension'      => ['type' => 'string'],
         'size'     => ['type' => 'integer'],
         'id_book'  => ['type' => 'integer'],

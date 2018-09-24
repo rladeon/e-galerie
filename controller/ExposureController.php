@@ -98,9 +98,36 @@ class ExposureController extends Controller
 		}
 		else
 		{
-			
+			$res = 0;
 		}
 		return $res *100;
+	}
+	public function translate_date($exposure,$start=true)
+	{
+		$daylist = array("0"=>"Samedi", "1"=>"Dimanche","2"=>"Lundi","3"=>"Mardi",
+		"4"=>"Mercredi", "5"=>"Jeudi","6"=>"Vendredi");
+		$monthlist = array("1"=>"Janvier", "2"=>"Février","3"=>"Mars","4"=>"Avril",
+		"5"=>"Mai", "6"=>"Juin","7"=>"Juillet", "8"=>"Août", "9"=>"Septembre",
+		"10"=>"Octobre","11"=>"Novembre","12"=>"Décembre");
+		
+		if($start)
+		{
+			$nameday = $daylist[$exposure->date_start->format("w")];
+			$day = $exposure->date_start->format("d");
+			$month = $monthlist[$exposure->date_start->format("n")];
+			$year = $exposure->date_start->format("Y");
+		}
+		else
+		{
+			$nameday = $daylist[$exposure->date_end->format("w")];
+			$day = $exposure->date_end->format("d");
+			$month = $monthlist[$exposure->date_end->format("n")];
+			$year = $exposure->date_end->format("Y");
+		}
+		
+		return $nameday." ".$day." ".$month." ".$year;
+		
+		
 	}
 	public function booking($param)
 	{
@@ -110,7 +137,8 @@ class ExposureController extends Controller
 					["title" => "Réservation",
 					"breadcrumb" => "",
 					"root" => $this->root,
-					"error_message"=> "Votre session a expirée veuillez vous reconnecter.",
+					"error" => true,
+					"errormessage"=> "Votre session a expirée veuillez vous reconnecter.",
 					"reconnect" => true,
 					
 				
@@ -119,6 +147,8 @@ class ExposureController extends Controller
 		}		
 		else if(filter_var($param["id"], FILTER_VALIDATE_INT))
 		{	
+			$mapper = spot()->mapper('Model\User');
+			$user = $mapper->where(['id' =>  $_SESSION["user"]["id"]])->first();
 			$mapper = spot()->mapper('Model\Exposure');
 			$book = $mapper->where(['id' =>  $param["id"]])->first();
 			$mapper = spot()->mapper('Model\Media');
@@ -138,17 +168,36 @@ class ExposureController extends Controller
 						
 					);
 			}
-			if($book)
+			if($book != false)
 			{
-				echo $this->twig->render($this->className.'/booking.php',
+				if($user != false)
+				{
+					echo $this->twig->render($this->className.'/booking.php',
 					["title" => "Réservation",
 					"breadcrumb" => "",
 					"root" => $this->root,
 					"exposure"=>$book,
 					"media" => $list_media,
+					"user" => $user,
+					"error" => false,
+					"start" => $this->translate_date($book,true),
+					"end" => $this->translate_date($book,false)
+					]
+					);
+				}
+				else
+				{
+					echo $this->twig->render($this->className.'/booking.php',
+					["title" => "Réservation",
+					"breadcrumb" => "",
+					"root" => $this->root,
+					"error_message"=> "L'id de l'utilsateur n'est pas renseigné.",
+					"error" => true,
 				
 					]
 				);
+				}
+				
 			}
 			else
 			{
@@ -157,7 +206,7 @@ class ExposureController extends Controller
 					"breadcrumb" => "",
 					"root" => $this->root,
 					"error_message"=> "cette réservation n'existe pas dans le bas de données",
-					
+					"error" => true,
 				
 					]
 				);

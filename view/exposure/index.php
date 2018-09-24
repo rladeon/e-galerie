@@ -44,6 +44,12 @@
 			
 			<div><b>Aux horaires suivant:</b> {{main.horaires}}</div>
 			<div><b>Information:</b> {{main.resume}}</div>
+			<div><b>Adresse:</b></div>
+			<div>{{main.addresse}}</div>
+			<div>{{main.zipcode}}</div>
+			<div>{{main.city}}</div>
+			<div>{{main.country}}</div>
+
 			<div>
 			<b> Place réservée:</b>
 				<div class="progress">
