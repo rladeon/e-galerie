@@ -9,6 +9,7 @@
 		<link href="{{ root }}public/css/skdslider.css" rel="stylesheet">
 		<link rel="stylesheet" href="{{ root }}public/css/smartphoto.min.css">
 		<link rel="stylesheet" href="{{ root }}public/css/justifiedGallery.min.css" />
+		<link rel="stylesheet" href="{{ root }}public/css/jquery.Wload.css">
 		<link href="{{ root }}public/css/style.css" rel="stylesheet">
 		<script src="https://www.google.com/recaptcha/api.js"></script>
     </head>
@@ -91,6 +92,8 @@ function myFunction() {
 	<script src="{{ root }}public/js/jquery-smartphoto.min.js"></script>
 	<script src="{{ root }}public/js/jquery.justifiedGallery.min.js"></script>
 	<script src="{{ root }}public/js/form.js"></script>
+	<script src="{{ root }}public/js/jquery.Wload.js"></script>
+
 	<!--Banner-->
 	<script type="text/javascript">
     jQuery(document).ready(function(){
@@ -166,5 +169,6 @@ function myFunction() {
 		<script>
 			$("#mygallery").justifiedGallery();
 		</script>
+		
     </body>
 </html>

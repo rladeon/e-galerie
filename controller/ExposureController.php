@@ -1,7 +1,8 @@
 <?php
 
 namespace Controller;
-
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 class ExposureController extends Controller
 {
 	public function index()
@@ -223,6 +224,112 @@ class ExposureController extends Controller
 				]
 			);
 		}
+	}
+	public function confirmreservation($param)
+	{
+		
+		if(empty($_SESSION['logged_in']) || $_SESSION['logged_in'] != true)
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Votre session a expirée veuillez vous reconnecter."));
+				die();
+			
+		}
+		else if(empty($_SESSION["user"]["id"]))
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"L'id de l'utilisateur n'est pas renseigné."));
+				die();
+		}
+		else
+		{	
+			$mapper = spot()->mapper('Model\User');
+			$user = $mapper->where(['id' =>  $_SESSION["user"]["id"]])->first();
+			/*****Placez un lock ici merci bien ****/
+			$mapper = spot()->mapper('Model\Exposure');
+			
+			$book = $mapper->where(['id' =>  $param["id"]])->first();			
+			
+			if( $book->nb_place > 0 && ( $book->booked + 1 ) <= $book->nb_place )
+			{
+				$book->booked = $book->booked + 1;
+				
+				$mapper->update($book);
+				/*****Unlock ici merci bien ****/
+			}
+			else
+			{
+				$book->notfullback = 0;
+				
+				$mapper->update($book);
+				/*****Unlock ici merci bien ****/
+				echo json_encode(array("result"=>'fullback', 
+				"errors"=>"il ne reste plus de place disponible pour cette exposition."));
+				die();
+			}
+			
+			if($user !=false)
+			{
+					
+			  $reservation = spot()->mapper('Model\Reservation');
+			  $rzr = $reservation->where(['id_exposure' =>  $param["id"], "id_user"=> $user->id])->first();
+			  if($rzr == false)
+			  {
+					$reservation->migrate();
+					$myNewReza = $reservation->create([
+					'id_exposure' => $param["id"],
+					'id_user'      => $user->id,
+					
+				  ]);
+			  }
+			  else
+			  {
+				  echo json_encode(array("result"=>'twice', 
+				"errors"=>"Vous avez déjà réservé une place pour l'exposition."));
+				die();
+			  }
+			  $mail = new PHPMailer;
+				$mail->isSMTP();
+				$mail->SMTPDebug = 0;
+				$mail->Host = $this->mailconfig["Host"];
+				$mail->Port = $this->mailconfig["Port"];
+				$mail->SMTPAuth = true;
+				$mail->SMTPSecure = true;
+				$mail->Username = $this->mailconfig["Username"];
+				$mail->Password = $this->mailconfig["Password"];
+				$mail->setFrom($this->mailconfig["Username"], "commerciale");
+				
+				$mail->addAddress($user->email, $user->name." ".$user->firstname);
+				$mail->Subject = utf8_encode("confirmation de réservation");
+				$mail->isHTML(true); 
+				$message ="<p>Bonjour</p>";
+				$message .= "<p>Nous vous confirmons que votre demande de réservation 
+				d'une place pour l'exposition du: ";
+				$message .= $this->translate_date($book,$start=true);
+				$message .=" a été enregistrée.</p>";
+				$mail->Body = '<p>'.$message.'</p>';
+				$mail->AltBody = $message;
+				
+				if (!$mail->send()) 
+				{
+					echo json_encode(array("result"=>'error', "errors"=>$mail->ErrorInfo));			
+				}
+				else 
+				{
+					echo json_encode(array("result"=>'success'));
+				}
+				
+			  
+			}
+			else
+			{
+				echo json_encode(array("result"=>'error', 
+				"errors"=>"L'id de l'utilisateur n'existe pas dans la base de données."));
+				die();
+			}
+			
+		}
+		
 	}
 }
 ?>

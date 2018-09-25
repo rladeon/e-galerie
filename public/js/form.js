@@ -18,9 +18,11 @@ $(function()
 		}
         else if(data.result == 'success')
         {
+			$('#success_message').html("<h3>Le message a été envoyé !</h3>");
             $('form#reused_form').hide();
             $('#success_message').show();
             $('#error_message').hide();
+			
         }
         else
         {
@@ -129,4 +131,45 @@ $(function()
 		}	       
         
       });	
+});
+$(function(){
+	function after_reservation_submitted(data) 
+    {
+		$(".loader").css("display", "none");
+		$('a#reservation').show();
+		if(data.result == 'error')
+        {               
+            $('.alert-danger').html(data.errors);
+            
+            $('.alert-success').hide();
+            $('.alert-danger').show();
+              
+        }
+		else
+		{
+			window.location.replace("/e-galerie/user/reservation");
+		}
+    }
+
+	$('#reservation').on('click', function(e)
+      {
+		e.preventDefault();
+		$('.alert-success').hide();
+        $('.alert-danger').hide();
+		$('a#reservation').hide();
+		
+			$(".loader").show();
+			var id = $("#reservation").data("id");
+			$("body").css("background-color", "#f2ebea");
+			$("body").css("opacity", 0.8);
+		$.ajax({
+                type: "POST",
+                url: '/e-galerie/exposure/confirmreservation/id/'+id,
+                
+                success: after_reservation_submitted,
+                dataType: 'json' 
+            }); 
+			
+	
+	});
 });

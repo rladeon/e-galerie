@@ -518,4 +518,15 @@ div.polaroid {
           transform: translate(5px, -50%);
   opacity: 1;
 }
+/****************/
+.loader {
 
+position : fixed;
+z-index: 9999;
+background : url('../images/ajax-loader.gif') 50% 50% no-repeat;
+top : 0px;
+left : 0px;
+height : 100%;
+width : 100%;
+cursor : wait;
+}

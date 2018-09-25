@@ -148,5 +148,18 @@ class UserController extends Controller
 			);
 		
 	}
+	public function reservation()
+	{
+		
+			echo $this->twig->render($this->className.'/reservation.php',
+			["title" => "reservation",
+			"breadcrumb" => "",
+			"root" => $this->root,
+			
+			
+			]
+			);
+		
+	}
 }
 ?>

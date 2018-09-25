@@ -14,6 +14,7 @@ class Controller
 	protected $seo;
 	protected $root;
 	protected $session;
+	protected $mailconfig; 
 	
     function __construct()
     {
@@ -29,6 +30,10 @@ class Controller
 	  $this->twig->addGlobal('session', $_SESSION);
 	  $this->seo = new Slugify();
 	  $this->root = "/e-galerie/";
+	  $this->mailconfig = array("Host" => 'mail.christianeladeon.com',
+		"Port" => 465,
+		"Username" => 'info@christianeladeon.com',
+		"Password" => 'keGDV.Kn([Bl');
       //
 	  
     }

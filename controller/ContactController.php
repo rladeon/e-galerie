@@ -85,26 +85,29 @@ class ContactController extends Controller
 		
 		$mail = new PHPMailer;
 		$mail->isSMTP();
-		$mail->SMTPDebug = 2;
-		$mail->Host = 'smtp.orange.fr';
-		/*$mail->Port = 587;
+		$mail->SMTPDebug = 0;
+		$mail->Host = $this->mailconfig["Host"];
+		$mail->Port = $this->mailconfig["Port"];
 		$mail->SMTPAuth = true;
-		$mail->Username = 'email';
-		$mail->Password = 'EMAIL_ACCOUNT_PASSWORD';*/
-		$mail->setFrom('rladeon@gmail.com', 'Devops');
+		$mail->SMTPSecure = true;
+		$mail->Username = $this->mailconfig["Username"];
+		$mail->Password = $this->mailconfig["Password"];
+		$mail->setFrom($_POST['email'], $_POST['name']);
 		
-		$mail->addAddress($_POST['email'], $_POST['name']);
+		$mail->addAddress($this->mailconfig["Username"], "information");
 		$mail->Subject = $_POST['subject'];
 		$mail->isHTML(true); 
 		$mail->Body = '<p>'.$_POST['message'].'</p>';
 		$mail->AltBody = $_POST['message'];
 
-		/*if (!$mail->send()) {
+		if (!$mail->send()) {
 			echo json_encode(array("result"=>'error', "errors"=>$mail->ErrorInfo));
+			
 		} else {
 			echo json_encode(array("result"=>'success'));
 			
-		}*/
+			
+		}
 		die();
 	}
 }
