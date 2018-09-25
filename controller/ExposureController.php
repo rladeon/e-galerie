@@ -23,7 +23,7 @@ class ExposureController extends Controller
 			"date_deb" => $book->date_start->format("d/m/Y"),
 			"date_end" => $book->date_end->format("d/m/Y"),
 			"nb_place" => $book->nb_place,
-			"connected" => !empty($_SESSION["logged_in"])?$_SESSION["logged_in"]: false,
+			"connected" => $this->utils->isloggedin(),
 			"jours" => $book->date_start->format("d/m/Y"),
 			"horaires" => $book->hours,
 			"infos"=> $book->description,
@@ -55,15 +55,14 @@ class ExposureController extends Controller
 			"root" => $this->root,
 			"main"=>$list,
 			"media" => $list_media,
-			
+			"alreadybooked" => $this->alreadybooked($book->id),
 			]
 		);
 	}
 	public function create()
 	{
 		$userMapper = spot()->mapper('Model\Exposure');
-		$userMapper->migrate();
-	  
+		$userMapper->migrate();	  
 	 
 		$myNewExpo = $userMapper->create([
 		'title'      => "St Martin expo",
@@ -330,6 +329,41 @@ class ExposureController extends Controller
 			
 		}
 		
+	}
+	public function alreadybooked($id)
+	{
+		if(!empty($_SESSION["user"]["id"]))
+		{			
+			$reservation = spot()->mapper('Model\Reservation');
+			$rzr = $reservation->where([ "id_user" => $_SESSION["user"]["id"],
+			"id_exposure" => $id])->first();
+			if($rzr)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	public function cancel($param)
+	{
+		if(!empty($_SESSION["user"]["id"]))
+		{			
+			$reservation = spot()->mapper('Model\Reservation');
+			$reservation->migrate();	
+			$reservation->delete([ "id_user"=> $_SESSION["user"]["id"],
+			"id_exposure"=> $param["id"] ]);
+			$rzr = $reservation->where([ "id_user"=> $_SESSION["user"]["id"],
+			"id_exposure"=> $param["id"] ])->first();
+			if($rzr)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }
 ?>

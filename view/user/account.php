@@ -21,7 +21,7 @@
 			<a href="{{ root }}user/refresh"><span class='glyphicon glyphicon-refresh' style="font-size: 100px" aria-hidden="true"></span></a>
 			</div>
 			<div class="col-md-4">
-			<a href="{{ root }}user/booking"><span class='glyphicon glyphicon-calendar' style="font-size: 100px" aria-hidden="true"></span></a>
+			<a href="{{ root }}user/reservation"><span class='glyphicon glyphicon-calendar' style="font-size: 100px" aria-hidden="true"></span></a>
 			</div>
 		</div>	
 	{% endif %}

@@ -60,6 +60,10 @@
 					<div class="flex">
 						<a href="{{ root }}user/login" class="bttn" >Se connecter</a>
 					</div>
+				{% elseif alreadybooked == true%}					
+				<div class="flex">
+						<a href="{{ root }}exposure/cancel/id/{{main.id}}" class="bttn" >Annuler la réservation</a>
+					</div>
 				{% else %}					
 						<div class="flex">
 							<a href="{{ root }}exposure/booking/id/{{main.id}}" class="bttn" >Réservation</a>

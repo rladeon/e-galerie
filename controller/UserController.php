@@ -52,6 +52,16 @@ class UserController extends Controller
 			]
 		);
 	}
+	
+	public function update_session_params($user)
+	{
+		$_SESSION['logged_in'] = true;
+		$_SESSION['user'] = array("id"=>$user->id, "is_admin"=>$user->admin, 
+			"name"=>$user->name, "firstname"=>$user->firstname);
+		$_SESSION['ip'] = $this->utils->allIPs();
+		$_SESSION['expires_on']=time()+$this->utils->inactivity(); 
+		$_SESSION['uid'] = sha1(uniqid('',true).'_'.mt_rand());
+	}
 	public function verify($param=null)
 	{
 		if(empty($_POST["username"]))
@@ -89,8 +99,7 @@ class UserController extends Controller
 					}
 					else if($user->admin == true)
 					{
-						$_SESSION['logged_in'] = true;
-						$_SESSION['user'] = array("id"=>$user->id, "is_admin"=>$user->admin);
+						$this->update_session_params($user);
 						echo json_encode(array("result"=>'success', 
 						"message"=>"OK"));
 						die();
@@ -111,8 +120,7 @@ class UserController extends Controller
 			}
 			else if (password_verify($_POST["password"], $user->hash))
 			{
-				$_SESSION['logged_in'] = true;
-				$_SESSION['user'] = array("id"=>$user->id, "is_admin"=>$user->admin);
+				$this->update_session_params($user);
 				echo json_encode(array("result"=>'success', 
 				"message"=>"OK"));
 				die();
@@ -150,12 +158,47 @@ class UserController extends Controller
 	}
 	public function reservation()
 	{
+		if($this->utils->isloggedin() && !empty($_SESSION["user"]["id"]))
+		{
+			$user_id = $_SESSION["user"]["id"];
 		
-			echo $this->twig->render($this->className.'/reservation.php',
-			["title" => "reservation",
-			"breadcrumb" => "",
-			"root" => $this->root,
+			$reservation = spot()->mapper('Model\Reservation');
+			$rzr = $reservation->where([ "id_user"=> $user_id]);
+			$exposure = spot()->mapper('Model\Exposure');
+			$expo = $exposure->all();
+			foreach( $rzr as $key=>$value)
+			{
+				$list[$value->id_exposure] = array(
+						"id"=>$value->id,
+						"id_exposure" => $value->id_exposure
+						
+					);
+			}
+			$list_expo = null;
 			
+			foreach( $expo as $key=>$value)
+			{
+				if(!empty($list[$value->id]))
+				{
+					$list_expo[$value->id] = array(
+						"id_reservation" => $list[$value->id]["id"],
+						"title" => $value->title,
+						"start" => $value->date_start->format("d/m/Y"),
+						"end" => $value->date_end->format("d/m/Y"),
+						
+					);
+				}
+			}
+		}
+		else
+		{
+			$list = null;
+		}	
+			echo $this->twig->render($this->className.'/reservation.php',
+				["title" => "reservation",
+				"breadcrumb" => "",
+				"root" => $this->root,			
+				"reservation" => $list_expo,
 			
 			]
 			);
