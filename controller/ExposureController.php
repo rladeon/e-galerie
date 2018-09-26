@@ -23,6 +23,7 @@ class ExposureController extends Controller
 			"date_deb" => $book->date_start->format("d/m/Y"),
 			"date_end" => $book->date_end->format("d/m/Y"),
 			"nb_place" => $book->nb_place,
+			"booked" => $book->booked,
 			"connected" => $this->utils->isloggedin(),
 			"jours" => $book->date_start->format("d/m/Y"),
 			"horaires" => $book->hours,
@@ -252,13 +253,16 @@ class ExposureController extends Controller
 			if( $book->nb_place > 0 && ( $book->booked + 1 ) <= $book->nb_place )
 			{
 				$book->booked = $book->booked + 1;
-				
+				if( $book->nb_place == $book->booked)
+				{
+					$book->notfullback = false;
+				}
 				$mapper->update($book);
 				/*****Unlock ici merci bien ****/
 			}
 			else
 			{
-				$book->notfullback = 0;
+				$book->notfullback = false;
 				
 				$mapper->update($book);
 				/*****Unlock ici merci bien ****/
@@ -363,7 +367,15 @@ class ExposureController extends Controller
 			}
 			else
 			{
+				$mapper = spot()->mapper('Model\Exposure');
+				$expo = $mapper->where([ "id"=> $param["id"] ])->first();
+				if( ( $expo->booked - 1 ) >=0 )
+				{
+					$expo->booked = $expo->booked - 1;
+					$mapper->update($expo);
+				}
 				echo json_encode(array("result"=>'success'));
+				die();
 				
 			}
 		}

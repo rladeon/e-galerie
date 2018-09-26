@@ -72,6 +72,9 @@
 				<div class="flex">
 						<a href="#" class="bttn" data-id="{{main.id}}" id="cancelreservation">Annuler la réservation</a>
 					</div>
+				{% elseif main.booked == main.nb_place %}
+					
+					
 				{% else %}					
 						<div class="flex">
 							<a href="{{ root }}exposure/booking/id/{{main.id}}" class="bttn" >Réservation</a>
@@ -83,6 +86,7 @@
 	{% endif %}
 	<div class="col-md-4">
 		<h2>Archives</h2>
+		<i class="fa fa-archive" style="font-size:36px"></i><span style="font-size:36px">2018</span>
 	</div>
 	</div>
 </div>

@@ -81,6 +81,7 @@ $(function()
 {
     function after_login_submitted(data) 
     {
+		$(".loader").css("display", "none");
 		if(data.result == 'error')
         {               
             $('.alert-danger').html(data.errors);
@@ -118,6 +119,9 @@ $(function()
 		}
 		else
 		{
+			$(".loader").show();
+			$("body").css("background-color", "#f2ebea");
+			$("body").css("opacity", 0.8);
 		
 			$form = $(this);
         

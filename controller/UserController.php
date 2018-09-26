@@ -192,7 +192,7 @@ class UserController extends Controller
 		}
 		else
 		{
-			$list = null;
+			$list_expo = null;
 		}	
 			echo $this->twig->render($this->className.'/reservation.php',
 				["title" => "reservation",
