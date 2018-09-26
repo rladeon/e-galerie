@@ -41,7 +41,15 @@
 
 		</div>
 		<div class="col-md-4">
-			
+			<div class="loader" style="display:none"></div>
+	<div class="alert alert-success alert-dismissible" style="display: none" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  
+</div>
+<div class="alert alert-danger alert-dismissible" role="alert" style="display: none">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close" ><span aria-hidden="true">&times;</span></button>
+  
+</div>
 			<div><b>Aux horaires suivant:</b> {{main.horaires}}</div>
 			<div><b>Information:</b> {{main.resume}}</div>
 			<div><b>Adresse:</b></div>
@@ -62,7 +70,7 @@
 					</div>
 				{% elseif alreadybooked == true%}					
 				<div class="flex">
-						<a href="{{ root }}exposure/cancel/id/{{main.id}}" class="bttn" >Annuler la réservation</a>
+						<a href="#" class="bttn" data-id="{{main.id}}" id="cancelreservation">Annuler la réservation</a>
 					</div>
 				{% else %}					
 						<div class="flex">

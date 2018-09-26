@@ -173,3 +173,45 @@ $(function(){
 	
 	});
 });
+$(function(){
+	function after_reservation_submitted(data) 
+    {
+		$(".loader").css("display", "none");
+		$('a#cancelreservation').show();
+		if(data.result == 'error')
+        {               
+            $('.alert-danger').html(data.errors);
+            
+            $('.alert-success').hide();
+            $('.alert-danger').show();
+              
+        }
+		else
+		{
+			window.location.replace("/e-galerie/exposure/index");
+		}
+    }
+
+	$('#cancelreservation').on('click', function(e)
+      {
+		e.preventDefault();
+		$('.alert-success').hide();
+        $('.alert-danger').hide();
+		$('a#cancelreservation').hide();
+		
+			$(".loader").show();
+			var id = $(this).data("id");
+			$("body").css("background-color", "#f2ebea");
+			$("body").css("opacity", 0.8);
+		$.ajax({
+                type: "POST",
+                url: '/e-galerie/exposure/cancel/id/'+id,
+                
+                success: after_reservation_submitted,
+                dataType: 'json' 
+            }); 
+			
+	
+	});
+});
+

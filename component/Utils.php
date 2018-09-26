@@ -20,12 +20,13 @@ class Utils
 	}
 	public function isloggedin()
 	{
+		
 		// If session does not exist on server side, or IP address has changed, or session has expired, show login screen.
 		if (!isset ($_SESSION['uid']) || !$_SESSION['uid'] || $_SESSION['ip']!= $this->allIPs() || time()>=$_SESSION['expires_on'])
 		{
 			if (session_status() != PHP_SESSION_NONE) 
 			{
-				//session_destroy();
+				session_unset();
 			}
 			
 			return false;

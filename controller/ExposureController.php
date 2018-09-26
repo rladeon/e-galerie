@@ -356,14 +356,23 @@ class ExposureController extends Controller
 			"id_exposure"=> $param["id"] ])->first();
 			if($rzr)
 			{
-				return false;
+				echo json_encode(array("result"=>'error', 
+				"errors"=>"La réservation n'a pas été annulée."));
+				die();
+				
 			}
 			else
 			{
-				return true;
+				echo json_encode(array("result"=>'success'));
+				
 			}
 		}
-		return false;
+		else
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"La réservation n'a pas été annulée, car il manque l'id de l'utilisateur."));
+				die();
+		}
 	}
 }
 ?>
