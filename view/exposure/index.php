@@ -4,7 +4,7 @@
 	<h1> {{title}} </h1>
 	
 	<div class="row">
-	{%if main.notfullback == true %}
+	
 		<div class="col-md-4">
 			<h2>Prochaine exposition</h2>
 				
@@ -23,7 +23,7 @@
         </div>
         <ul class="menu-content">
           <li>
-				Nombre de place disponible: {{main.nb_place}}
+				Place disponible: {{(main.nb_place-main.booked)>=0?(main.nb_place-main.booked):0}}/{{main.nb_place}}
           </li>
           
         </ul>
@@ -74,16 +74,14 @@
 					</div>
 				{% elseif main.booked == main.nb_place %}
 					
-					
+					<p> il ne reste plus de place disponible</p>
 				{% else %}					
 						<div class="flex">
 							<a href="{{ root }}exposure/booking/id/{{main.id}}" class="bttn" >Réservation</a>
 						</div>					
 				{% endif %}
 		</div>
-		{% else %}
-			{{main.error_message}}
-	{% endif %}
+	
 	<div class="col-md-4">
 		<h2>Archives</h2>
 		<i class="fa fa-archive" style="font-size:36px"></i><span style="font-size:36px">2018</span>

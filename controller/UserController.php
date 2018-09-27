@@ -204,5 +204,135 @@ class UserController extends Controller
 			);
 		
 	}
+	public function refresh()
+	{
+		
+		if($this->utils->isloggedin() && !empty($_SESSION["user"]["id"]))
+		{
+			$user_id = $_SESSION["user"]["id"];
+			$user = spot()->mapper('Model\User');
+			$user = $user->where([ "id"=> $user_id])->first();
+			if($user)
+			{
+				echo $this->twig->render($this->className.'/refresh.php',
+					["title" => "refresh",
+					"breadcrumb" => "",
+					"root" => $this->root,
+					"connected" => true,
+					"welcome" => $user->name.' '.$user->firstname,
+					"name" => $user->name,
+					"firstname" => $user->firstname,
+					"email" => $user->email,
+					"pseudo" => $user->pseudo,
+					"id"=> $user->id,
+					"error" => false,
+					
+				]
+				);
+			}
+			else
+			{
+				echo $this->twig->render($this->className.'/refresh.php',
+					["title" => "refresh",
+					"breadcrumb" => "",
+					"root" => $this->root,	
+					"connected" => true,					
+					"error" => true,
+					"message" =>"L'utilisateur n'existe pas.",
+				]
+				);				
+			}
+		}
+		else
+		{
+			echo $this->twig->render($this->className.'/refresh.php',
+					["title" => "refresh",
+					"breadcrumb" => "",
+					"root" => $this->root,	
+					"connected" => false,					
+				]
+				);
+		}
+	}
+	public function update()
+	{
+		 if(empty($_POST["pseudo"]))
+		{	
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Il manque le pseudo."));
+				die();
+		}
+		else if(empty($_POST["username"]))
+		{	
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Il manque le nom."));
+				die();
+		}
+		else if(empty($_POST["firstname"]))
+		{	
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Il manque le prénom."));
+				die();
+		}
+		else if(empty($_POST["email"]))
+		{	
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Il manque l'adresse e-mail."));
+				die();
+		}
+		else if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL) === false) 
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Cette adresse e-mail n'est pas valide."));
+				die();
+		}
+		else if(empty($_POST["userid"]))
+		{	
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Il manque l'id utilisateur."));
+				die();
+		}
+		else if (filter_var($_POST["userid"], FILTER_VALIDATE_INT) === false) 
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"L'id n'est pas un entier."));
+				die();
+		}
+		else		
+		{
+			
+			$pseudo = filter_var($_POST["pseudo"], FILTER_SANITIZE_STRING);
+			$userm = spot()->mapper('Model\User');
+			$userm->migrate();
+			$user = $userm->where([ "pseudo"=> $pseudo])->first();
+			$id = filter_var($_POST["userid"], FILTER_SANITIZE_NUMBER_INT);
+			if($user == false)
+			{
+				$user = $userm->where([ "id"=> $id ])->first();
+				$user->pseudo = $pseudo;
+				$userm->update($user);
+			}
+			$user = $userm->where([ "email"=> $_POST["email"]])->first();
+			if($user == false)
+			{
+				$user = $userm->where([ "id"=> $id])->first();
+				$user->email = $_POST["email"];
+				$userm->update($user);
+			}
+			
+			$name = filter_var($_POST["username"], FILTER_SANITIZE_STRING);
+			$firstname = filter_var($_POST["firstname"], FILTER_SANITIZE_STRING);
+			$user = $userm->where([ "id"=> $id ])->first();
+			$user->name = $name;
+			$user->firstname = $firstname;
+			$userm->update($user);
+			$_SESSION['user']["name"] = $name;
+			$_SESSION['user']["firstname"] = $firstname;
+			
+			echo json_encode(array("result"=>'success', 
+				"message"=>"Les données ont été mises à jour."));
+				die();
+		}
+	}
 }
 ?>

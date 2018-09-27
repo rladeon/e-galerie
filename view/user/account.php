@@ -17,11 +17,33 @@
 		{% else %}
 			<p>accès autorisé</p>
 			<div class="row">
-			<div class="col-md-4">
-			<a href="{{ root }}user/refresh"><span class='glyphicon glyphicon-refresh' style="font-size: 100px" aria-hidden="true"></span></a>
+			<div class="accountcard col-md-3">
+			<a href="{{ root }}user/refresh"><i class="fa fa-drivers-license-o" style="font-size: 100px"></i></a>
+			<div class="accountcardcontainer">
+				<h4>Mise à jour des infos personnelles</h4> 
+				
+				</div>
 			</div>
-			<div class="col-md-4">
-			<a href="{{ root }}user/reservation"><span class='glyphicon glyphicon-calendar' style="font-size: 100px" aria-hidden="true"></span></a>
+			<div class=" accountcard col-md-3">
+			<a href="{{ root }}user/reservation"><i class="fa fa-calendar" style="font-size: 100px"></i></a>
+			<div class="accountcardcontainer">
+				<h4>Liste Réservation </h4> 
+				
+				</div>
+			</div>
+			<div class="col-md-3 accountcard">
+				<a href="{{ root }}user/forget"><i class='fa fa-question-circle-o' style="font-size: 100px" ></i></a>
+				<div class="accountcardcontainer">
+				<h4>Mot de passe oublié</h4> 
+				
+				</div>
+			</div>
+			<div class="col-md-3 accountcard">
+				<a href="{{ root }}user/addresse"><i class='fa fa-home' style="font-size: 100px" ></i></a>
+				<div class="accountcardcontainer">
+				<h4>Adresse</h4> 
+				
+				</div>
 			</div>
 		</div>	
 	{% endif %}

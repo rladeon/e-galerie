@@ -82,6 +82,7 @@ $(function()
     function after_login_submitted(data) 
     {
 		$(".loader").css("display", "none");
+		$("body").css("background-color", "white");
 		if(data.result == 'error')
         {               
             $('.alert-danger').html(data.errors);
@@ -140,6 +141,7 @@ $(function(){
 	function after_reservation_submitted(data) 
     {
 		$(".loader").css("display", "none");
+		$("body").css("background-color", "white");
 		$('a#reservation').show();
 		if(data.result == 'error')
         {               
@@ -181,6 +183,7 @@ $(function(){
 	function after_reservation_submitted(data) 
     {
 		$(".loader").css("display", "none");
+		$("body").css("background-color", "white");
 		$('a#cancelreservation').show();
 		if(data.result == 'error')
         {               
@@ -212,6 +215,91 @@ $(function(){
                 url: '/e-galerie/exposure/cancel/id/'+id,
                 
                 success: after_reservation_submitted,
+                dataType: 'json' 
+            }); 
+			
+	
+	});
+});
+$(function(){
+	function after_cancelreservation(data) 
+    {
+		$(".loader").css("display", "none");
+		$("body").css("background-color", "white");
+		$('a.cancelreservation').show();
+		if(data.result == 'error')
+        {               
+            $('.alert-danger').html(data.errors);
+            
+            $('.alert-success').hide();
+            $('.alert-danger').show();
+              
+        }
+		else
+		{
+			window.location.replace("/e-galerie/user/reservation");
+		}
+    }
+
+	$('.cancelreservation').on('click', function(e)
+      {
+		e.preventDefault();
+		$('.alert-success').hide();
+        $('.alert-danger').hide();
+		$('a.cancelreservation').hide();
+		
+			$(".loader").show();
+			var id = $(this).data("id");
+			$("body").css("background-color", "#f2ebea");
+			$("body").css("opacity", 0.8);
+		$.ajax({
+                type: "GET",
+                url: '/e-galerie/reservation/delete/id/'+id,
+                
+                success: after_cancelreservation,
+                dataType: 'json' 
+            }); 
+			
+	
+	});
+});
+$(function(){
+	function after_user_refresh(data) 
+    {
+		$(".loader").css("display", "none");
+		$("body").css("background-color", "white");
+		$('#btnUserRefresh').show();
+		 if(data.result == 'error')
+        {               
+            $('.alert-danger').html(data.errors);            
+            $('.alert-success').hide();
+            $('.alert-danger').show();              
+        }
+		else
+		{
+			$('.alert-success').html(data.message);            
+            $('.alert-success').show();
+            $('.alert-danger').hide();
+		}
+    }
+
+	$('#user_refresh').on('submit', function(e)
+      {
+		e.preventDefault();
+		$('.alert-success').hide();
+        $('.alert-danger').hide();
+		$('#btnUserRefresh').hide();
+		
+			$(".loader").show();
+			
+			$("body").css("background-color", "#f2ebea");
+			$form = $(this);
+        
+            $.ajax({
+                type: "POST",
+                url: '/e-galerie/user/update',
+                data: $form.serialize(),
+                success: after_user_refresh,
                 dataType: 'json' 
             }); 
 			
