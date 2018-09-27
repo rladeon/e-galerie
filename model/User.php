@@ -22,6 +22,7 @@ class User extends \Spot\Entity
 		'address'  => ['type' => 'text'],
 		'zipcode'  => ['type' => 'string'],
 		'city'  => ['type' => 'string'],
+		'country'  => ['type' => 'string'],
 		'tel1'  => ['type' => 'string'],
 		'tel2'  => ['type' => 'string'],
 		'gender' => ['type' => 'integer'],

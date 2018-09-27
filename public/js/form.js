@@ -306,4 +306,47 @@ $(function(){
 	
 	});
 });
+$(function(){
+	function after_send_password(data) 
+    {
+		$(".loader").css("display", "none");
+		$("body").css("background-color", "white");
+		$('#btnPasswordForgotten').show();
+		 if(data.result == 'error')
+        {               
+            $('.alert-danger').html(data.errors);            
+            $('.alert-success').hide();
+            $('.alert-danger').show();              
+        }
+		else
+		{
+			$('.alert-success').html(data.message);            
+            $('.alert-success').show();
+            $('.alert-danger').hide();
+		}
+    }
+
+	$('#forget_form').on('submit', function(e)
+      {
+		e.preventDefault();
+		$('.alert-success').hide();
+        $('.alert-danger').hide();
+		$('#btnPasswordForgotten').hide();
+		
+			$(".loader").show();
+			
+			$("body").css("background-color", "#f2ebea");
+			$form = $(this);
+        
+            $.ajax({
+                type: "POST",
+                url: '/e-galerie/user/sendpassword',
+                data: $form.serialize(),
+                success: after_send_password,
+                dataType: 'json' 
+            }); 
+			
+	
+	});
+});
 

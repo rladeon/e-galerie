@@ -3,6 +3,8 @@
 namespace Controller;
 
 use Model\User;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 class UserController extends Controller
 {
@@ -64,7 +66,7 @@ class UserController extends Controller
 	}
 	public function verify($param=null)
 	{
-		if(empty($_POST["username"]))
+		 if(empty($_POST["username"]))
 		{
 			echo json_encode(array("result"=>'error', 
 				"errors"=>"Il faut renseigner l'identifiant."));
@@ -212,6 +214,17 @@ class UserController extends Controller
 			$user_id = $_SESSION["user"]["id"];
 			$user = spot()->mapper('Model\User');
 			$user = $user->where([ "id"=> $user_id])->first();
+			$c = spot()->mapper('Model\Country');
+			$countries = $c->all();
+			$country = null;
+			foreach($countries as $key => $value)
+			{
+				$country[$value->id] = array(
+				"nom_fr_fr" => utf8_encode($value->nom_fr_fr),
+				"id" => $value->id,
+				"alpha2" => $value->alpha2,
+				);
+			}
 			if($user)
 			{
 				echo $this->twig->render($this->className.'/refresh.php',
@@ -226,6 +239,14 @@ class UserController extends Controller
 					"pseudo" => $user->pseudo,
 					"id"=> $user->id,
 					"error" => false,
+					"gender" => $user->gender,
+					"tel1"=> $user->tel1,
+					"tel2"=> $user->tel2,
+					"country" => $country,
+					"landofsalty" => $user->country,
+					"address" => $user->address,
+					"zipcode" => $user->zipcode,
+					"city" => $user->city,
 					
 				]
 				);
@@ -256,7 +277,15 @@ class UserController extends Controller
 	}
 	public function update()
 	{
-		 if(empty($_POST["pseudo"]))
+		
+		$this->session->start();
+		if(!$this->utils->isloggedin())
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"La session a expirée."));
+				die();
+		}
+		else if(empty($_POST["pseudo"]))
 		{	
 			echo json_encode(array("result"=>'error', 
 				"errors"=>"Il manque le pseudo."));
@@ -322,10 +351,25 @@ class UserController extends Controller
 			
 			$name = filter_var($_POST["username"], FILTER_SANITIZE_STRING);
 			$firstname = filter_var($_POST["firstname"], FILTER_SANITIZE_STRING);
+			$address = filter_var($_POST["address"], FILTER_SANITIZE_STRING);
+			$zipcode = filter_var($_POST["zipcode"], FILTER_SANITIZE_STRING);
+			$city = filter_var($_POST["city"], FILTER_SANITIZE_STRING);
+			$tel1 = filter_var($_POST["tel1"], FILTER_SANITIZE_STRING);
+			$tel2 = filter_var($_POST["tel2"], FILTER_SANITIZE_STRING);
+			$country = filter_var($_POST["country"], FILTER_SANITIZE_STRING);
+			$gender = filter_var($_POST["gender"], FILTER_SANITIZE_NUMBER_INT);
 			$user = $userm->where([ "id"=> $id ])->first();
 			$user->name = $name;
 			$user->firstname = $firstname;
+			$user->address = $address;
+			$user->zipcode = $zipcode;
+			$user->city = $city;
+			$user->tel1 = $tel1;
+			$user->tel2 = $tel2;
+			$user->country = $country;
+			$user->gender = $gender;
 			$userm->update($user);
+			
 			$_SESSION['user']["name"] = $name;
 			$_SESSION['user']["firstname"] = $firstname;
 			
@@ -334,5 +378,102 @@ class UserController extends Controller
 				die();
 		}
 	}
+	public function forget()
+	{
+		if($this->utils->isloggedin() && !empty($_SESSION["user"]["id"]))
+		{
+			echo $this->twig->render($this->className.'/forget.php',
+					["title" => "Mot de passe",
+					"breadcrumb" => "",
+					"root" => $this->root,	
+					"connected" => true,					
+				]
+				);
+		}		
+		else
+		{
+			echo $this->twig->render($this->className.'/forget.php',
+					["title" => "Mot de passe",
+					"breadcrumb" => "",
+					"root" => $this->root,	
+					"connected" => false,					
+				]
+				);
+		}
+	}
+	public function sendpassword()
+	{
+		$this->session->start();
+		if($this->utils->isloggedin() == false)
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"La session a expirée."));
+				die();
+		}
+		else if(empty($_POST["email"]))
+		{	
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Il manque l'adresse e-mail."));
+				die();
+		}
+		else if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL) === false) 
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Cette adresse e-mail n'est pas valide."));
+				die();
+		}
+		else
+		{
+			$userm = spot()->mapper('Model\User');
+			$userm->migrate();
+			$email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
+			$user = $userm->where([ "email"=> $email])->first();
+			if($user)
+			{
+				$mail = new PHPMailer;
+				$mail->isSMTP();
+				$mail->SMTPDebug = 0;
+				$mail->Host = $this->mailconfig["Host"];
+				$mail->Port = $this->mailconfig["Port"];
+				$mail->SMTPAuth = true;
+				$mail->SMTPSecure = true;
+				$mail->Username = $this->mailconfig["Username"];
+				$mail->Password = $this->mailconfig["Password"];
+				$mail->setFrom($this->mailconfig["Username"], "support");
+				$mail->CharSet = 'UTF-8';
+				$mail->addAddress($user->email, $user->name." ".$user->firstname);
+				$mail->addBCC($this->mailconfig["Username"]);
+				$mail->Subject = "Information";
+				$mail->isHTML(true); 
+				$message ="<p>Bonjour</p>";
+				$message .= "<p>Pour vous connecter vous aviez choisi pour identifiant: ".$user->pseudo."</p>"; 
+				$message .="Et le mot de passe suivant: ".$user->password." </p>";
+				$mail->Body = '<p>'.$message.'</p>';
+				$mail->AltBody = $message;
+				
+				if (!$mail->send()) 
+				{
+					echo json_encode(array("result"=>'error', "errors"=>$mail->ErrorInfo));		
+					die();					
+				}
+				else 
+				{
+					echo json_encode(array("result"=>'success', "message"=> "votre mot de passe a été envoyé à l'adresse: ".$user->email));
+					die();
+				}
+				
+				
+			}
+			else
+			{
+					echo json_encode(array("result"=>'error', 
+				"errors"=>"Cette adresse e-mail n'existe pas dans la base de données."));
+				die();
+			}
+			
+			
+		}
+	}
+	
 }
 ?>

@@ -227,8 +227,14 @@ class ExposureController extends Controller
 	}
 	public function confirmreservation($param)
 	{
-		
-		if(empty($_SESSION['logged_in']) || $_SESSION['logged_in'] != true)
+		$this->session->start();
+		if(!$this->utils->isloggedin())
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"La session a expirée."));
+				die();
+		}
+		else if(empty($_SESSION['logged_in']) || $_SESSION['logged_in'] != true)
 		{
 			echo json_encode(array("result"=>'error', 
 				"errors"=>"Votre session a expirée veuillez vous reconnecter."));
@@ -316,11 +322,13 @@ class ExposureController extends Controller
 				
 				if (!$mail->send()) 
 				{
-					echo json_encode(array("result"=>'error', "errors"=>$mail->ErrorInfo));			
+					echo json_encode(array("result"=>'error', "errors"=>$mail->ErrorInfo));	
+					die();					
 				}
 				else 
 				{
 					echo json_encode(array("result"=>'success'));
+					die();
 				}
 				
 			  
@@ -351,7 +359,14 @@ class ExposureController extends Controller
 	}
 	public function cancel($param)
 	{
-		if(!empty($_SESSION["user"]["id"]))
+		$this->session->start();
+		if(!$this->utils->isloggedin())
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"La session a expirée."));
+				die();
+		}
+		else if(!empty($_SESSION["user"]["id"]))
 		{			
 			$reservation = spot()->mapper('Model\Reservation');
 			$reservation->migrate();	
@@ -406,15 +421,15 @@ class ExposureController extends Controller
 				
 				if (!$mail->send()) 
 				{
-					echo json_encode(array("result"=>'error', "errors"=>$mail->ErrorInfo));			
+					echo json_encode(array("result"=>'error', "errors"=>$mail->ErrorInfo));
+					die();		
 				}
 				else 
 				{
 					echo json_encode(array("result"=>'success'));
+					die();
 				}
-				echo json_encode(array("result"=>'success'));
-				die();
-				
+								
 			}
 		}
 		else
