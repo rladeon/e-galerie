@@ -7,6 +7,9 @@ class PressController extends Controller
 {
     public function index()
     {
+		$mapper = spot()->mapper('Model\Network');
+		$net = $mapper->all()->first();
+		$breadcrumb = $this->utils->build_breadcrumb(array("Presse"=> "press/index"),$net->home_url);
 		$mapper = spot()->mapper('Model\Content');
 		$posts = $mapper->where(['category' => "press" ]);
 		$list_presse = null;
@@ -48,7 +51,7 @@ class PressController extends Controller
 		echo $this->twig->render($this->className.'/index.php',
 		[
           "title" => "Presse",
-		  "breadcrumb" => "",
+		  "breadcrumb" => $breadcrumb,
 		  "root" => $this->root,
 		  "content" => $list_presse,
 		  "media"=> $list_media,
@@ -57,9 +60,12 @@ class PressController extends Controller
 	}
 	public function show($slug)
 	{
+		
 		$mapper = spot()->mapper('Model\Content');
 		$posts = $mapper->first(['slug' => $slug["page"]]);
-		
+		$mapper = spot()->mapper('Model\Network');
+		$net = $mapper->all()->first();
+		$breadcrumb = $this->utils->build_breadcrumb(array("Presse"=> "press/index",$posts->title=>"press/show/page/".$posts->slug  ),$net->home_url);
 		
 		$list_presse = array(
 			$posts->id=>array(
@@ -99,7 +105,7 @@ class PressController extends Controller
 				echo $this->twig->render($this->className.'/show.php',
 				[
 				  "title" => "Article",
-				  "breadcrumb" => "",
+				  "breadcrumb" => $breadcrumb,
 				  "root" => $this->root,
 				  "article" => $value,
 				  "media"=> $list_media,
@@ -112,7 +118,7 @@ class PressController extends Controller
 				echo $this->twig->render($this->className.'/show.php',
 				[
 				  "title" => "Article",
-				  "breadcrumb" => "",
+				  "breadcrumb" => $breadcrumb,
 				  "root" => $this->root,
 				  "article" => null,
 				  "media"=> $list_media,

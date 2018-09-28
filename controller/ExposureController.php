@@ -49,10 +49,12 @@ class ExposureController extends Controller
 					
 				);
 		}
-		
+		$mapper = spot()->mapper('Model\Network');
+		$net = $mapper->all()->first();
+		$breadcrumb = $this->utils->build_breadcrumb(array("Expositions"=> "exposure/index"),$net->home_url);
 		echo $this->twig->render($this->className.'/index.php',
 			["title" => "Expositions",
-			"breadcrumb" => "",
+			"breadcrumb" => $breadcrumb,
 			"root" => $this->root,
 			"main"=>$list,
 			"media" => $list_media,
@@ -132,11 +134,14 @@ class ExposureController extends Controller
 	}
 	public function booking($param)
 	{
+		$mapper = spot()->mapper('Model\Network');
+		$net = $mapper->all()->first();
+		$breadcrumb = $this->utils->build_breadcrumb(array("Expositions"=> "exposure/index", "Réservation"=>"exposure/booking/id/".filter_var($param["id"], FILTER_SANITIZE_NUMBER_INT)),$net->home_url);
 		if(empty($_SESSION['logged_in']) || $_SESSION['logged_in'] != true)
 		{
 			echo $this->twig->render($this->className.'/booking.php',
 					["title" => "Réservation",
-					"breadcrumb" => "",
+					"breadcrumb" => $breadcrumb,
 					"root" => $this->root,
 					"error" => true,
 					"errormessage"=> "Votre session a expirée veuillez vous reconnecter.",
@@ -175,7 +180,7 @@ class ExposureController extends Controller
 				{
 					echo $this->twig->render($this->className.'/booking.php',
 					["title" => "Réservation",
-					"breadcrumb" => "",
+					"breadcrumb" => $breadcrumb,
 					"root" => $this->root,
 					"exposure"=>$book,
 					"media" => $list_media,
@@ -190,7 +195,7 @@ class ExposureController extends Controller
 				{
 					echo $this->twig->render($this->className.'/booking.php',
 					["title" => "Réservation",
-					"breadcrumb" => "",
+					"breadcrumb" => $breadcrumb,
 					"root" => $this->root,
 					"error_message"=> "L'id de l'utilsateur n'est pas renseigné.",
 					"error" => true,
@@ -204,7 +209,7 @@ class ExposureController extends Controller
 			{
 				echo $this->twig->render($this->className.'/booking.php',
 					["title" => "Réservation",
-					"breadcrumb" => "",
+					"breadcrumb" => $breadcrumb,
 					"root" => $this->root,
 					"error_message"=> "cette réservation n'existe pas dans le bas de données",
 					"error" => true,

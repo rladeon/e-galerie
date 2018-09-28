@@ -2,7 +2,9 @@
 
 {% block content %}
 <div class="container">
-	<h2>Mon compte </h2>
+<p class="arianelink txtcenter"><i class="fa fa-home"></i>{{breadcrumb | raw}}</p>
+
+	<!--<h2>Mon compte </h2>-->
 	{% if (session.logged_in == null) or (session.logged_in == false) %}
 		<div class="row">
 			<div class="col-md-4">
@@ -15,7 +17,7 @@
 			</div>
 		</div>	
 		{% else %}
-			<p>accès autorisé</p>
+			<p>{{welcome}}</p>
 			<div class="row">
 			<a href="{{ root }}user/refresh"><div class="accountcard col-md-3">
 			<i class="fa fa-drivers-license-o" style="font-size: 100px"></i>

@@ -1,8 +1,8 @@
 {% extends 'frontend/template.php' %}
 {% block content %}
 <div class="container">
-	<h1> {{title}} </h1>
-		
+	<!--<h1> {{title}} </h1>-->
+		<p class="arianelink txtcenter"><i class="fa fa-home"></i>{{breadcrumb | raw}}</p>
 		{# Loop through several photos #}
 		<ul id="filters" class="clearfix">
 			<li><span class="filter active" data-filter=".fruit, .paysage">Tout</span></li>

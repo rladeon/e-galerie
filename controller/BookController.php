@@ -6,7 +6,10 @@ use Model\Book;
 class BookController extends Controller
 {
     public function show($slug)
-    {			
+    {	
+		$mapper = spot()->mapper('Model\Network');
+		$net = $mapper->all()->first();
+		$breadcrumb = $this->utils->build_breadcrumb(array("Livre"=> "book/show/page/".$slug['page'] ),$net->home_url);
 		$mapper = spot()->mapper('Model\Book');
 		$book = $mapper->where(['slug' => $slug['page'] ])->first();
 		if($book != false)
@@ -51,7 +54,7 @@ class BookController extends Controller
 					echo $this->twig->render($this->className.'/show.php',
 					[
 					  "title" => "Livre",
-					  "breadcrumb" => "",
+					  "breadcrumb" => $breadcrumb,
 					  "root" => $this->root,
 					  "book" => $value,
 					  "media"=> $list_media,

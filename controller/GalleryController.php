@@ -23,11 +23,14 @@ class GalleryController extends Controller
 					"datacateg" => $value->datacateg
 					
 				);
-		}//var_dump($list);
+		}
+		$mapper = spot()->mapper('Model\Network');
+		$net = $mapper->all()->first();
+		$breadcrumb = $this->utils->build_breadcrumb(array("Galerie"=> "gallery/index"),$net->home_url);
 		
 		echo $this->twig->render($this->className.'/index.php',
 			["title" => "Galerie",
-			"breadcrumb" => "",
+			"breadcrumb" => $breadcrumb,
 			"root" => $this->root,
 			"gallery" =>$list
 			]

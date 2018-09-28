@@ -45,9 +45,12 @@ class UserController extends Controller
     }
 	public function login()
 	{
+		$mapper = spot()->mapper('Model\Network');
+		$net = $mapper->all()->first();
+		$breadcrumb = $this->utils->build_breadcrumb(array("Connection"=> "user/login"),$net->home_url);
 		echo $this->twig->render($this->className.'/login.php',
 			["title" => "Login",
-			"breadcrumb" => "",
+			"breadcrumb" => $breadcrumb,
 			"root" => $this->root,
 			
 			
@@ -147,12 +150,32 @@ class UserController extends Controller
 	}
 	public function account()
 	{
+		if($this->utils->isloggedin() && !empty($_SESSION["user"]["id"]))
+		{
+			$mapper = spot()->mapper('Model\User');
+			$user = $mapper->where(["id"=>$_SESSION["user"]["id"]])->first();
+			if($user)
+			{
+				$welcome = "Bienvenue ".$user->name.' '.$user->firstname;
+			}
+			else
+			{
+				$welcome = "";
+			}
+		}
+		else
+		{
+			$welcome = "";
+		}
 		
+		$mapper = spot()->mapper('Model\Network');
+		$net = $mapper->all()->first();
+		$breadcrumb = $this->utils->build_breadcrumb(array("Mon compte"=> "user/account"),$net->home_url);
 			echo $this->twig->render($this->className.'/account.php',
 			["title" => "Compte",
-			"breadcrumb" => "",
+			"breadcrumb" => $breadcrumb,
 			"root" => $this->root,
-			
+			"welcome" => $welcome,
 			
 			]
 			);
@@ -160,6 +183,9 @@ class UserController extends Controller
 	}
 	public function reservation()
 	{
+		$mapper = spot()->mapper('Model\Network');
+		$net = $mapper->all()->first();
+		$breadcrumb = $this->utils->build_breadcrumb(array("Mon compte"=> "user/account","liste réservation"=> "user/reservation"),$net->home_url);
 		if($this->utils->isloggedin() && !empty($_SESSION["user"]["id"]))
 		{
 			$user_id = $_SESSION["user"]["id"];
@@ -198,7 +224,7 @@ class UserController extends Controller
 		}	
 			echo $this->twig->render($this->className.'/reservation.php',
 				["title" => "reservation",
-				"breadcrumb" => "",
+				"breadcrumb" => $breadcrumb,
 				"root" => $this->root,			
 				"reservation" => $list_expo,
 			
@@ -208,7 +234,9 @@ class UserController extends Controller
 	}
 	public function refresh()
 	{
-		
+		$mapper = spot()->mapper('Model\Network');
+		$net = $mapper->all()->first();
+		$breadcrumb = $this->utils->build_breadcrumb(array("Mon compte"=> "user/account","Mise à jour de mes informations"=> "user/refresh"),$net->home_url);
 		if($this->utils->isloggedin() && !empty($_SESSION["user"]["id"]))
 		{
 			$user_id = $_SESSION["user"]["id"];
@@ -225,11 +253,13 @@ class UserController extends Controller
 				"alpha2" => $value->alpha2,
 				);
 			}
+			
 			if($user)
 			{
+				
 				echo $this->twig->render($this->className.'/refresh.php',
 					["title" => "refresh",
-					"breadcrumb" => "",
+					"breadcrumb" => $breadcrumb,
 					"root" => $this->root,
 					"connected" => true,
 					"welcome" => $user->name.' '.$user->firstname,
@@ -255,7 +285,7 @@ class UserController extends Controller
 			{
 				echo $this->twig->render($this->className.'/refresh.php',
 					["title" => "refresh",
-					"breadcrumb" => "",
+					"breadcrumb" => $breadcrumb,
 					"root" => $this->root,	
 					"connected" => true,					
 					"error" => true,
@@ -268,7 +298,7 @@ class UserController extends Controller
 		{
 			echo $this->twig->render($this->className.'/refresh.php',
 					["title" => "refresh",
-					"breadcrumb" => "",
+					"breadcrumb" => $breadcrumb,
 					"root" => $this->root,	
 					"connected" => false,					
 				]
@@ -380,11 +410,14 @@ class UserController extends Controller
 	}
 	public function forget()
 	{
+		$mapper = spot()->mapper('Model\Network');
+		$net = $mapper->all()->first();
+		$breadcrumb = $this->utils->build_breadcrumb(array("Mon compte"=> "user/account","Mot de passe oublié"=> "user/forget"),$net->home_url);
 		if($this->utils->isloggedin() && !empty($_SESSION["user"]["id"]))
 		{
 			echo $this->twig->render($this->className.'/forget.php',
 					["title" => "Mot de passe",
-					"breadcrumb" => "",
+					"breadcrumb" => $breadcrumb,
 					"root" => $this->root,	
 					"connected" => true,					
 				]
@@ -394,7 +427,7 @@ class UserController extends Controller
 		{
 			echo $this->twig->render($this->className.'/forget.php',
 					["title" => "Mot de passe",
-					"breadcrumb" => "",
+					"breadcrumb" => $breadcrumb,
 					"root" => $this->root,	
 					"connected" => false,					
 				]

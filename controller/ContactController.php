@@ -8,10 +8,13 @@ class ContactController extends Controller
 {
     public function index()
     {
+		$mapper = spot()->mapper('Model\Network');
+		$net = $mapper->all()->first();
+		$breadcrumb = $this->utils->build_breadcrumb(array("Contact"=> "contact/index"),$net->home_url);
 		echo $this->twig->render($this->className.'/index.php',
 		[
           "title" => "Contact",
-		  "breadcrumb" => "",
+		  "breadcrumb" => $breadcrumb,
 		  "root" => $this->root,
 		  
         ]);

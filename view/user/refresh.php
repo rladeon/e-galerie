@@ -2,8 +2,10 @@
 
 {% block content %}
 <div class="container">
+<p class="arianelink txtcenter"><i class="fa fa-home"></i>{{breadcrumb | raw}}</p>
+
 <div >
-	<h2>Mise à jour de mes informations</h2>
+	<!--<h2>Mise à jour de mes informations</h2>-->
 	{% if connected == true %}
 	<p>Bienvenue {{name}} {{firstname}}</p>
 			<div class="loader" style="display:none"></div>

@@ -25,11 +25,13 @@ class HomeController extends Controller
 					
 				);
 		}
-		
+		$mapper = spot()->mapper('Model\Network');
+		$net = $mapper->all()->first();
+		$breadcrumb = $this->utils->build_breadcrumb(array(),$net->home_url);
 		echo $this->twig->render($this->className.'/index.php',
 		[
           "title" => "Accueil",
-		  "breadcrumb" => "",
+		  "breadcrumb" =>  $breadcrumb ,
 		  "root" => $this->root,
 		  "gallery" => $list
         ]);

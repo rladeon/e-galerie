@@ -1,7 +1,6 @@
 {% extends 'frontend/template.php' %}
 
 {% block content %}
-
 <div id="demo1">
       <div class="slide">
         <img src="public/images/slides/1.jpg" />
@@ -41,9 +40,10 @@
  </div>
 </div>
 <div class="container">
+
 	  <section id="section" class="main-section first-section">
 			<div class="container">
-				<p class="bigtxt txtcenter">{{breadcrumb}}</p>
+				<p class="bigtxt txtcenter"><i class="fa fa-home"></i>{{breadcrumb | raw}}</p>
 			</div>
 		</section>
 

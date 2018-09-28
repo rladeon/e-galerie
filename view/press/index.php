@@ -1,8 +1,9 @@
 {% extends 'frontend/template.php' %}
 {% block content %}
 <div class="container">
-	<h1> {{title}} </h1>	
-		
+	<!--<h1> {{title}} </h1>	-->
+			<p class="arianelink txtcenter"><i class="fa fa-home"></i>{{breadcrumb | raw}}</p>
+
 		{# Loop through several photos #}
 		{% for key,entry in content %}
 			<div class="col-md-4 peaceplace">

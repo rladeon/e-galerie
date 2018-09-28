@@ -8,7 +8,7 @@ class ReservationController extends Controller
 {
 	public function delete($param)
 	{
-		
+		$this->session->start();
 		if(!$this->utils->isloggedin())
 		{
 			echo json_encode(array("result"=>'error', 

@@ -5,6 +5,10 @@ define('INACTIVITY_TIMEOUT',3600*2);
 
 class Utils
 {
+	private $breadcrumb;
+
+    private $separator = ' / ';   
+   
 	public function inactivity()
 	{
 		return INACTIVITY_TIMEOUT;
@@ -34,6 +38,28 @@ class Utils
 		$_SESSION['expires_on']=time()+INACTIVITY_TIMEOUT;  // User accessed a page : Update his/her session expiration date.
 		return true;
 	}
+	public function build_breadcrumb($array, $domain)
+   {
+      $breadcrumbs = array_merge(array('Accueil' => ''), $array);
+
+      $count = 0;
+
+      foreach($breadcrumbs as $title => $link) {
+         $this->breadcrumb .= '
+         <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="'.$domain. '/'.$link.'" itemprop="url">
+               <span itemprop="title">'.$title.'</span>
+            </a>
+         </span>';
+
+         $count++;
+
+         if($count !== count($breadcrumbs)) {
+            $this->breadcrumb .= $this->separator;
+         }
+      }
+      return $this->breadcrumb;
+   }
 }
 
 ?>

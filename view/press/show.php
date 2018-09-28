@@ -1,10 +1,13 @@
 {% extends 'frontend/template.php' %}
 {% block content %}
 	<div class="container">
+		
+
 		<div class="row">
 			
 			{% if article != null %}
-				<h1>{{article.title}}</h1>
+			<p class="arianelink txtcenter"><i class="fa fa-home"></i>{{breadcrumb | raw}}</p>
+				
 				
 				<div class="col-md-6">
 					{% for index,value in media %}

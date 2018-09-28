@@ -1,6 +1,8 @@
 {% extends 'frontend/template.php' %}
 {% block content %}
 <div class="container">
+<p class="arianelink txtcenter"><i class="fa fa-home"></i>{{breadcrumb | raw}}</p>
+
 	<h2>Envoie du mot de passe par e-mail</h2>
 			<div class="loader" style="display:none"></div>
 

@@ -1,5 +1,7 @@
 {% extends 'frontend/template.php' %}
 {% block content %}
+<div class="container">
+<p class="arianelink txtcenter"><i class="fa fa-home"></i>{{breadcrumb | raw}}</p>
 <div class="container-fluid">
 
 	<div id="page-login" class="row">
@@ -15,13 +17,13 @@
 						<h3 class="page-header">Se connecter</h3>
 					</div>
 					<div class="alert alert-success alert-dismissible" style="display: none" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  
-</div>
-<div class="alert alert-danger alert-dismissible" role="alert" style="display: none">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close" ><span aria-hidden="true">&times;</span></button>
-  
-</div>
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					  
+					</div>
+					<div class="alert alert-danger alert-dismissible" role="alert" style="display: none">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close" ><span aria-hidden="true">&times;</span></button>
+					  
+					</div>
 					<form role="form" method="post" id="login_form"   >
 						<div class="form-group">
 							<label class="control-label">identifiant</label>
@@ -37,5 +39,6 @@
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 {% endblock %}
