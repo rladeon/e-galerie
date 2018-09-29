@@ -9,7 +9,7 @@
 
 		<div class="col-xs-12 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
 			<div class="text-right">
-				<a href="{{root}}user/account" class="txt-default">Créer un compte?</a>
+				<a href="{{root}}user/newaccount" class="txt-default">Créer un compte?</a>
 			</div>
 			<div class="box">
 				<div class="box-content">

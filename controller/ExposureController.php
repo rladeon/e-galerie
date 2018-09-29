@@ -8,8 +8,8 @@ class ExposureController extends Controller
 	public function index()
 	{
 		$mapper = spot()->mapper('Model\Exposure');
-		$book = $mapper->where(['date_start >' => \DateTime::createFromFormat('Y-m-d', date('Y-m-d') )->format("Y-m-d")])
-		->order(['date_start'=>"DESC"])
+		$book = $mapper->where(['notfullback !=' => false, 'date_start >' => \DateTime::createFromFormat('Y-m-d', date('Y-m-d') )->format("Y-m-d")])
+		->order(['date_start'=>"ASC"])
 		->first();
 		$list = null;
 		if($book != false)

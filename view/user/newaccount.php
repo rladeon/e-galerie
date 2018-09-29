@@ -1,16 +1,10 @@
 {% extends 'frontend/template.php' %}
-
 {% block content %}
 <div class="container">
 <p class="arianelink txtcenter"><i class="fa fa-home"></i>{{breadcrumb | raw}}</p>
+<div  class="row">
+		<div class="loader" style="display:none"></div>
 
-<div >
-	<!--<h2>Mise à jour de mes informations</h2>-->
-	{% if connected == true %}
-	<p>Bienvenue {{name}} {{firstname}}</p>
-			<div class="loader" style="display:none"></div>
-
-	<div  class="row">
 		<div class="alert alert-success alert-dismissible" style="display: none" role="alert">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   
@@ -18,57 +12,47 @@
 		<div class="alert alert-danger alert-dismissible" role="alert" style="display: none">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close" ><span aria-hidden="true">&times;</span></button>
  		</div>
+		<span>Les champs avec une * doivent être obligatoirement renseigner.</span>
 		<div class="col-md-8">
-			<form role="form" method="post" id="user_refresh">
+			<form role="form" method="post" id="user_newaccount">
 				<div class="row">
 					<div class="col-md-4">
 						<div class="form-group">
 							<label class="control-label">Pseudo *</label>
-							<input type="text" class="form-control" name="pseudo" id="pseudo" value="{{pseudo}}"/>
+							<input type="text" class="form-control" name="pseudo" id="pseudo" value=""/>
 						</div>
 						<div class="form-group">
 							<label class="control-label">Nom *</label>
-							<input type="text" class="form-control" name="username" id="username" value="{{name}}"/>
+							<input type="text" class="form-control" name="username" id="username" value=""/>
 						</div>
 						<div class="form-group">
 							<label class="control-label">Prénom *</label>
-							<input type="text" class="form-control" name="firstname" id="firstname" value="{{firstname}}"/>
+							<input type="text" class="form-control" name="firstname" id="firstname" value=""/>
 						</div>
-						<div class="form-group">
+						
+					</div>
+					<div class="col-md-4">
+					<div class="form-group">
 							<label class="control-label">Adresse e-mail *</label>
-							<input type="text" class="form-control" name="email" id="email" value="{{email}}"/>
-						</div>
-						<input type="hidden" name="userid" id="userid" value="{{id}}">
-					</div>
-					<div class="col-md-4">
-						<div class="form-group">
-							<div><label class="control-label">Adresse</label></div>
-							<textarea name="address" rows="5" cols="35">
-							{{address}}
-							</textarea>
+							<input type="text" class="form-control" name="email" id="email" value=""/>
 						</div>
 						<div class="form-group">
-							<label class="control-label">Code postal</label>
-							<input type="text" class="form-control" name="zipcode" id="zipcode" value="{{zipcode}}"/>
+							<div><label class="control-label">Mot de passe *</label></div>
+							<input type="password" class="form-control" name="password" id="password" value=""/>
+
 						</div>
 						<div class="form-group">
-							<label class="control-label">Commune</label>
-							<input type="text" class="form-control" name="city" id="city" value="{{city}}"/>
-						</div>
-						
-						
+							<label class="control-label">Confirmation du mot de passe *</label>
+							<input type="password" class="form-control" name="passwordmirror" id="passwordmirror" value=""/>
+						</div>						
 						
 					</div>
 					<div class="col-md-4">
 					<div class="form-group">
-							<label class="control-label">Tél principal</label>
-							<input type="text" class="form-control" name="tel1" id="tel1" value="{{tel1}}"/>
+							<label class="control-label">Tél principal *</label>
+							<input type="text" class="form-control" name="tel1" id="tel1" value=""/>
 						</div>
 					<div class="form-group">
-							<label class="control-label">Tél secondaire</label>
-							<input type="text" class="form-control" name="tel2" id="tel2" value="{{tel2}}"/>
-						</div>
-						<div class="form-group">
 							<label class="control-label">Pays</label>
 							<select name="country" id="country" class="form-control">
 							{% for value in country %}
@@ -106,29 +90,13 @@
 								 
 								  
  
-						</div>
-						
+						</div>				
 						
 					</div>
 				</div>
-				<button type="submit" class="bttn"  id="btnUserRefresh">Envoyer →</button>
+				<button type="submit" class="bttn"  id="btnNewAccount">Envoyer →</button>
 			</form>
 		</div>
 	</div>
-</div>
-	{% elseif error == true %}
-		<p> {{message}}</p>
-	{% else %}
-	<div class="row">
-			<div class="col-md-4">
-			<p>Il faut se connecter pour avoir accès à cet espace</p>
-			</div>
-			<div class="col-md-4">
-			<div class="flex">
-						<a href="{{ root }}user/login" class="bttn" >Se connecter</a>
-					</div>
-			</div>
-		</div>	
-	{% endif %}
 </div>
 {% endblock %}

@@ -125,10 +125,19 @@ class UserController extends Controller
 			}
 			else if (password_verify($_POST["password"], $user->hash))
 			{
-				$this->update_session_params($user);
-				echo json_encode(array("result"=>'success', 
-				"message"=>"OK"));
-				die();
+				if($user->activate == true)
+				{
+					$this->update_session_params($user);
+					echo json_encode(array("result"=>'success', 
+					"message"=>"OK"));
+					die();
+				}
+				else
+				{
+					echo json_encode(array("result"=>'error', 
+					"errors"=>"Le mot de passe et le pseudo sont correct. Mais vous n'avez pas activer votre compte en cliquant sur le lien inclus dans le mail envoyé à l'adresse: ".$user->email));
+					die();
+				}
 			} 
 			else
 			{
@@ -243,7 +252,7 @@ class UserController extends Controller
 			$user = spot()->mapper('Model\User');
 			$user = $user->where([ "id"=> $user_id])->first();
 			$c = spot()->mapper('Model\Country');
-			$countries = $c->all();
+			$countries = $c->all()->order(["nom_fr_fr" => "ASC"]);
 			$country = null;
 			foreach($countries as $key => $value)
 			{
@@ -343,6 +352,18 @@ class UserController extends Controller
 		{
 			echo json_encode(array("result"=>'error', 
 				"errors"=>"Cette adresse e-mail n'est pas valide."));
+				die();
+		}
+		else if(empty($_POST["tel1"]))
+		{	
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Il manque le numéro de téléphone principal."));
+				die();
+		}
+		else if($this->utils->validate_phone_number($_POST["tel1"]) == false)
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Le format du numéro de téléphone est invalide."));
 				die();
 		}
 		else if(empty($_POST["userid"]))
@@ -493,19 +514,269 @@ class UserController extends Controller
 				{
 					echo json_encode(array("result"=>'success', "message"=> "votre mot de passe a été envoyé à l'adresse: ".$user->email));
 					die();
-				}
-				
-				
+				}				
 			}
 			else
 			{
-					echo json_encode(array("result"=>'error', 
+				echo json_encode(array("result"=>'error', 
 				"errors"=>"Cette adresse e-mail n'existe pas dans la base de données."));
 				die();
 			}
 			
 			
 		}
+	}
+	public function newaccount()
+	{
+		$c = spot()->mapper('Model\Country');
+			$countries = $c->all()->order(["nom_fr_fr" => "ASC"]);
+			$country = null;
+			foreach($countries as $key => $value)
+			{
+				$country[$value->id] = array(
+				"nom_fr_fr" => utf8_encode($value->nom_fr_fr),
+				"id" => $value->id,
+				"alpha2" => $value->alpha2,
+				);
+			}
+		$mapper = spot()->mapper('Model\Network');
+		$net = $mapper->all()->first();
+		$breadcrumb = $this->utils->build_breadcrumb(array("Mon espace"=> "user/account","Nouveau compte"=> "user/newaccount"),$net->home_url);
+		echo $this->twig->render($this->className.'/newaccount.php',
+					["title" => "Nouveau compte",
+					"breadcrumb" => $breadcrumb,
+					"root" => $this->root,	
+					"country" => $country,
+				]
+				);
+	}
+	public function savenewaccount()
+	{
+		if(empty($_POST["pseudo"]))
+		{	
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Il manque le pseudo."));
+				die();
+		}
+		else if(empty($_POST["username"]))
+		{	
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Il manque le nom."));
+				die();
+		}
+		else if(empty($_POST["firstname"]))
+		{	
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Il manque le prénom."));
+				die();
+		}
+		else if(empty($_POST["email"]))
+		{	
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Il manque l'adresse e-mail."));
+				die();
+		}
+		else if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL) === false) 
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Cette adresse e-mail n'est pas valide."));
+				die();
+		}
+		else if(empty($_POST["password"]))
+		{	
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Il manque le mot de passe."));
+				die();
+		}
+		else if(empty($_POST["passwordmirror"]))
+		{	
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Il manque la confirmation du mot de passe."));
+				die();
+		}
+		else if($_POST["password"] != ($_POST["passwordmirror"]))
+		{	
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"le mot de passe est différent de la confirmation du mot de passe."));
+				die();
+		}
+		else if(empty($_POST["tel1"]))
+		{	
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Il manque le numéro de téléphone principal."));
+				die();
+		}
+		else if($this->utils->validate_phone_number($_POST["tel1"]) == false)
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Le format du numéro de téléphone est invalide."));
+				die();
+		}
+		else		
+		{
+			$pseudo = filter_var($_POST["pseudo"], FILTER_SANITIZE_STRING);
+			$name = filter_var($_POST["username"], FILTER_SANITIZE_STRING);
+			$firstname = filter_var($_POST["firstname"], FILTER_SANITIZE_STRING);
+			$password = filter_var($_POST["password"], FILTER_SANITIZE_STRING);
+			$email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
+			$tel1 = filter_var($_POST["tel1"], FILTER_SANITIZE_STRING);
+			if(!empty($_POST["country"]))
+			{
+				$country = filter_var($_POST["country"], FILTER_SANITIZE_STRING);
+			}
+			else
+			{
+				$country = null;
+			}
+			if(!empty($_POST["gender"]))
+			{
+				$gender = filter_var($_POST["gender"], FILTER_SANITIZE_NUMBER_INT);
+			}
+			else
+			{
+				$gender = null;
+			}
+			   
+			$userMapper = spot()->mapper('Model\User');
+			$userMapper->migrate();		  
+			$user = $userMapper->where([ "email"=> $email])->first();
+			if($user)
+			{
+				echo json_encode(array("result"=>'error', 
+				"errors"=>"Cette adresse e-mail existe déjà dans la base de données, veuillez choisir une autre adresse."));
+				die();
+			}
+			$user = $userMapper->where([ "pseudo"=> $pseudo])->first();
+			if($user)
+			{
+				echo json_encode(array("result"=>'error', 
+				"errors"=>"Le pseudo: ". $pseudo." existe déjà dans la base de données, veuillez choisir un autre."));
+				die();
+			}
+			$user = $userMapper->where([ "name" => $name, "firstname"=> $firstname])->first();
+			if($user)
+			{
+				echo json_encode(array("result"=>'error', 
+				"errors"=> $name." ".$firstname." existe déjà dans la base de données, une personne ne peut avoir deux comptes."));
+				die();
+			}
+		    $token = $this->utils->generateRandomToken(15) ;
+			$hash = password_hash($password , PASSWORD_BCRYPT, array('cost' => 14));
+			$myNewUser = $userMapper->create([
+				'pseudo' => $pseudo,
+				'name'      => $name,
+				'firstname' => $firstname,
+				'email'     => $email,
+				'password'  => $password,
+				'hash' => $hash,
+				'admin' => false,
+				'gender' => $gender,
+				'tel1'=> $tel1,
+				'country' => $country,
+				
+			]);
+			
+			$user = $userMapper->where(["id" => $myNewUser->id])->first();
+			if( $user == false )
+			{
+				echo json_encode(array("result"=>'error', "errors"=>"la création du compte a échouée."));		
+				die();
+			}
+			else
+			{			
+				$user->token = $token.'-'.$user->id;
+				$userMapper->update($user);
+				$mapper = spot()->mapper('Model\Network');
+				$net = $mapper->all()->first();
+				$link = "<a href=".$net->home_url."/user/activatemail/token/".$user->token."> validation de mon e-mail</a>";
+				$mail = new PHPMailer;
+				$mail->isSMTP();
+				$mail->SMTPDebug = 0;
+				$mail->Host = $this->mailconfig["Host"];
+				$mail->Port = $this->mailconfig["Port"];
+				$mail->SMTPAuth = true;
+				$mail->SMTPSecure = true;
+				$mail->Username = $this->mailconfig["Username"];
+				$mail->Password = $this->mailconfig["Password"];
+				$mail->setFrom($this->mailconfig["Username"], "support");
+				$mail->CharSet = 'UTF-8';
+				$mail->addAddress($email, $name." ".$firstname);
+				
+				$mail->Subject = "Information";
+				$mail->isHTML(true); 
+				$message ="<p>Bienvenue,</p>";
+				$message .= "<p>La création de compte sur le site www.christianeladeon.com a bien été effectuée.</p>";
+				$message .= "<p>Pour vous connecter vous avez choisi pour identifiant: ".$pseudo."</p>"; 
+				$message .="<p>Et le mot de passe suivant: ".$password." </p>";
+				$message .="<p>Afin d'activer votre compte veuillez cliquer sur le lien suivant: ".$link." </p>";
+				$message .= "<p><Cdt,/p>";
+				$mail->Body = '<p>'.$message.'</p>';
+				$mail->AltBody = $message;
+				
+				if (!$mail->send()) 
+				{
+					echo json_encode(array("result"=>'error', "errors"=>$mail->ErrorInfo));		
+					die();					
+				}
+				else 
+				{
+					echo json_encode(array("result"=>'success', "message"=> "un mail de confirmation vous a été envoyé, à l'adresse suivant: ".$email));
+					die();					
+				}			
+			}
+		}
+	}
+	public function activatemail($param)
+	{
+		$mapper = spot()->mapper('Model\Network');
+		$net = $mapper->all()->first();
+		$breadcrumb = $this->utils->build_breadcrumb(array("Mon espace"=> "user/account","Activation compte"=> "user/activatemail"),$net->home_url);
+		$ret = false;
+		$message ="";
+		if(empty($param["token"]))
+		{
+			$ret = false;
+		}
+		else
+		{
+			$val = explode("-",filter_var($param["token"], FILTER_SANITIZE_STRING));
+			var_dump($val);
+			$user = false;
+			if(!empty($val[0]) && !empty($val[1]))
+			{
+				$userMapper = spot()->mapper('Model\User');
+				  
+				$user = $userMapper->where([ "token"=> $param["token"], "id"=> $val[1]])->first();
+			}
+			else
+			{
+				$message = "le code d'activation contenu dans le lien est invalide";
+			}
+			
+			
+			if($user != false)
+			{
+				$ret = true;
+				$user->activate = true;
+				$user->token = null;
+				$userMapper->update($user);
+				$message = "Bienvenue ".$user->name." ".$user->firstname.", votre compte est activé vous pouvez vous identifier avec le pseudo: <b>".$user->pseudo."</b> et le mot de passe que vous avez choisi.";
+				
+			}
+			else
+			{
+				$ret = false;
+				$message = "Le lien que vous avez utilisé pour activé le compte n'est plus valide";
+			}
+		}
+		echo $this->twig->render($this->className.'/activatemail.php',
+					["title" => "Validation e-mail",
+					"breadcrumb" => $breadcrumb,
+					"root" => $this->root,	
+					"activate"=> $ret,
+					"message" => $message,
+				]
+				);
 	}
 	
 }

@@ -19,6 +19,7 @@ class User extends \Spot\Entity
 		'role' => ['type' => 'integer', 'default' => null, 'value' => null],
         'admin'     => ['type' => 'boolean', 'default' => false, 'value' => false],
 		'activate' => ['type' => 'boolean', 'default' => false, 'value' => false],
+		'token' => ['type' => 'string'],
 		'address'  => ['type' => 'text'],
 		'zipcode'  => ['type' => 'string'],
 		'city'  => ['type' => 'string'],
