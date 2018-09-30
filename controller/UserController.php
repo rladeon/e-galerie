@@ -778,6 +778,97 @@ class UserController extends Controller
 				]
 				);
 	}
+	public function newpassword()
+	{
+		$mapper = spot()->mapper('Model\Network');
+		$net = $mapper->all()->first();
+		$breadcrumb = $this->utils->build_breadcrumb(array("Mon espace"=> "user/account","Changer de mot de passe"=> "user/newpassword"),$net->home_url);
+		$this->session->start();
+		$connected = false;
+		$error = false;
+		$message = "";
+		if($this->utils->isloggedin() == false)
+		{
+			$connected = false;
+		}
+		else
+		{	
+			$connected = true;	
+			if(empty($_SESSION["user"]["id"]))
+			{
+				$message = "l'id de l'utilisateur n'est pas renseigné.";
+				$error = true;
+			}
+			
+		}
+		echo $this->twig->render($this->className.'/newpassword.php',
+					["title" => "Changer de mot de passe",
+					"breadcrumb" => $breadcrumb,
+					"root" => $this->root,	
+					
+					"connected" => $connected,
+					"message", $message,
+					"error" => $error,
+				]
+				);
+	}
+	public function passwordupdate()
+	{
+		$this->session->start();
+		if($this->utils->isloggedin() == false)
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"La session a expirée."));
+				die();
+		}
+		else if(empty($_POST["password"]))
+		{	
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Il manque l'ancien mot de passe."));
+				die();
+		}
+		else if(empty($_POST["newpassword"]))
+		{	
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Il manque le nouveau mot de passe."));
+				die();
+		}
+		else
+		{
+			$userMapper = spot()->mapper('Model\User');
+			$userMapper->migrate();		  
+			$user = $userMapper->where([ "id"=> $_SESSION["user"]["id"]])->first();
+			if($user == false)
+			{
+				echo json_encode(array("result"=>'error', 
+				"errors"=>"L'id utilisateur n'existe pas dans la base de données."));
+				die();
+			}
+			else
+			{
+				$old = filter_var($_POST["password"], FILTER_SANITIZE_STRING);
+				$new = filter_var($_POST["newpassword"], FILTER_SANITIZE_STRING);
+				
+				if($old != $user->password)
+				{
+					echo json_encode(array("result"=>'error', 
+					"errors"=>"L'ancien mot de passe ne correspond pas au mot de passe que vous avez choisi précédement"));
+					die();
+				}
+				else
+				{
+					$user->password = $new;
+					$hash = password_hash($new , PASSWORD_BCRYPT, array('cost' => 14));
+					$user->hash = $hash;
+					$userMapper->update($user);
+					echo json_encode(array("result"=>'success', 
+				"message"=>"Votre mot de passe a bien été mis à jour."));
+				die();
+				}
+			}
+		}
+		
+	}
 	
 }
 ?>

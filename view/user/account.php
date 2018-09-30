@@ -40,6 +40,13 @@
 				
 				</div>
 			</div></a>
+			<a href="{{ root }}user/newpassword"><div class="col-md-3 accountcard">
+				<i class='fa fa-refresh' style="font-size: 100px" ></i>
+				<div class="accountcardcontainer">
+				<h4>Changer de mot de passe</h4> 
+				
+				</div>
+			</div></a>
 			
 		</div>	
 	{% endif %}
