@@ -19,10 +19,10 @@ a {
 }
 
 .s-layout__content {
-   /*display: flex;
+   display: flex;
    justify-content: center;
    align-items: center;
-   flex: 1;*/
+   flex: 1;
 }
 
 /* Sidebar */
@@ -149,4 +149,16 @@ a {
    .s-sidebar__nav ul {
       top: 1.3em;
    }
+}
+/****************/
+.loader {
+
+position : fixed;
+z-index: 9999;
+background : url('../images/ajax-loader.gif') 50% 50% no-repeat;
+top : 0px;
+left : 0px;
+height : 100%;
+width : 100%;
+cursor : wait;
 }

@@ -69,7 +69,7 @@
 		<!-- FOOTER -->
       <footer class="sticky-footer">
         <div class="container">
-			<p>&copy; 2018 Christiane Ladéon &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+			<p>&copy; 2018 Christiane Ladéon &middot; <a href="{{root}}content/cgu">CGU</a> &middot; <a href="{{root}}content/legitmention">mentions légales</a></p>
 		</div>
       </footer> 
 	  <script>

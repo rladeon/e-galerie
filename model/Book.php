@@ -11,9 +11,9 @@ class Book extends \Spot\Entity
       return [
         'id'        => ['type' => 'integer', 'primary' => true, 'autoincrement' => true],
         'author'      => ['type' => 'string', 'required' => true, ],
-		'title'      => ['type' => 'string', 'required' => true],
+		'title'      => ['type' => 'string', 'required' => true, 'unique' => true],
 		'pages_number'      => ['type' => 'integer', 'required' => true],
-        'collection'     => ['type' => 'string', 'required' => true, 'unique' => true],
+        'collection'     => ['type' => 'string', 'required' => true],
         'format'  => ['type' => 'string', 'required' => true],
 		'slug'  => ['type' => 'string', 'required' => true],
 		'description'  => ['type' => 'text', 'required' => true],

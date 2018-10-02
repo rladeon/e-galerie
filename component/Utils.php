@@ -38,6 +38,22 @@ class Utils
 		$_SESSION['expires_on']=time()+INACTIVITY_TIMEOUT;  // User accessed a page : Update his/her session expiration date.
 		return true;
 	}
+	public function isadmin()
+	{
+		
+		// If session does not exist on server side, or IP address has changed, or session has expired, show login screen.
+		if (!isset ($_SESSION['uid']) || !$_SESSION['uid'] || $_SESSION['ip']!= $this->allIPs() || time()>=$_SESSION['expires_on'] || empty($_SESSION["user"]["is_admin"]) || $_SESSION["user"]["is_admin"] != true)
+		{
+			if (session_status() != PHP_SESSION_NONE) 
+			{
+				session_unset();
+			}
+			
+			return false;
+		}
+		$_SESSION['expires_on']=time()+INACTIVITY_TIMEOUT;  // User accessed a page : Update his/her session expiration date.
+		return true;
+	}
 	public function build_breadcrumb($array, $domain)
    {
       $breadcrumbs = array_merge(array('Accueil' => ''), $array);

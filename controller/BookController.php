@@ -10,6 +10,7 @@ class BookController extends Controller
 		$mapper = spot()->mapper('Model\Network');
 		$net = $mapper->all()->first();
 		$breadcrumb = $this->utils->build_breadcrumb(array("Livre"=> "book/show/page/".$slug['page'] ),$net->home_url);
+		$url = $net->home_url."/book/show/page/".$slug['page'];
 		$mapper = spot()->mapper('Model\Book');
 		$book = $mapper->where(['slug' => $slug['page'] ])->first();
 		if($book != false)
@@ -26,6 +27,7 @@ class BookController extends Controller
 				  "format" => $book->format,
     			  "slug" => $book->slug,
 				  "description"=> $book->description,
+				  
 				),
 			);
 		}
@@ -58,6 +60,7 @@ class BookController extends Controller
 					  "root" => $this->root,
 					  "book" => $value,
 					  "media"=> $list_media,
+					  "url" => $url,
 					  
 					]);
 					break;
@@ -78,41 +81,66 @@ class BookController extends Controller
     }
 	public function create()
 	{
-		$book = spot()->mapper('Model\Book');
-		$book->migrate();	  
-		$date = \DateTime::createFromFormat('d/m/Y', '13/10/2017');
-				
-		$myNewBook = $book->create([
+		if($this->utils->isadmin())
+		{
+			$author = $_POST["author"];
+			$title = $_POST["title"];
+			$collection = $_POST["collection"];
+			$pages_number = $_POST["pages_number"];
+			$format = $_POST["format"];
+			$slug = $this->seo->slugify($title);
+			$date_publish = $_POST["date_publish"];
+			$price = $_POST["price"];
+			$weight = $_POST["weight"];
+			$format = $_POST["format"];
+			$description = $_POST["description"];
+			
+			$book = spot()->mapper('Model\Book');
+			$book->migrate();	  
+			$date = \DateTime::createFromFormat('d/m/Y', $date_publish);
+					
+			$myNewBook = $book->insert([
 
-	    'author' => 'Christiane Ladéon',
-		"title" => "L'endométriose: De l'ombre à la lumière",
-		"collection"=> "Edilivre",
-		"date_publish" => $date,
-		"pages_number"=> 94,
-		"format" => "13x20",
-    	"slug" => "christiane-ladeon-l-endometriose-de-l-ombre-a-la-lumiere",
-		"description"=> "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-		Nullam faucibus luctus ligula, vitae lacinia eros faucibus ut. 
-		Vestibulum eget iaculis ligula. Integer posuere sed nulla nec elementum.
-		Nulla convallis nisl id sagittis convallis. Interdum et malesuada 
-		fames ac ante ipsum primis in faucibus. Etiam id ex et turpis sollicitudin
-		fermentum vitae sit amet urna. Vestibulum faucibus libero non eleifend eleifend.
-		Mauris a lectus ac justo dictum porttitor ac id nisi. Donec dapibus dapibus velit,
-		eget convallis lorem tempor nec. Fusce malesuada justo ac nibh facilisis imperdiet.
-		Vestibulum lectus diam, mollis eget rutrum vitae, aliquet a lorem. Etiam dignissim 
-		sem non orci ultricies hendrerit. Nam a augue sed tortor tempor interdum.
-		Etiam eget arcu pretium, molestie massa et, posuere justo.",
-		
-        
-      ]);
-      echo "A new book has been created: " . $myNewBook->title;
+			'author' => $author,
+			"title" => $title,
+			"collection"=> $collection,
+			"date_publish" => $date,
+			"pages_number"=> $pages_number,
+			"format" => $format,
+			"slug" => $slug,
+			"description"=> $description,
+			"price" => $price,
+			"weight" => $weight,		
+			
+		  ]);
+			 if($myNewBook == false)
+			 {
+				 echo json_encode(array("result"=>'error', 
+				"errors"=>"Le livre n'a pas été enregistré."));
+				die();
+			 }
+			 else
+			 {
+				echo json_encode(array("result"=>'success', 
+					"message"=>"A new book has been created"));
+					die();
+			 }
+		}
+		else
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Vous n'êtes pas connecté."));
+				die();
+		}
 	}
+	
 	public function read($id)
 	{
 		
 	}
 	public function update($id)
 	{
+		
 		
 	}
 	public function delete($id)

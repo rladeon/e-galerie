@@ -49,8 +49,10 @@
 			<ul class="list-inline social-buttons">
                             <li><a href="#"><i class="fa fa-twitter"></i></a>
                             </li>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a>
-                            </li>
+                            
+							<li>
+							<a href="https://www.facebook.com/sharer/sharer.php?app_id=252829212033203&sdk=joey&u={{url}}&display=popup&ref=plugin&src=share_button" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')"><i class="fa fa-facebook"></i></a>
+							</li>
                         </ul>
 		</div>
 		

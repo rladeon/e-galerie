@@ -32,15 +32,17 @@
 				  <tr>
 				  <th>titre</th><th>date début</th><th>date fin</th><th>Actions</th>
 				  </tr>
+				  {% for value in reservation %}
 					<tr>
-					{% for value in reservation %}
+					
 					<td>{{value.title}} </td>
 					<td>{{value.start}} </td>
 					<td>{{value.end}} </td>
 					
 					<td><a href="#" data-id="{{value.id_reservation}}" class="btn btn-danger cancelreservation">Annuler</a></td>
-						{% endfor %}
+						
 					</tr>
+					{% endfor %}
 				</table>
 			{% else %}	
 				<p>Vous n'avez pas encore effectuer de réservation.</p>

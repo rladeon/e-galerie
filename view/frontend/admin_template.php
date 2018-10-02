@@ -9,8 +9,14 @@
     <!-- styles -->
     
 	<link href="{{ root }}public/css/admin.css" rel="stylesheet">
-
-    
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script>window.jQuery || document.write('<script src="./js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{{ root }}public/js/admin.js"></script>
+    <script src="//cdn.ckeditor.com/4.10.1/standard/ckeditor.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.fr.min.js"></script>
   </head>
   <body>
   <div> <!-- Brand and toggle get grouped for better mobile display -->
@@ -71,8 +77,9 @@
 </div>
 
 <!-- Content -->
+<div class="container">
 <main class="s-layout__content">
-  <h1>Full View, Please!</h1>
+  
   {% block content %}{% endblock %}
 </main>
 </div>
@@ -88,11 +95,5 @@
             
          </div>
       </footer>
-	
-
-    		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script>window.jQuery || document.write('<script src="./js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="{{ root }}public/js/admin.js"></script>
-  </body>
+	</body>
 </html>

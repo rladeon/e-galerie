@@ -1,55 +1,96 @@
-$(function()
-{
-    function after_login_submitted(data) 
+$(function(){
+	function after_updatebook(data) 
     {
-		if(data.result == 'error')
+		$(".loader").css("display", "none");
+		$("body").css("background-color", "white");
+		$('#btnUpdateBook').show();
+		 if(data.result == 'error')
         {               
-            $('.alert-danger').html(data.errors);
-            
+            $('.alert-danger').html(data.errors);            
             $('.alert-success').hide();
-            $('.alert-danger').show();
-              
+            $('.alert-danger').show();              
         }
 		else
 		{
-			window.location.replace("/e-galerie/admin/index");
+			$('.alert-success').html(data.message);            
+            $('.alert-success').show();
+            $('.alert-danger').hide();
 		}
     }
 
-	$('#login_form ').on('submit', function(e)
+	$('#updatebook_form').on('submit', function(e)
       {
-		  e.preventDefault();
+		e.preventDefault();
 		$('.alert-success').hide();
         $('.alert-danger').hide();
-		var u = $('#username').val();
-		var p = $('#password').val();
-		if(u == "")
-		{
-			$('.alert-danger').html("Il manque l'identifiant");
-            
-            $('.alert-success').hide();
-            $('.alert-danger').show();
-		}
-		else if(p== "")
-		{
-			$('.alert-danger').html("Il manque le mot de passe");
-            
-            $('.alert-success').hide();
-            $('.alert-danger').show();
-		}
-		else
-		{
+		$('#btnUpdateBook').hide();
 		
+			$(".loader").show();
+			
+			$("body").css("background-color", "#f2ebea");
 			$form = $(this);
-        
+			var id = $("#btnUpdateBook").data("id");
             $.ajax({
                 type: "POST",
-                url: '/e-galerie/user/verify/access/admin',
+                url: '/e-galerie/book/update/id/'+id,
                 data: $form.serialize(),
-                success: after_login_submitted,
+                success: after_updatebook,
                 dataType: 'json' 
             }); 
-		}			
-        
-      });	
+			
+	
+	});
+});
+$(function(){
+	function after_createbook(data) 
+    {
+		$(".loader").css("display", "none");
+		$("body").css("background-color", "white");
+		$('#btnCreateBook').show();
+		 if(data.result == 'error')
+        {               
+            $('.alert-danger').html(data.errors);            
+            $('.alert-success').hide();
+            $('.alert-danger').show();              
+        }
+		else
+		{
+			$('.alert-success').html(data.message);            
+            $('.alert-success').show();
+            $('.alert-danger').hide();
+		}
+    }
+
+	$('#createbook_form').on('submit', function(e)
+      {
+		e.preventDefault();
+		$('.alert-success').hide();
+        $('.alert-danger').hide();
+		$('#btnCreateBook').hide();
+		
+			$(".loader").show();
+			 var data = CKEDITOR.instances.description.getData();
+			$("body").css("background-color", "#f2ebea");
+			$form = $(this);
+			var update_data = $form.serializeArray();
+			
+			update_data.forEach(function (item) 
+			{
+				alert(item.name);
+				if (item.name === 'description') 
+				{
+					item.value = data;
+				}
+			});
+
+            $.ajax({
+                type: "POST",
+                url: '/e-galerie/book/create',
+                data: $.param(update_data),
+                success: after_createbook,
+                dataType: 'json' 
+            }); 
+			
+	
+	});
 });

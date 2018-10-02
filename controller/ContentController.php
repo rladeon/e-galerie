@@ -29,5 +29,37 @@ Aliquam eget ipsum eu quam porttitor posuere eu et neque. Nulla quis aliquet orc
       ]);
       echo "A new content has been created: " . $myNewUser->title;
 	}
+	public function cgu()
+	{
+		$mapper = spot()->mapper('Model\Network');
+		$net = $mapper->all()->first();
+		$breadcrumb = $this->utils->build_breadcrumb(array("CGU"=> "content/cgu"),$net->home_url);
+		$content = "";
+		echo $this->twig->render($this->className.'/cgu.php',
+			["title" => "CGU",
+			"breadcrumb" => $breadcrumb,
+			"root" => $this->root,
+			"content" => $content,
+			
+			
+			]
+		);
+	}
+	public function legitmention()
+	{
+		$mapper = spot()->mapper('Model\Network');
+		$net = $mapper->all()->first();
+		$breadcrumb = $this->utils->build_breadcrumb(array("mentions légales"=> "content/legitmention"),$net->home_url);
+		$content = "";
+		echo $this->twig->render($this->className.'/legitmention.php',
+			["title" => "CGU",
+			"breadcrumb" => $breadcrumb,
+			"root" => $this->root,
+			"content" => $content,
+			
+			
+			]
+		);
+	}
 }
 ?>
