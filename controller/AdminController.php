@@ -94,7 +94,8 @@ class AdminController extends Controller
 					  "format" => $book->format,
 					  "slug" => $book->slug,
 					  "description"=> $book->description,
-					  
+					  "price" => $book->price,
+					  "weight" => $book->weight,
 					
 				);
 			echo $this->twig->render($this->className.'/updatebook.php',

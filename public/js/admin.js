@@ -29,11 +29,21 @@ $(function(){
 			
 			$("body").css("background-color", "#f2ebea");
 			$form = $(this);
+			var update_data = $form.serializeArray();
+			 var data = CKEDITOR.instances.description.getData();
+
+			update_data.forEach(function (item) 
+			{
+				if (item.name === 'description') 
+				{
+					item.value = data;
+				}
+			});
 			var id = $("#btnUpdateBook").data("id");
             $.ajax({
                 type: "POST",
                 url: '/e-galerie/book/update/id/'+id,
-                data: $form.serialize(),
+                data: $.param(update_data),
                 success: after_updatebook,
                 dataType: 'json' 
             }); 
@@ -76,7 +86,6 @@ $(function(){
 			
 			update_data.forEach(function (item) 
 			{
-				alert(item.name);
 				if (item.name === 'description') 
 				{
 					item.value = data;

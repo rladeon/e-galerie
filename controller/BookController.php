@@ -138,18 +138,74 @@ class BookController extends Controller
 	{
 		
 	}
-	public function update($id)
+	public function update($param)
 	{
-		
+		if($this->utils->isadmin())
+		{
+			$author = $_POST["author"];
+			$title = $_POST["title"];
+			$collection = $_POST["collection"];
+			$pages_number = $_POST["pages_number"];
+			$format = $_POST["format"];
+			$slug = $this->seo->slugify($title);
+			$date_publish = $_POST["date_publish"];
+			$price = $_POST["price"];
+			$weight = $_POST["weight"];
+			
+			$description = $_POST["description"];
+			
+			$book = spot()->mapper('Model\Book');
+			$book->migrate();	  
+			$date = \DateTime::createFromFormat('d/m/Y', $date_publish);
+			$b = $book->where(["id"=>$param["id"]])->first();		
+			if($b == false)
+			{
+				 echo json_encode(array("result"=>'error', 
+				"errors"=>"L'id de ce livre n'existe pas dans la base données."));
+				die();
+			}
+			else
+			{
+				
+				$b->author = $author;
+				$b->title = $title;
+				$b->collection = $collection;
+				$b->date_publish = $date;
+				$b->pages_number = $pages_number;
+				$b->format = $format;
+				$b->slug = $slug;
+				$b->description = $description;
+				$b->price = number_format($price, 2, '.', '');
+				$b->weight = number_format($weight, 2, '.', '');
+				$myNewBook = $book->update($b);
+				
+			}			
+		 
+			 if($myNewBook == false)
+			 {
+				 echo json_encode(array("result"=>'error', 
+				"errors"=>"Le livre n'a pas été mis à jour."));
+				die();
+			 }
+			 else
+			 {
+				echo json_encode(array("result"=>'success', 
+					"message"=>"Le livre a été mis à jour."));
+					die();
+			 }
+		}
+		else
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Vous n'êtes pas connecté."));
+				die();
+		}
 		
 	}
 	public function delete($id)
 	{
 		
 	}
-	public function booklist()
-	{
-		
-	}
+	
 }
 ?>

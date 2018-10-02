@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
 <a href="{{root}}admin/booklist"  class="btn btn-primary">Liste des livres</a>
-<p>Ajouter un livre</p>
+<p>Editer un livre</p>
 <div class="alert alert-success alert-dismissible" style="display: none" role="alert">
 	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 </div>
@@ -34,7 +34,15 @@
 			<label class="control-label">format</label>
 			<input type="text" class="form-control" name="format" id="format" value="{{book.format}}"/>
 		</div>
-		
+		<div class="form-group row">
+ <div class="col-xs-8">
+ <label class="control-label">Date de publication*</label>
+ <div class="input-group date" id="dp3" data-date-format="dd/mm/yyyy" data-date="{{book.date}}">
+ <input class="form-control" type="text" readonly="" id="date_publish" name="date_publish" value="{{book.date}}">
+ <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+ </div>
+ </div>
+ </div>
 		<div class="form-group">
 			<label class="control-label">description</label>
 			<textarea class="form-control" name="description" id="description" >
@@ -53,6 +61,13 @@
 	</form>
 	<script>
           CKEDITOR.replace( 'description' );
+		  $(function(){
+			$(".input-group.date").datepicker(
+			{language: 'fr',
+			todayHighlight: true,
+			 
+			});
+		  });
     </script>
 </div>
 {% endblock %}
