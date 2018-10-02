@@ -103,3 +103,43 @@ $(function(){
 	
 	});
 });
+$(function(){
+	function after_deletebook(data) 
+    {
+		$(".loader").css("display", "none");
+		$("body").css("background-color", "white");
+		
+		 if(data.result == 'error')
+        {               
+            $('.alert-danger').html(data.errors);            
+            $('.alert-success').hide();
+            $('.alert-danger').show();              
+        }
+		else
+		{
+			window.location.replace("/e-galerie/admin/booklist");
+		}
+    }
+
+	$('.deletebook').on('click', function(e)
+      {
+		e.preventDefault();
+		$('.alert-success').hide();
+        $('.alert-danger').hide();
+		
+			$(".loader").show();
+			
+			$("body").css("background-color", "#f2ebea");
+			
+			var id = $(this).data("id");
+            $.ajax({
+                type: "POST",
+                url: '/e-galerie/book/delete/id/'+id,
+                
+                success: after_deletebook,
+                dataType: 'json' 
+            }); 
+			
+	
+	});
+});

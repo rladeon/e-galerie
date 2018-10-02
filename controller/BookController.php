@@ -202,9 +202,42 @@ class BookController extends Controller
 		}
 		
 	}
-	public function delete($id)
+	public function delete($param)
 	{
-		
+		if($this->utils->isadmin())
+		{
+			$book = spot()->mapper('Model\Book');
+
+			$b = $book->where(["id"=>$param["id"]])->first();		
+			if($b == false)
+			{
+				 echo json_encode(array("result"=>'error', 
+				"errors"=>"L'id de ce livre n'existe pas dans la base données."));
+				die();
+			}
+			else
+			{
+				$myNewBook = $book->delete(["id"=>$param["id"]]);
+				if($myNewBook == false)
+				 {
+					 echo json_encode(array("result"=>'error', 
+					"errors"=>"Le livre n'a pas été supprimé."));
+					die();
+				 }
+				 else
+				 {
+					echo json_encode(array("result"=>'success', 
+						"message"=>"Le livre a été supprimé."));
+						die();
+				 }
+			}	
+		}
+		else
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Vous n'êtes pas connecté."));
+				die();			
+		}
 	}
 	
 }
