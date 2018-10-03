@@ -343,3 +343,55 @@ $(function(){
 	
 	});
 });
+$(function(){
+	function after_createxposure(data) 
+    {
+		$(".loader").css("display", "none");
+		$("body").css("background-color", "white");
+		$('#btnCreateXposure').show();
+		 if(data.result == 'error')
+        {               
+            $('.alert-danger').html(data.errors);            
+            $('.alert-success').hide();
+            $('.alert-danger').show();              
+        }
+		else
+		{
+			$('.alert-success').html(data.message);            
+            $('.alert-success').show();
+            $('.alert-danger').hide();
+		}
+    }
+
+	$('#createxposure_form').on('submit', function(e)
+      {
+		e.preventDefault();
+		$('.alert-success').hide();
+        $('.alert-danger').hide();
+		$('#btnCreateXposure').hide();
+		
+			$(".loader").show();
+			 var data = CKEDITOR.instances.description.getData();
+			$("body").css("background-color", "#f2ebea");
+			$form = $(this);
+			var update_data = $form.serializeArray();
+			
+			update_data.forEach(function (item) 
+			{
+				if (item.name === 'description') 
+				{
+					item.value = data;
+				}
+			});
+
+            $.ajax({
+                type: "POST",
+                url: '/e-galerie/exposure/create',
+                data: $.param(update_data),
+                success: after_createxposure,
+                dataType: 'json' 
+            }); 
+			
+	
+	});
+});

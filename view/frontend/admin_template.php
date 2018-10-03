@@ -44,6 +44,11 @@
              <i class="fa fa-file-text"></i><em>Contenu</em>
            </a>
         </li>
+		<li>
+           <a class="s-sidebar__nav-link" href="{{root}}admin/exposurelist">
+             <i class="fa fa-image"></i><em>Exposition</em>
+           </a>
+        </li>
         <li>
            <a class="s-sidebar__nav-link" href="{{root}}user/logout">
               <i class="fa fa-power-off"></i><em>Se déconnecter</em>

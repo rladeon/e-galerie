@@ -64,25 +64,82 @@ class ExposureController extends Controller
 	}
 	public function create()
 	{
-		$userMapper = spot()->mapper('Model\Exposure');
-		$userMapper->migrate();	  
-	 
-		$myNewExpo = $userMapper->create([
-		'title'      => "St Martin expo",
-		'slug'      => $this->seo->slugify("St Martin expo"),
-		'category'      => null,
-		'date_start'     => \DateTime::createFromFormat('d/m/Y', '06/10/2018'),
-		'date_end'     => \DateTime::createFromFormat('d/m/Y', '06/10/2018'),
-        'published'     => true,
-        'description'  => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac erat porttitor, vehicula velit sit amet, scelerisque nisl.",
-		'resume'  => "Lorem ipsum dolor sit amet",
-		'hours' => "14h-17h",
-        'nb_place'     => 8,
-		'booked' =>2,
-		'notfullback' => true,
-		'timestamp' => time(),
-		]);
-      echo "A new exposure has been created: " . $myNewExpo->title;
+		if($this->utils->isadmin())
+		{
+			$userMapper = spot()->mapper('Model\Exposure');
+			$userMapper->migrate();	  
+			if(empty($_POST["date_start"]))
+			{
+				$date_start = null;
+			}
+			else
+			{
+				$date_start = \DateTime::createFromFormat('d/m/Y', $_POST["date_start"]);
+			}
+			if(empty($_POST["date_end"]))
+			{
+				$date_end = null;
+			}
+			else
+			{
+				$date_end = \DateTime::createFromFormat('d/m/Y', $_POST["date_end"]);
+			}
+			$title = $_POST["title"];
+			$hours = $_POST["hours"];
+			$category = empty($_POST["category"])?null:$_POST["category"];
+			$resume = empty($_POST["resume"])?null:$_POST["resume"];
+			$address = empty($_POST["address"])?null:$_POST["address"];
+			$zipcode = empty($_POST["zipcode"])?null:$_POST["zipcode"];
+			$city = empty($_POST["city"])?null:$_POST["city"];
+			$country = empty($_POST["country"])?null:$_POST["country"];
+			$published = empty($_POST["published"])?false:$_POST["published"];
+			$tel1 = empty($_POST["tel1"])?null:$_POST["tel1"];
+			$nb_place = empty($_POST["nb_place"])?0:$_POST["nb_place"];
+
+
+			$description = $_POST["description"];
+			
+			$myNewExpo = $userMapper->insert([
+			'title'      => $title,
+			'slug'      => $this->seo->slugify($title),
+			'category'      => $category,
+			'date_start'     => $date_start,
+			'date_end'     => $date_end,
+			'published'     => false,
+			'description'  => $description,
+			'resume'  => $resume,
+			'hours' => $hours,
+			'nb_place'     => $nb_place,
+			'booked' => 0,
+			'notfullback' => true,
+			'timestamp' => time(),
+			"tel1" => $tel1,
+			"address" => $address,
+			"zipcode" => $zipcode,
+			"city" => $city,
+			"country" => $country,
+			
+			]);
+		 
+		  if($myNewExpo == false)
+			{
+				echo json_encode(array("result"=>'error', 
+				"errors"=>"L'exposition n'a pas été ajouté."));
+				die();
+			}
+			else
+			{
+				echo json_encode(array("result"=>'success', 
+					"message"=>"L'exposition a été ajouté."));
+					die();
+			}
+		}
+		else
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Vous n'êtes pas connecté."));
+				die();
+		}
 	}
 	public function availability($nb_place, $booked)
 	{
