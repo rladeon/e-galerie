@@ -19,35 +19,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.fr.min.js"></script>
   </head>
   <body>
-  <div> <!-- Brand and toggle get grouped for better mobile display -->
-  	<!--<nav class="navbar navbar-default">
-  <div class="container-fluid">
-   
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Brand</a>
-    </div>
-
-    
-      
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="{{root}}">Allez sur le fontend</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Connection <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="{{root}}user/logout">Se deconnecter</a></li>
-            
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>-->
+  <div> 
 <div class="s-layout">
 <!-- Sidebar -->
 <div class="s-layout__sidebar">
@@ -65,6 +37,11 @@
         <li>
            <a class="s-sidebar__nav-link" href="{{root}}admin/booklist">
              <i class="fa fa-book"></i><em>Livres</em>
+           </a>
+        </li>
+		<li>
+           <a class="s-sidebar__nav-link" href="{{root}}admin/contentlist">
+             <i class="fa fa-file-text"></i><em>Contenu</em>
            </a>
         </li>
         <li>

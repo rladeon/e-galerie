@@ -136,7 +136,107 @@ class AdminController extends Controller
 					]);
 		}
 	}
-	
-	
+	public function contentlist()
+	{
+		if($this->utils->isadmin())
+		{
+			$mapper = spot()->mapper('Model\Content');
+			$books = $mapper->all();
+			$list= null;
+			foreach( $books as $key=>$book)
+			{
+				$list[$book->id] = array(
+					
+					   "id" => $book->id,
+					  "category"=> $book->category,
+					  "title" => $book->title,
+					  "author"=> $book->author,
+					  "date" => empty($book->date_publish)?null:$book->date_publish->format('d/m/Y'),
+					  "published"=> $book->published,
+					  "description" => $book->description,
+					  "resume" => $book->resume,
+					  "description"=> $book->description,
+					  //"timestamp" => time(),
+					  
+					
+				);
+			}
+			
+		    echo $this->twig->render($this->className.'/contentlist.php',
+					[
+					  "title" => "Admin",
+					
+					  "root" => $this->root,
+					  "books" => $list,					  
+					]);
+		}
+		else
+		{
+			echo $this->twig->render($this->className.'/login.php',
+					[
+					  "title" => "Admin",					  
+					  "root" => $this->root,					  
+					]);
+		}
+	}
+	public function createcontent()
+	{
+		if($this->utils->isadmin())
+		{
+			echo $this->twig->render($this->className.'/createcontent.php',
+					[
+					  "title" => "Admin",
+					  "breadcrumb" => "",
+					  "root" => $this->root,
+					 					  
+					]);
+		}
+		else
+		{
+			echo $this->twig->render($this->className.'/login.php',
+					[
+					  "title" => "Admin",					  
+					  "root" => $this->root,					  
+					]);
+		}
+	}
+	public function updatecontent($param)
+	{
+		if($this->utils->isadmin())
+		{
+			$mapper = spot()->mapper('Model\Content');
+			$book = $mapper->where(["id"=>$param["id"]])->first();
+			$list = array(
+					
+					   "id" => $book->id,
+					  "category"=> $book->category,
+					  "title" => $book->title,
+					  "author"=> $book->author,
+					  "date" => empty($book->date_publish)?null:$book->date_publish->format('d/m/Y'),
+					  "published"=> $book->published,
+					  "description" => $book->description,
+					  "resume" => $book->resume,
+					  //"timestamp" => time(),
+					  
+					
+				);
+			
+			echo $this->twig->render($this->className.'/updatecontent.php',
+					[
+					  "title" => "Admin",					  
+					  "root" => $this->root,			
+						"book" => $list,
+					]);
+			
+		}
+		else
+		{
+			echo $this->twig->render($this->className.'/login.php',
+					[
+					  "title" => "Admin",					  
+					  "root" => $this->root,					  
+					]);
+		}
+	}
 }
 ?>

@@ -8,26 +8,149 @@ class ContentController extends Controller
 {
     public function create()
     {
-		$userMapper = spot()->mapper('Model\Content');
-		$userMapper->migrate();
-	    $date = \DateTime::createFromFormat('d/m/Y', '19/05/2017');
-		$title = "catalogue n°1 du concours devenez l'artiste de l'année 2017";
-		$myNewUser = $userMapper->create([
-			
-        'title'      => $title,
-		'slug'      => $this->seo->slugify($title),
-		'category'      => "press",
-		"date_publish" => $date,
-        'published'     => true,
-        'description'  => "Suspendisse lacinia erat risus, ut laoreet nulla commodo vel. Praesent maximus viverra aliquam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer quis augue pretium, ultricies lorem non, interdum quam. Curabitur feugiat non arcu nec pretium. Pellentesque mattis urna pulvinar maximus ultrices. Curabitur interdum, ligula non hendrerit porttitor, metus ligula egestas ipsum, quis pharetra magna enim a metus. Proin eu suscipit turpis, et suscipit nibh. Vestibulum id accumsan magna. Aliquam ante elit, bibendum quis maximus eu, ullamcorper ut nisi. Praesent sagittis tristique ultricies.
+		if($this->utils->isadmin())
+		{
+			$userMapper = spot()->mapper('Model\Content');
+			$userMapper->migrate();
+			if(empty($_POST["date_publish"]))
+			{
+				$date = null;
+			}
+			else
+			{
+				$date = \DateTime::createFromFormat('d/m/Y', $_POST["date_publish"]);
+			}
+			$title = $_POST["title"];
+			$category = empty($_POST["category"])?null:$_POST["category"];
+			$resume = empty($_POST["resume"])?null:$_POST["resume"];
 
-Aliquam eget ipsum eu quam porttitor posuere eu et neque. Nulla quis aliquet orci. Pellentesque suscipit risus a nibh consectetur condimentum. Suspendisse in volutpat neque, at ullamcorper enim. Curabitur vitae sapien fringilla, vehicula dui sed, lobortis felis. Suspendisse eleifend augue eros, sit amet mattis nibh posuere quis. Nulla tempor justo est. Mauris quis pellentesque risus. Sed dignissim dignissim lectus ac dignissim. Quisque eu diam viverra, congue magna id, accumsan mi..",
-		'resume'  => null,
-		'view' => 0,
-        'author'     => "",
-		'timestamp' => time(),
-      ]);
-      echo "A new content has been created: " . $myNewUser->title;
+			$published = empty($_POST["published"])?false:$_POST["published"];
+			$description = $_POST["description"];
+			$author = empty($_POST["author"])?null:$_POST["author"];
+
+			$myNewUser = $userMapper->insert([
+				
+			'title'      => $title,
+			'slug'      => $this->seo->slugify($title),
+			'category'      => $category,
+			"date_publish" => $date,
+			'published'     => $published,
+			'description'  => $description,
+			'resume'  => $resume,
+			'author'     => $author,
+			'timestamp' => time(),
+		  ]);
+			if($myNewUser == false)
+			{
+				echo json_encode(array("result"=>'error', 
+				"errors"=>"Le contenu n'a pas été ajouté."));
+				die();
+			}
+			else
+			{
+				echo json_encode(array("result"=>'success', 
+					"message"=>"Le contenu a été ajouté."));
+					die();
+			}
+		}
+		else
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Vous n'êtes pas connecté."));
+				die();
+		}
+	}
+	public function update($param)
+	{
+		if($this->utils->isadmin())
+		{
+			$userMapper = spot()->mapper('Model\Content');
+			$userMapper->migrate();
+			if(empty($_POST["date_publish"]))
+			{
+				$date = null;
+			}
+			else
+			{
+				$date = \DateTime::createFromFormat('d/m/Y', $_POST["date_publish"]);
+			}
+			$title = $_POST["title"];
+			$category = empty($_POST["category"])?null:$_POST["category"];
+			$resume = empty($_POST["resume"])?null:$_POST["resume"];
+
+			$published = empty($_POST["published"])?false:$_POST["published"];
+			$description = $_POST["description"];
+			$author = empty($_POST["author"])?null:$_POST["author"];
+
+			$content = $userMapper->where(["id" => $param["id"]])->first();
+				
+			$content->title = $title;
+			$content->slug = $this->seo->slugify($title);
+			$content->category = $category;
+			$content->date_publish = $date;
+			$content->published = $published;
+			$content->description = $description;
+			$content->resume = $resume;
+			$content->author = $author;
+			$content->timestamp = time();
+		 
+		  $myNewUser = $userMapper->update($content);
+			if($myNewUser == false)
+			{
+				echo json_encode(array("result"=>'error', 
+				"errors"=>"Le contenu n'a pas été mis à jour."));
+				die();
+			}
+			else
+			{
+				echo json_encode(array("result"=>'success', 
+					"message"=>"Le contenu a été mis à jour."));
+					die();
+			}
+		}
+		else
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Vous n'êtes pas connecté."));
+				die();
+		}
+	}
+	public function delete($param)
+	{
+		if($this->utils->isadmin())
+		{
+			$book = spot()->mapper('Model\Content');
+
+			$b = $book->where(["id"=>$param["id"]])->first();		
+			if($b == false)
+			{
+				 echo json_encode(array("result"=>'error', 
+				"errors"=>"L'id de ce contenu n'existe pas dans la base données."));
+				die();
+			}
+			else
+			{
+				$myNewBook = $book->delete(["id"=>$param["id"]]);
+				if($myNewBook == false)
+				 {
+					 echo json_encode(array("result"=>'error', 
+					"errors"=>"Le contenu n'a pas été supprimé."));
+					die();
+				 }
+				 else
+				 {
+					echo json_encode(array("result"=>'success', 
+						"message"=>"Le contenu a été supprimé."));
+						die();
+				 }
+			}	
+		}
+		else
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Vous n'êtes pas connecté."));
+				die();			
+		}
 	}
 	public function cgu()
 	{

@@ -43,7 +43,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<div><label class="control-label">Adresse</label></div>
-							<textarea name="address" rows="5" cols="35">
+							<textarea name="address" rows="5" cols="35" class="form-control">
 							{{address}}
 							</textarea>
 						</div>
