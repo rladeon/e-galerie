@@ -395,3 +395,96 @@ $(function(){
 	
 	});
 });
+$(function(){
+	function after_updatexposure(data) 
+    {
+		$(".loader").css("display", "none");
+		$("body").css("background-color", "white");
+		$('#btnUpdateXposure').show();
+		 if(data.result == 'error')
+        {               
+            $('.alert-danger').html(data.errors);            
+            $('.alert-success').hide();
+            $('.alert-danger').show();              
+        }
+		else
+		{
+			$('.alert-success').html(data.message);            
+            $('.alert-success').show();
+            $('.alert-danger').hide();
+		}
+    }
+
+	$('#updatexposure_form').on('submit', function(e)
+      {
+		e.preventDefault();
+		$('.alert-success').hide();
+        $('.alert-danger').hide();
+		$('#btnUpdateXposure').hide();
+		
+			$(".loader").show();
+			 var data = CKEDITOR.instances.description.getData();
+			$("body").css("background-color", "#f2ebea");
+			$form = $(this);
+			var update_data = $form.serializeArray();
+			
+			update_data.forEach(function (item) 
+			{
+				if (item.name === 'description') 
+				{
+					item.value = data;
+				}
+			});
+			var id = $("#btnUpdateXposure").data("id");
+
+            $.ajax({
+                type: "POST",
+                url: '/e-galerie/exposure/update/id/'+id,
+                data: $.param(update_data),
+                success: after_updatexposure,
+                dataType: 'json' 
+            }); 
+			
+	
+	});
+});
+$(function(){
+	function after_deletexposure(data) 
+    {
+		$(".loader").css("display", "none");
+		$("body").css("background-color", "white");
+		
+		 if(data.result == 'error')
+        {               
+            $('.alert-danger').html(data.errors);            
+            $('.alert-success').hide();
+            $('.alert-danger').show();              
+        }
+		else
+		{
+			window.location.replace("/e-galerie/admin/exposurelist");
+		}
+    }
+
+	$('.deletexposure').on('click', function(e)
+      {
+		e.preventDefault();
+		$('.alert-success').hide();
+        $('.alert-danger').hide();
+		
+			$(".loader").show();
+			
+			$("body").css("background-color", "#f2ebea");
+			
+			var id = $(this).data("id");
+            $.ajax({
+                type: "POST",
+                url: '/e-galerie/exposure/delete/id/'+id,
+                
+                success: after_deletexposure,
+                dataType: 'json' 
+            }); 
+			
+	
+	});
+});

@@ -266,7 +266,7 @@ class AdminController extends Controller
 					'city'  => $book->city,
 					'country'  => $book->country,
 					'tel1'  => $book->tel1,
-					  
+					  "id"=> $book->id,
 					
 				);
 			}
@@ -309,6 +309,63 @@ class AdminController extends Controller
 					  "root" => $this->root,
 					 	"country" => $country,				  
 					]);
+		}
+		else
+		{
+			echo $this->twig->render($this->className.'/login.php',
+					[
+					  "title" => "Admin",					  
+					  "root" => $this->root,					  
+					]);
+		}
+	}
+	public function updatexposure($param)
+	{
+		if($this->utils->isadmin())
+		{
+			$mapper = spot()->mapper('Model\Exposure');
+			$b = $mapper->where(["id"=>$param["id"]])->first();
+			
+			$c = spot()->mapper('Model\Country');
+			$countries = $c->all()->order(["nom_fr_fr" => "ASC"]);
+			$country = null;
+			foreach($countries as $key => $value)
+			{
+				$country[$value->id] = array(
+				"nom_fr_fr" => utf8_encode($value->nom_fr_fr),
+				"id" => $value->id,
+				"alpha2" => $value->alpha2,
+				);
+			}
+			$list = array(
+					
+				"title" => $b->title,
+				"category" => $b->category,
+				"date_start" => $b->date_start->format("d/m/Y"),
+				"date_end" => $b->date_end->format("d/m/Y"),
+				"published" => $b->published,
+				"description" => $b->description,
+				"resume" => $b->resume,
+				"hours" => $b->hours,
+				"nb_place" => $b->nb_place,
+				
+				"timestamp" => time(),
+				"tel1" => $b->tel1,
+				"address" => $b->address,
+				"zipcode" => $b->zipcode,
+				"city" => $b->city,
+				
+				"id" => $b->id,
+				
+					
+				);
+			echo $this->twig->render($this->className.'/updatexposure.php',
+					[
+					  "title" => "Admin",					  
+					  "root" => $this->root,			
+						"book" => $list,"country" => $country,"landofsalty" => $b->country,
+					]);
+			
 		}
 		else
 		{

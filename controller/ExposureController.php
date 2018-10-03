@@ -141,6 +141,134 @@ class ExposureController extends Controller
 				die();
 		}
 	}
+	public function update($param)
+	{
+		if($this->utils->isadmin())
+		{
+			$userMapper = spot()->mapper('Model\Exposure');
+			$userMapper->migrate();	  
+			if(empty($_POST["date_start"]))
+			{
+				$date_start = null;
+			}
+			else
+			{
+				$date_start = \DateTime::createFromFormat('d/m/Y', $_POST["date_start"]);
+			}
+			if(empty($_POST["date_end"]))
+			{
+				$date_end = null;
+			}
+			else
+			{
+				$date_end = \DateTime::createFromFormat('d/m/Y', $_POST["date_end"]);
+			}
+			$title = $_POST["title"];
+			$hours = $_POST["hours"];
+			$category = empty($_POST["category"])?null:$_POST["category"];
+			$resume = empty($_POST["resume"])?null:$_POST["resume"];
+			$address = empty($_POST["address"])?null:$_POST["address"];
+			$zipcode = empty($_POST["zipcode"])?null:$_POST["zipcode"];
+			$city = empty($_POST["city"])?null:$_POST["city"];
+			$country = empty($_POST["country"])?null:$_POST["country"];
+			$published = empty($_POST["published"])?false:$_POST["published"];
+			$tel1 = empty($_POST["tel1"])?null:$_POST["tel1"];
+			$nb_place = empty($_POST["nb_place"])?0:$_POST["nb_place"];
+
+
+			$description = $_POST["description"];
+			
+			$book = spot()->mapper('Model\Exposure');
+			$book->migrate();	  
+			$b = $book->where(["id"=>$param["id"]])->first();		
+			if($b == false)
+			{
+				 echo json_encode(array("result"=>'error', 
+				"errors"=>"L'id de cette exposition n'existe pas dans la base données."));
+				die();
+			}
+			else
+			{
+				$nb_place = ( $nb_place > 0 ) ?$nb_place:$b->nb_place; 
+				$b->title = $title;
+				$b->slug = $this->seo->slugify($title);
+				$b->category = $category;
+				$b->date_start = $date_start;
+				$b->date_end = $date_end;
+				$b->published = false;
+				$b->description = $description;
+				$b->resume = $resume;
+				$b->hours = $hours;
+				$b->nb_place = ($nb_place >= $b->booked)?$nb_place:$b->nb_place;
+				
+				$b->timestamp = time();
+				$b->tel1 = $tel1;
+				$b->address = $address;
+				$b->zipcode = $zipcode;
+				$b->city = $city;
+				$b->country = $country;
+				$b->notfullback = ( $b->nb_place > $b->booked )? true : false;
+				$myNewBook = $book->update($b);
+				
+			}			
+		 
+			 if($myNewBook == false)
+			 {
+				 echo json_encode(array("result"=>'error', 
+				"errors"=>"L'exposition n'a pas été mis à jour."));
+				die();
+			 }
+			 else
+			 {
+				echo json_encode(array("result"=>'success', 
+					"message"=>"L'exposition a été mise à jour."));
+					die();
+			 }
+		}
+		else
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Vous n'êtes pas connecté."));
+				die();
+		}
+	}
+	public function delete($param)
+	{
+		if($this->utils->isadmin())
+		{
+			$book = spot()->mapper('Model\Exposure');
+
+			$b = $book->where(["id"=>$param["id"]])->first();		
+			if($b == false)
+			{
+				 echo json_encode(array("result"=>'error', 
+				"errors"=>"L'id de cette exposition n'existe pas dans la base données."));
+				die();
+			}
+			else
+			{
+				$myNewBook = $book->delete(["id"=>$param["id"]]);
+				if($myNewBook == false)
+				 {
+					 echo json_encode(array("result"=>'error', 
+					"errors"=>"Cette exposition n'a pas été supprimé."));
+					die();
+				 }
+				 else
+				 {
+					echo json_encode(array("result"=>'success', 
+						"message"=>"L'exposition a été supprimé."));
+						die();
+				 }
+			}	
+		}
+		else
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"Vous n'êtes pas connecté."));
+				die();			
+		}
+	}
 	public function availability($nb_place, $booked)
 	{
 		if(!filter_var($nb_place, FILTER_VALIDATE_INT) || !filter_var($booked, FILTER_VALIDATE_INT))
