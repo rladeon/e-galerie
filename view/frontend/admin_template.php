@@ -50,8 +50,8 @@
            </a>
         </li>
         <li>
-           <a class="s-sidebar__nav-link" href="{{root}}user/logout">
-              <i class="fa fa-power-off"></i><em>Se déconnecter</em>
+           <a class="s-sidebar__nav-link" href="{{root}}admin/medialist">
+              <i class="fa fa-file-picture-o"></i><em>Media</em>
            </a>
         </li>
 		<li>

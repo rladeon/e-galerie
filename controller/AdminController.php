@@ -376,5 +376,97 @@ class AdminController extends Controller
 					]);
 		}
 	}
+	public function medialist()
+	{
+		if($this->utils->isadmin())
+		{
+			$mapper = spot()->mapper('Model\Media');
+			$medias = $mapper->all();
+			$mapper = spot()->mapper('Model\Book');
+			$b = $mapper->all();
+			$mapper = spot()->mapper('Model\Content');
+			$c = $mapper->all();
+			$mapper = spot()->mapper('Model\Exposure');
+			$e = $mapper->all();
+			$list= null;$blist= null;$clist= null;$elist= null;
+			foreach( $b as $key=>$book)
+			{
+				$blist[$book->id] = array(
+					'title'      => $book->title,					
+					"id"=> $book->id,					
+				);
+			}
+			foreach( $c as $key=>$book)
+			{
+				$clist[$book->id] = array(					
+					'title'      => $book->title,					
+					"id"=> $book->id,					
+				);
+			}
+			foreach( $e as $key=>$book)
+			{
+				$elist[$book->id] = array(					
+					'title'      => $book->title,
+					"id"=> $book->id,					
+				);
+			}
+			
+			foreach( $medias as $key=>$m)
+			{
+				$link = false;
+				if(!empty($m->id_book))
+				{
+					if(!empty($blist[$m->id_book]))
+					{
+						$link = $blist[$m->id_book]["title"];
+					}
+				}
+				else if(!empty($m->id_content))
+				{
+					if(!empty($clist[$m->id_content]))
+					{
+						$link = $clist[$m->id_content]["title"];
+					}
+				}
+				else if(!empty($m->id_exposure))
+				{
+					if(!empty($elist[$m->id_exposure]))
+					{
+						$link = $elist[$m->id_exposure]["title"];
+					}
+				}
+				
+				$list[$m->id] = array(
+					
+					'title'      => $m->title,
+					'path_large'      => $m->path_large,
+					'path_mid'      => $m->path_mid,
+					'path_thumb'      => $m->path_thumb,
+					'path_flyer'      => $m->path_flyer,
+					'id_book'  => $m->id_book,
+					'id_content'  => $m->id_content,
+					'id_exposure'  => $m->id_exposure,
+					"id"=> $m->id,
+					"link" => $link,
+					
+				);
+			}
+			
+		    echo $this->twig->render($this->className.'/medialist.php',
+					[
+					  "title" => "Admin",					
+					  "root" => $this->root,
+					  "books" => $list,					  
+					]);
+		}
+		else
+		{
+			echo $this->twig->render($this->className.'/login.php',
+					[
+					  "title" => "Admin",					  
+					  "root" => $this->root,					  
+					]);
+		}
+	}
 }
 ?>
