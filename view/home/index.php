@@ -50,16 +50,18 @@
 
 		<section id="main" class="main-section cleanbg">
 			<div class="container" >
+			
 				<h1>Qui suis-je?</h1>
 				
 				<div class="row text-center">
+				{% if resume != null %}
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
                         <i class="fa fa-square fa-stack-2x text-primary"></i>
                         <i class="fa fa-comment fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">A propos de moi</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam faucibus luctus ligula, vitae lacinia eros faucibus ut. Vestibulum eget iaculis ligula. Integer posuere sed nulla nec elementum. Nulla convallis nisl id sagittis convallis. Interdum et malesuada fames ac ante ipsum primis in faucibus...
+                    <p>{{resume | raw }}
 						
 					</p>
 					<div class="flex">
@@ -67,6 +69,7 @@
 					</div>
 
                 </div>
+				{% endif %}
                 <div class="col-md-4">
                         <span class="fa-stack fa-4x">
                         <i class="fa fa-square fa-stack-2x text-primary"></i>

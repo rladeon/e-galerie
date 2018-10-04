@@ -28,12 +28,32 @@ class HomeController extends Controller
 		$mapper = spot()->mapper('Model\Network');
 		$net = $mapper->all()->first();
 		$breadcrumb = $this->utils->build_breadcrumb(array(),$net->home_url);
+		$mapper = spot()->mapper('Model\Content');
+		$content = $mapper->where(['title' => "présentation"])->first();
+		
+		if( $content == false )
+		{
+			$resume = null;
+		}
+		else
+		{
+			if(empty($content->resume))
+			{
+				$resume = null;
+			}
+			else
+			{
+				$resume = $content->resume;
+			}
+		}	
+		
 		echo $this->twig->render($this->className.'/index.php',
 		[
           "title" => "Accueil",
 		  "breadcrumb" =>  $breadcrumb ,
 		  "root" => $this->root,
-		  "gallery" => $list
+		  "gallery" => $list,
+		  "resume" => $resume,
         ]);
     }
 }

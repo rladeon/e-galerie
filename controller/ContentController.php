@@ -158,11 +158,14 @@ class ContentController extends Controller
 		$net = $mapper->all()->first();
 		$breadcrumb = $this->utils->build_breadcrumb(array("CGU"=> "content/cgu"),$net->home_url);
 		$content = "";
+		$book = spot()->mapper('Model\Content');
+
+		$content = $book->where(["title"=>"cgu"])->first();
 		echo $this->twig->render($this->className.'/cgu.php',
 			["title" => "CGU",
 			"breadcrumb" => $breadcrumb,
 			"root" => $this->root,
-			"content" => $content,
+			"content" => $content->description,
 			
 			
 			]
@@ -174,11 +177,14 @@ class ContentController extends Controller
 		$net = $mapper->all()->first();
 		$breadcrumb = $this->utils->build_breadcrumb(array("mentions légales"=> "content/legitmention"),$net->home_url);
 		$content = "";
+		$book = spot()->mapper('Model\Content');
+
+		$content = $book->where(["title"=>"cgu"])->first();
 		echo $this->twig->render($this->className.'/legitmention.php',
-			["title" => "CGU",
+			["title" => "RGPD",
 			"breadcrumb" => $breadcrumb,
 			"root" => $this->root,
-			"content" => $content,
+			"content" => $content->description,
 			
 			
 			]

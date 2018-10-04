@@ -48,7 +48,9 @@
 		</div>	
 		<div class="form-group">
 			<label class="control-label">résumé</label>
-			<input type="text" class="form-control" name="resume" id="resume" value="{{book.author}}">
+			<textarea class="form-control" name="resume" id="resume">
+			{{book.resume}}
+			</textarea>
 		</div>
 		<div class="form-group row">
  <div class="col-xs-8">

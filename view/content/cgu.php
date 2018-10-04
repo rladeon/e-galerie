@@ -3,7 +3,7 @@
 <div class="container">
 <p class="arianelink txtcenter"><i class="fa fa-home"></i>{{breadcrumb | raw}}</p>
 	<div class="row">
-		{{content}}
+		{{content | raw}}
 	</div>
 </div>
 {% endblock %}

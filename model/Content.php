@@ -17,7 +17,7 @@ class Content extends \Spot\Entity
 
         'published'     => ['type' => 'boolean', 'default' => false, 'value'=>false],
         'description'  => ['type' => 'text', 'required' => true],
-		'resume'  => ['type' => 'string'],
+		'resume'  => ['type' => 'text'],
 		'view' => ['type' => 'integer', 'default' => 0, 'value' => 0],
         'author'     => ['type' => 'string'],
 		'timestamp' => ['type' => 'integer', 'default' => 0, 'value' => 0],
