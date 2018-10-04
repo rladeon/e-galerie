@@ -11,7 +11,8 @@ class PressController extends Controller
 		$net = $mapper->all()->first();
 		$breadcrumb = $this->utils->build_breadcrumb(array("Presse"=> "press/index"),$net->home_url);
 		$mapper = spot()->mapper('Model\Content');
-		$posts = $mapper->where(['category' => "press" ]);
+		$posts = $mapper->where(['category' => "press" ])
+		->order(["date_publish" => "DESC"]);
 		$list_presse = null;
 		
 		foreach( $posts as $key=>$value)

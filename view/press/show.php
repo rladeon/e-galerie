@@ -19,11 +19,11 @@
 					{% endfor %}
 				</div>
 				<div class="col-md-5">
-				{{article.message}}
+				{{article.message | raw}}
 				</div>
 			{% endif %}
 		</div>
-		<div class="row text-center">
+		<!--<div class="row text-center">
 		
 			<h2>Partager</h2>
 			<ul class="list-inline social-buttons">
@@ -32,7 +32,7 @@
                             <li><a href="#"><i class="fa fa-facebook"></i></a>
                             </li>
                         </ul>
-		</div>
+		</div>-->
 		
 	</div>
 	</div>				

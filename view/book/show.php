@@ -44,7 +44,7 @@
 			<p><b>Collection:</b> {{book.collection}}</p>
 			<p><b>Format:</b> {{book.format}}</p>
 		</div>
-		<div class="col-md-4">
+		<!--<div class="col-md-4">
 			<h2>Partager</h2>
 			<ul class="list-inline social-buttons">
                             <li><a href="#"><i class="fa fa-twitter"></i></a>
@@ -54,7 +54,7 @@
 							<a href="https://www.facebook.com/sharer/sharer.php?app_id=252829212033203&sdk=joey&u={{url}}&display=popup&ref=plugin&src=share_button" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')"><i class="fa fa-facebook"></i></a>
 							</li>
                         </ul>
-		</div>
+		</div>-->
 		
 	</div>
 	</div>

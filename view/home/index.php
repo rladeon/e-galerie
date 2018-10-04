@@ -135,15 +135,24 @@
 		<section id="latest" class="main-section second-section">
 			<div class="container">
 				<h1>Mon actualité</h1>
+				
 				<div class="row text-center">
-					<div class="col-md-4 peaceplace">
-						<div class="artdate">01/01/1972</div>
-						<a href="{{root}}press/show/page/catalogue-numero-1-du-concours-devenez-l-artiste-de-l-annee-2017">
-						<img src="{{root}}public/images/2018/17/catalogue-mid.jpg" class="frontimage"/>
-						</a>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					{% for key,entry in press %}
+						<div class="col-md-4 peaceplace">
+							<div class="artdate">{{entry.date}}</div>
+								{% for index,value in media %}
+									{% if value.id_content == key %}
+											<a href="{{root}}press/show/page/{{entry.slug}}">
+											<img src="{{root}}{{value.path_mid}}" class="frontimage "/>
+											</a>
+									{% endif %}
+								{% endfor %}
+								
+								<p>{{entry.title}}</p>
+										
+						</div>
 						
-					</div>
+					{% endfor %}
 				
 					
 				</div>
