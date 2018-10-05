@@ -86,6 +86,10 @@
 			</textarea>
 		</div>
 		<div class="form-group">
+			<label class="control-label">Code postal</label>
+			<input type="text" class="form-control" name="zipcode" id="zipcode" value="{{book.zipcode}}"/>
+		</div>
+		<div class="form-group">
 			<label class="control-label">Commune</label>
 			<input type="text" class="form-control" name="city" id="city" value="{{book.city}}"/>
 		</div>

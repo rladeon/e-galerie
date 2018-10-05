@@ -354,7 +354,6 @@ class AdminController extends Controller
 				"address" => $b->address,
 				"zipcode" => $b->zipcode,
 				"city" => $b->city,
-				
 				"id" => $b->id,
 				
 					

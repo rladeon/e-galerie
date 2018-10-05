@@ -22,7 +22,7 @@
 					<td>{{value.date_start}} </td>
 					<td>{{value.date_end}} </td>
 					<td>
-						{% if value.notfullback %}
+						{% if value.notfullback == false %}
 							NON
 						{% else %}
 							OUI

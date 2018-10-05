@@ -33,7 +33,7 @@
         <div class="content">
           <span class="author">Jane Doe</span>
           <h1 class="title"><a href="#">{{main.title}}</a></h1>
-          <p class="text">{{main.infos}}</p>
+          <p class="text">{{main.resume | raw}}</p>
           <!--<a href="#" class="button">Read more</a>-->
         </div>
       </div>
@@ -52,11 +52,16 @@
   
 </div>
 			<div><b>Aux horaires suivant:</b> {{main.horaires}}</div>
-			<div><b>Information:</b> {{main.resume}}</div>
+			<div><b>Information:</b> {{main.infos | raw}}</div>
+			<div><b>Tél:</b></div>
+			<div>{{main.tel1}}</div>
 			<div><b>Adresse:</b></div>
-			<div>{{main.addresse}}</div>
+			<div>{{main.address}}</div>
+			<div><b>Code postal:</b></div>
 			<div>{{main.zipcode}}</div>
+			<div><b>Commune:</b></div>
 			<div>{{main.city}}</div>
+			<div><b>Pays:</b></div>
 			<div>{{main.country}}</div>
 
 			<div>

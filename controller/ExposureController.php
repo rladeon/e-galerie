@@ -14,6 +14,8 @@ class ExposureController extends Controller
 		$list = null;
 		if($book != false)
 		{
+			$c = spot()->mapper('Model\Country');
+			$fullcountry = $c->where(["alpha2"=>$book->country])->first();
 			
 			$list = array(
 				"id"=> $book->id,
@@ -29,6 +31,12 @@ class ExposureController extends Controller
 			"horaires" => $book->hours,
 			"infos"=> $book->description,
 			"availability" => $this->availability($book->nb_place, $book->booked),
+			"address" => $book->address,
+			"zipcode" => $book->zipcode,
+			"city" => $book->city,
+			"country" => $fullcountry->nom_fr_fr,
+			"category" => $book->category,
+			"tel1" => $book->tel1,
 				
 			);
 		}
@@ -52,15 +60,29 @@ class ExposureController extends Controller
 		$mapper = spot()->mapper('Model\Network');
 		$net = $mapper->all()->first();
 		$breadcrumb = $this->utils->build_breadcrumb(array("Expositions"=> "exposure/index"),$net->home_url);
-		echo $this->twig->render($this->className.'/index.php',
-			["title" => "Expositions",
-			"breadcrumb" => $breadcrumb,
-			"root" => $this->root,
-			"main"=>$list,
-			"media" => $list_media,
-			"alreadybooked" => $this->alreadybooked($book->id),
-			]
-		);
+		if(empty($list))
+		{
+			echo $this->twig->render($this->className.'/index.php',
+				["title" => "Expositions",
+				"breadcrumb" => $breadcrumb,
+				"root" => $this->root,
+				"main"=>$list,
+				"message" => $message,
+				]
+			);
+		}
+		else
+		{
+			echo $this->twig->render($this->className.'/index.php',
+				["title" => "Expositions",
+				"breadcrumb" => $breadcrumb,
+				"root" => $this->root,
+				"main"=>$list,
+				"media" => $list_media,
+				"alreadybooked" => $this->alreadybooked($book->id),
+				]
+			);
+		}
 	}
 	public function create()
 	{
