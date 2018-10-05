@@ -21,24 +21,42 @@ class ExposureController extends Controller
 				"id"=> $book->id,
 				"title" => $book->title,
 				"resume"=> $book->resume,
-				   "notfullback" => $book->notfullback,
-			"date_deb" => $book->date_start->format("d/m/Y"),
-			"date_end" => $book->date_end->format("d/m/Y"),
-			"nb_place" => $book->nb_place,
-			"booked" => $book->booked,
-			"connected" => $this->utils->isloggedin(),
-			"jours" => $book->date_start->format("d/m/Y"),
-			"horaires" => $book->hours,
-			"infos"=> $book->description,
-			"availability" => $this->availability($book->nb_place, $book->booked),
-			"address" => $book->address,
-			"zipcode" => $book->zipcode,
-			"city" => $book->city,
-			"country" => $fullcountry->nom_fr_fr,
-			"category" => $book->category,
-			"tel1" => $book->tel1,
+				"notfullback" => $book->notfullback,
+				"date_deb" => $book->date_start->format("d/m/Y"),
+				"date_end" => $book->date_end->format("d/m/Y"),
+				"nb_place" => $book->nb_place,
+				"booked" => $book->booked,
+				"connected" => $this->utils->isloggedin(),
+				"jours" => $book->date_start->format("d/m/Y"),
+				"horaires" => $book->hours,
+				"infos"=> $book->description,
+				"availability" => $this->availability($book->nb_place, $book->booked),
+				"address" => $book->address,
+				"zipcode" => $book->zipcode,
+				"city" => $book->city,
+				"country" => $fullcountry->nom_fr_fr,
+				"category" => $book->category,
+				"tel1" => $book->tel1,
+				"email" => $book->email,
+				"date" => $this->translate_date($book),
 				
 			);
+			$mapper = spot()->mapper('Model\Invite');
+			// Where can be called directly from the mapper
+			$invites = $mapper->where(['id_exposure' => $book->id]);
+			$list_invite = null;
+			
+			foreach( $invites as $key=>$value)
+			{
+				$list_invite[$value->id] = array(
+						
+						"path" => $value->path,
+						"title" => $value->title,
+						"id_exposure" =>$value->id_exposure,
+						"id" => $value->id,
+						
+					);
+			}
 		}
 		$mapper = spot()->mapper('Model\Media');
 		// Where can be called directly from the mapper
@@ -57,11 +75,13 @@ class ExposureController extends Controller
 					
 				);
 		}
+		
 		$mapper = spot()->mapper('Model\Network');
 		$net = $mapper->all()->first();
 		$breadcrumb = $this->utils->build_breadcrumb(array("Expositions"=> "exposure/index"),$net->home_url);
 		if(empty($list))
 		{
+			$message = "Il n'y a pas d'exposition de prévu";
 			echo $this->twig->render($this->className.'/index.php',
 				["title" => "Expositions",
 				"breadcrumb" => $breadcrumb,
@@ -79,6 +99,7 @@ class ExposureController extends Controller
 				"root" => $this->root,
 				"main"=>$list,
 				"media" => $list_media,
+				"invite" => $list_invite,
 				"alreadybooked" => $this->alreadybooked($book->id),
 				]
 			);
@@ -196,7 +217,7 @@ class ExposureController extends Controller
 			$published = empty($_POST["published"])?false:$_POST["published"];
 			$tel1 = empty($_POST["tel1"])?null:$_POST["tel1"];
 			$nb_place = empty($_POST["nb_place"])?0:$_POST["nb_place"];
-
+			$email = empty($_POST["email"])?null:$_POST["email"];
 
 			$description = $_POST["description"];
 			
@@ -222,7 +243,7 @@ class ExposureController extends Controller
 				$b->resume = $resume;
 				$b->hours = $hours;
 				$b->nb_place = ($nb_place >= $b->booked)?$nb_place:$b->nb_place;
-				
+				$b->email = $email;
 				$b->timestamp = time();
 				$b->tel1 = $tel1;
 				$b->address = $address;
@@ -314,8 +335,8 @@ class ExposureController extends Controller
 	}
 	public function translate_date($exposure,$start=true)
 	{
-		$daylist = array("0"=>"Samedi", "1"=>"Dimanche","2"=>"Lundi","3"=>"Mardi",
-		"4"=>"Mercredi", "5"=>"Jeudi","6"=>"Vendredi");
+		$daylist = array("0"=>"Dimanche", "1"=>"Lundi","2"=>"Mardi","3"=>"Mercredi",
+		"4"=>"Jeudi", "5"=>"Vendredi","6"=>"Samedi");
 		$monthlist = array("1"=>"Janvier", "2"=>"Février","3"=>"Mars","4"=>"Avril",
 		"5"=>"Mai", "6"=>"Juin","7"=>"Juillet", "8"=>"Août", "9"=>"Septembre",
 		"10"=>"Octobre","11"=>"Novembre","12"=>"Décembre");

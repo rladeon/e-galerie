@@ -3,74 +3,104 @@
 <div class="container">
 	<!--<h1> {{title}} </h1>-->
 	<p class="arianelink txtcenter"><i class="fa fa-home"></i>{{breadcrumb | raw}}</p>
-
+	{% if main != null %}
+		<h2>{{main.title}}</h2>
+	{% endif %}
 	<div class="row">
-	
+	{% if main == null %}
 		<div class="col-md-4">
-			<h2>Prochaine exposition</h2>
+		{{ message }}
+		</div>
+	{% else %}	
+		
+		{% if main.category == "invite" %}			
+			<div class="col-md-4">	
+								
+				<div id="small-images">
+				{% for index,value in media %}
+						{% if value.id_exposure == main.id %}
+							
+						<a href="{{root}}{{value.path_large}}" class="js-smartPhoto">
+							<img src="{{root}}{{value.path_thumb}}" />
+						</a>								
+						{% endif %}
+					{% endfor %}
 				
-		<div class="example-2 card">
-		{% for index,value in media %}
-			{% if value.id_exposure == main.id and value.default_img == 1 %}
-				<div class="wrapper" style="background: url({{root}}{{value.path_large}}) center/cover no-repeat">
-			{% endif %}
-		{% endfor %}
-      <div class="header">
-        <div class="date">
-          <!--<span class="day">12</span>
-          <span class="month">Aug</span>
-          <span class="year">2016</span>-->
-		  {{main.date_deb}}
-        </div>
-        <ul class="menu-content">
-          <li>
-				Place disponible: {{(main.nb_place-main.booked)>=0?(main.nb_place-main.booked):0}}/{{main.nb_place}}
-          </li>
-          
-        </ul>
-      </div>
-      <div class="data">
-        <div class="content">
-          <span class="author">Jane Doe</span>
-          <h1 class="title"><a href="#">{{main.title}}</a></h1>
-          <p class="text">{{main.resume | raw}}</p>
-          <!--<a href="#" class="button">Read more</a>-->
-        </div>
-      </div>
-    </div>
-  </div>
+				</div>
+			
+		</div>
+		{% else %}
+		<div class="col-md-4">
+			<div class="example-2 card">
+				{% for index,value in media %}
+					{% if value.id_exposure == main.id and value.default_img == 1 %}
+						<div class="wrapper" style="background: url({{root}}{{value.path_large}}) center/cover no-repeat">
+					{% endif %}
+				{% endfor %}
+			  <div class="header">
+				<div class="date">
+				  <!--<span class="day">12</span>
+				  <span class="month">Aug</span>
+				  <span class="year">2016</span>-->
+				  {{main.date_deb}}
+				</div>
+				
+					<ul class="menu-content">
+					  <li>
+							Place disponible: {{(main.nb_place-main.booked)>=0?(main.nb_place-main.booked):0}}/{{main.nb_place}}
+					  </li>
+					  
+					</ul>
+				
+			  </div>
+			  <div class="data">
+				<div class="content">
+				  
+				  <h1 class="title"><a href="#">{{main.title}}</a></h1>
+				  <p class="text">{{main.resume | raw}}</p>
+				  <!--<a href="#" class="button">Read more</a>-->
+				</div>
+			  </div>
+			</div>
+		  </div>
 
 		</div>
+	{% endif %}
 		<div class="col-md-4">
 			<div class="loader" style="display:none"></div>
-	<div class="alert alert-success alert-dismissible" style="display: none" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<div class="alert alert-success alert-dismissible" style="display: none" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   
-</div>
-<div class="alert alert-danger alert-dismissible" role="alert" style="display: none">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close" ><span aria-hidden="true">&times;</span></button>
-  
-</div>
-			<div><b>Aux horaires suivant:</b> {{main.horaires}}</div>
+			</div>
+			<div class="alert alert-danger alert-dismissible" role="alert" style="display: none">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close" ><span aria-hidden="true">&times;</span></button>
+			</div>
+			<h2>Invitation</h2>
+			<div>Le {{main.date}}</div>
+			<div><b> horaires :</b> {{main.horaires}}</div>
 			<div><b>Information:</b> {{main.infos | raw}}</div>
-			<div><b>Tél:</b></div>
-			<div>{{main.tel1}}</div>
-			<div><b>Adresse:</b></div>
-			<div>{{main.address}}</div>
-			<div><b>Code postal:</b></div>
-			<div>{{main.zipcode}}</div>
-			<div><b>Commune:</b></div>
-			<div>{{main.city}}</div>
-			<div><b>Pays:</b></div>
-			<div>{{main.country}}</div>
-
-			<div>
-			<b> Place réservée:</b>
+			<div><b>Tél:</b> {{main.tel1}}</div>
+			<div><b>E-mail:</b> {{main.email}}</div>
+			{% if main.category == "invite" %}
+			
+				{% for index,value in invite %}
+					<a href="{{root}}{{value.path}}" download>Télécharger l'invitation: {{value.title}}</a>
+				{% endfor %}
+			
+			{%  endif %}
+			
+			{% if main.category == "invite" %}
+			
+			{% else %}
+			<div>			
+				<b> Place réservée:</b>
 				<div class="progress">
 					<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width: {{main.availability}}%" aria-valuenow="{{main.availability}}" aria-valuemin="0" aria-valuemax="100">{{main.availability}}%</div>
 				</div>
 			</div>
-				{%if main.connected == false %}
+			
+				
+				{% if main.connected == false %}
 					<div class="flex">
 						<a href="{{ root }}user/login" class="bttn" >Se connecter</a>
 					</div>
@@ -86,12 +116,22 @@
 							<a href="{{ root }}exposure/booking/id/{{main.id}}" class="bttn" >Réservation</a>
 						</div>					
 				{% endif %}
+			{% endif %}
 		</div>
-	
+	{% endif %}
 	<div class="col-md-4">
-		<h2>Archives</h2>
-		<i class="fa fa-archive" style="font-size:36px"></i><span style="font-size:36px">2018</span>
+	<h2> Adresse </h2>
+			<div>{{main.address}}</div>
+			<div><b>Code postal:</b> {{main.zipcode}}</div>
+			<div><b>Commune:</b> {{main.city}}</div>
+			<div><b>Pays:</b> {{main.country}}</div>
 	</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<h2>Archives</h2>
+			<i class="fa fa-archive" style="font-size:36px"></i><span style="font-size:36px">2018</span>
+		</div>
 	</div>
 </div>
 {% endblock %}

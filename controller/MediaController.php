@@ -12,18 +12,18 @@ class MediaController extends Controller
 	 
 		$myNewMedia = $mediaMapper->create([
 	    
-        "title" => 'article-du-10-08-2018',
-					"path_large" =>"public/images/2018/32/article_10.08.2018_France-Antilles-large.png",
-					"path_mid" => "public/images/2018/32/article_10.08.2018_France-Antilles-mid.png",
-					"path_thumb" =>"public/images/2018/32/article_10.08.2018_France-Antilles-large.png",
+        "title" => 'invitation-verso-fr',
+					"path_large" =>"public/images/2018/35/invitation-recto-eng-large.jpg",
+					"path_mid" => "public/images/2018/35/invitation-recto-eng-mid.jpg",
+					"path_thumb" =>"public/images/2018/35/invitation-recto-eng-thumb.jpg",
 		"id_book" => null,
-		"default_img" => true,
-		'extension'      => 'png',
+		"default_img" => false,
+		'extension'      => 'jpg',
         'size'     => null,
-		'id_content'  => 6,
+		'id_content'  => null,
 		/*'category' => "Paysage",
         'datacateg'     => "paysage",*/
-		'id_exposure' => null,
+		'id_exposure' => 1,
 		'timestamp' => time(),
 		
       ]);

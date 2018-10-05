@@ -28,6 +28,7 @@ class Exposure extends \Spot\Entity
 		'city'  => ['type' => 'string'],
 		'country'  => ['type' => 'string'],
 		'tel1'  => ['type' => 'string'],
+		'email'  => ['type' => 'string'],
 		
       ];
     }

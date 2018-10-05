@@ -26,6 +26,7 @@
 			<label class="control-label">Résumé</label>
 			<input type="text" class="form-control" name="resume" id="resume" value="{{book.resume}}"/>
 		</div>
+		
 		<div class="form-group">
 			<label class="control-label">Horaires*</label>
 			<input type="text" class="form-control" name="hours" id="hours" value="{{book.hours}}"/>
@@ -110,7 +111,10 @@
 			<label class="control-label">Téléphone</label>
 			<input type="text" class="form-control" name="tel1" id="tel1" value="{{book.tel1}}"/>
 		</div>
-
+		<div class="form-group">
+			<label class="control-label">E-mail</label>
+			<input type="text" class="form-control" name="email" id="email" value="{{book.email}}"/>
+		</div>
 		
 		<button type="submit" class="bttn"  id="btnUpdateXposure" data-id="{{book.id}}">Envoyer →</button>
 	</form>
