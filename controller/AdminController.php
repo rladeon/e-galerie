@@ -467,5 +467,85 @@ class AdminController extends Controller
 					]);
 		}
 	}
+	public function updatemedia($param)
+	{
+		if($this->utils->isadmin())
+		{
+			$mapper = spot()->mapper('Model\Media');
+			$medias = $mapper->where(["id"=>$param["id"]])->first();
+			$mapper = spot()->mapper('Model\Exposure');
+			$exposures = $mapper->all();
+			$mapper = spot()->mapper('Model\Content');
+			$contents = $mapper->all();
+			$mapper = spot()->mapper('Model\Book');
+			$books = $mapper->all();
+			$list = null;
+			$blist= null;$clist= null;$elist= null;
+			foreach( $books as $key=>$book)
+			{
+				$blist[$book->id] = array(
+					'title'      => $book->title,					
+					"id"=> $book->id,					
+				);
+			}
+			foreach( $contents as $key=>$c)
+			{
+				$clist[$c->id] = array(					
+					'title'      => $c->title,					
+					"id"=> $c->id,					
+				);
+			}
+			foreach( $exposures as $key=>$e)
+			{
+				$elist[$e->id] = array(					
+					'title'      => $e->title,
+					"id"=> $e->id,					
+				);
+			}
+			if($medias == false)
+			{
+				echo $this->twig->render($this->className.'/updatemedia.php',
+					[
+					  "title" => "Admin",					
+					  "root" => $this->root,
+					 	"error" => true,
+						"message" => "l'id de cette image n'existe pas",						
+					]);
+			}
+			else
+			{
+				$list = array(
+				"id"=>$medias->id,
+				"title"=>$medias->title,
+				"category"=>$medias->category,
+				"datacateg"=>$medias->datacateg,
+				"defaultimg"=>$medias->default_img,
+				"gallery"=>$medias->gallery,
+				"idofcontent" =>$medias->id_content,
+				"idofbook" =>$medias->id_book,
+				"idofexposure" =>$medias->id_exposure,
+				);
+				echo $this->twig->render($this->className.'/updatemedia.php',
+					[
+					  "title" => "Admin",					
+					  "root" => $this->root,
+					 	"error" => false,			  
+						"media" => $list,
+						"book" => $blist,
+						"content" => $clist,
+						"exposure" => $elist,
+						
+					]);
+			}
+		}
+		else
+		{
+			echo $this->twig->render($this->className.'/login.php',
+					[
+					  "title" => "Admin",					  
+					  "root" => $this->root,					  
+					]);
+		}
+	}
 }
 ?>

@@ -13,7 +13,7 @@ class InviteController extends Controller
 		$myNewinvite = $inviteMapper->create([
 	    
         "title" => 'caraibbean-expo',
-		"path" =>"public/files/2018/1/invitation_eng_ladeon.pdf",
+		"path" =>"public/files/2018/2/invitation-recto-verso-caribbean-blue-fr.pdf",
 		"id_exposure" => 1,
 		
 		

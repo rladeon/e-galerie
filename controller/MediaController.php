@@ -51,5 +51,67 @@ class MediaController extends Controller
 			echo "0 timestamp has been updated";
 		}
 	}
+	public function update($param)
+	{
+		$this->session->start();
+		if(!$this->utils->isadmin())
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"La session a expirée."));
+				die();
+		}
+		else
+		{
+			$mediaMapper = spot()->mapper('Model\Media');
+			$mediaMapper->migrate();
+			$media = $mediaMapper->where(["id"=>$param["id"]])->first();
+			if( $media == false)
+			{
+				echo json_encode(array("result"=>'error', 
+					"errors"=>"L'id de l'image n'existe pas."));
+					die();
+			}
+			else
+			{			
+				if( empty($_POST["title"]) )
+				{
+					$title = $media->title;
+				}
+				else
+				{
+					$m = $mediaMapper->where(["title"=>$_POST["title"]])->first();
+					if($m == false)
+					{
+						$title = $_POST["title"];
+					}
+					else
+					{
+						echo json_encode(array("result"=>'error', 
+						"errors"=>"Ce titre a déjà été attribué à cette image."));
+						die();				
+					}
+					
+					$media->title = $title;
+					$myNewMedia = $mediaMapper->update($media);
+					
+					if($myNewMedia == false)
+					{
+						echo json_encode(array("result"=>'error', 
+						"errors"=>"L'image n'a pas été mis à jour."));
+						die();
+					}
+					else
+					{
+						echo json_encode(array("result"=>'success', 
+							"message"=>"L'image a été mis à jour."));
+							die();
+					}
+
+				}
+				
+			}
+		}
+		
+	}
 }
 ?>

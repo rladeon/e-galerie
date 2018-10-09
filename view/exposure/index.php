@@ -21,7 +21,7 @@
 						{% if value.id_exposure == main.id %}
 							
 						<a href="{{root}}{{value.path_large}}" class="js-smartPhoto">
-							<img src="{{root}}{{value.path_thumb}}" />
+							<img src="{{root}}{{value.path_mid}}" width="100%"/>
 						</a>								
 						{% endif %}
 					{% endfor %}
