@@ -12,10 +12,10 @@
 	<p>Mise à jour de l'image</p>
 	
 	<form role="form" method="post" id="updatemedia_form">
-		<!--<div class="form-group">
+		<div class="form-group">
 			<label class="control-label">Nouvelle image*</label>
 			<input type="file" class="form-control" name="path" id="path" value=""/>
-		</div>-->
+		</div>
 		<div class="form-group">
 			<label class="control-label">Titre*</label>
 			<input type="text" class="form-control" name="title" id="title" value="{{media.title}}"/>
@@ -31,8 +31,9 @@
 		<div class="form-group">
 			<label class="control-label">Content</label>
 			<select name="content" id="content" class="form-control">
+				<option value="">Choisir un contenu</option>
 				{% for value in content %}
-					{% if idofcontent == value.id %}
+					{% if media.idofcontent == value.id %}
 						<option value="{{value.id}}" selected>{{value.title}}</option>
 					{% else %}
 						<option value="{{value.id}}">{{value.title}}</option>
@@ -43,8 +44,9 @@
 		<div class="form-group">
 			<label class="control-label">Exposition</label>
 			<select name="exposure" id="exposure" class="form-control">
+				<option value="">Choisir une exposition</option>
 				{% for value in exposure %}
-					{% if idofexposure == value.id %}
+					{% if media.idofexposure == value.id %}
 						<option value="{{value.id}}" selected>{{value.title}}</option>
 					{% else %}
 						<option value="{{value.id}}">{{value.title}}</option>
@@ -55,8 +57,9 @@
 		<div class="form-group">
 			<label class="control-label">Livre</label>
 			<select name="book" id="book" class="form-control">
+			<option value="">Choisir un livre</option>
 				{% for value in book %}
-					{% if idofbook == value.id %}
+					{% if media.idofbook == value.id %}
 						<option value="{{value.id}}" selected>{{value.title}}</option>
 					{% else %}
 						<option value="{{value.id}}">{{value.title}}</option>
@@ -67,7 +70,7 @@
 		<div class="form-group">
 			<label class="control-label">Galerie</label>
 			<label class="radio-inline">
-			{% if gallery == 1 %}
+			{% if media.gallery == 1 %}
 				<input type="radio" name="gallery" id="Radios1" value="1" checked>
 			{% else %}
 				<input type="radio" name="gallery" id="Radios1" value="1" >
@@ -76,7 +79,7 @@
 								 
 			</label>
 			<label class="radio-inline">
-			{% if gallery == 0 %}
+			{% if media.gallery == 0 %}
 				<input type="radio" name="gallery" id="Radios2" value="0" checked>
 			{% else %}
 				<input type="radio" name="gallery" id="Radios2" value="0" >
@@ -87,19 +90,19 @@
 		<div class="form-group">
 			<label class="control-label">Image par défaut</label>
 			<label class="radio-inline">
-			{% if defaultimg == 1 %}
-				<input type="radio" name="defaultimg" id="Radios1" value="1" checked>
+			{% if media.defaultimg == 1 %}
+				<input type="radio" name="defaultimg" id="Radios3" value="1" checked>
 			{% else %}
-				<input type="radio" name="defaultimg" id="Radios1" value="1" >
+				<input type="radio" name="defaultimg" id="Radios3" value="1" >
 			{% endif %}
 			Oui
 								 
 			</label>
 			<label class="radio-inline">
-			{% if defaultimg == 0 %}
-				<input type="radio" name="defaultimg" id="Radios2" value="0" checked>
+			{% if media.defaultimg == 0 %}
+				<input type="radio" name="defaultimg" id="Radios4" value="0" checked>
 			{% else %}
-				<input type="radio" name="defaultimg" id="Radios2" value="0" >
+				<input type="radio" name="defaultimg" id="Radios4" value="0" >
 			{% endif %}
 			Non
 								 

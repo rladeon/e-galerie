@@ -82,22 +82,31 @@ class MediaController extends Controller
 					$m = $mediaMapper->where(["title"=>$_POST["title"]])->first();
 					if($m == false)
 					{
-						$title = $_POST["title"];
-					}
-					else
-					{
-						echo json_encode(array("result"=>'error', 
-						"errors"=>"Ce titre a déjà été attribué à cette image."));
-						die();				
+						$media->title = $_POST["title"];
 					}
 					
-					$media->title = $title;
+					$category = empty($_POST["category"])?null:$_POST["category"];
+					$datacateg = empty($_POST["datacateg"])?null:$_POST["datacateg"];
+					$gallery = empty($_POST["gallery"])?null:$_POST["gallery"];
+					$default_img = empty($_POST["defaultimg"])?null:$_POST["defaultimg"];
+
+					$id_content = empty($_POST["content"])?null:$_POST["content"];
+					$id_book = empty($_POST["book"])?null:$_POST["book"];
+					$id_exposure = empty($_POST["exposure"])?null:$_POST["exposure"];
+
+					$media->category = $category;
+					$media->datacateg = $datacateg;
+					$media->gallery = $gallery;
+					$media->default_img = $default_img;
+					$media->id_content = $id_content;
+					$media->id_book = $id_book;
+					$media->id_exposure = $id_exposure;
 					$myNewMedia = $mediaMapper->update($media);
 					
 					if($myNewMedia == false)
 					{
 						echo json_encode(array("result"=>'error', 
-						"errors"=>"L'image n'a pas été mis à jour."));
+						"errors"=>"L'image n'a pas été mis à jour.".$id_content));
 						die();
 					}
 					else
