@@ -78,10 +78,15 @@
                     <h4 class="service-heading">Savoir faire</h4>
 
                         <ul class="social-buttons">
-                            <li>skill1
+                            <li>
+								<i class="fa fa-paint-brush" style="color: black; font-size: 40px;"></i><span class="listskill">Aquarelliste</span>
                             </li>
-                            <li>skill2
+                            <li>
+								<i class="fa fa-book" style="color: blue; font-size: 40px;"></i><span class="listskill">Littérature</span>
                             </li>
+							<li>
+								<i class="fa fa-money" style="color: green; font-size: 40px;"></i><span class="listskill">Commercial</span>
+							</li>
                         </ul>
                 </div>
 				<div class="col-md-4">
@@ -92,10 +97,9 @@
                     <h4 class="service-heading">Réseaux sociaux</h4>
 						
                         <ul class=" social-buttons" style="margin-left :45%;">
-                            <li><a href="#"><i class="fa fa-facebook-square"></i></a>
+                            <li><a href="https://www.facebook.com/christiane.ladeon.9"><i class="fa fa-facebook-square"></i></a>
                             </li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                            </li>
+                            
                         </ul>
                 </div>
 				

@@ -101,6 +101,21 @@ class MediaController extends Controller
 					$media->id_content = $id_content;
 					$media->id_book = $id_book;
 					$media->id_exposure = $id_exposure;
+					/*$year = date("Y");
+					$id = $media->id;
+					$path = "public/images/".$year."/".$id."/";*/
+					/*$ret = $this->utils->upload_file($path);
+					if( $ret["result"] == true )
+					{
+						echo json_encode(array("result"=>'success', 
+							"message"=> $ret["message"]));
+					}
+					else
+					{
+						echo json_encode(array("result"=>'error', 
+							"errors"=> $ret["message"]));
+						die();
+					}*/
 					$myNewMedia = $mediaMapper->update($media);
 					
 					if($myNewMedia == false)
@@ -120,6 +135,10 @@ class MediaController extends Controller
 				
 			}
 		}
+		
+	}
+	public function updateimage()
+	{
 		
 	}
 }

@@ -547,5 +547,51 @@ class AdminController extends Controller
 					]);
 		}
 	}
+	public function updateimage($param)
+	{
+		if($this->utils->isadmin())
+		{
+			$mapper = spot()->mapper('Model\Media');
+			$medias = $mapper->where(["id"=>$param["id"]])->first();
+			
+			$list = null;
+			
+			if($medias == false)
+			{
+				echo $this->twig->render($this->className.'/updateimage.php',
+					[
+					  "title" => "Admin",					
+					  "root" => $this->root,
+					 	"error" => true,
+						"message" => "l'id de cette image n'existe pas",						
+					]);
+			}
+			else
+			{
+				$list = array(
+				"id"=>$medias->id,
+				"title"=>$medias->title,
+				
+				);
+				echo $this->twig->render($this->className.'/updateimage.php',
+					[
+					  "title" => "Admin",					
+					  "root" => $this->root,
+					 	"error" => false,			  
+						"media" => $list,
+						
+						
+					]);
+			}
+		}
+		else
+		{
+			echo $this->twig->render($this->className.'/login.php',
+					[
+					  "title" => "Admin",					  
+					  "root" => $this->root,					  
+					]);
+		}
+	}
 }
 ?>

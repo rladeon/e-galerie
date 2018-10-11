@@ -9,13 +9,10 @@
 	  <button type="button" class="close" data-dismiss="alert" aria-label="Close" ><span aria-hidden="true">&times;</span></button>
 	</div>
 	<div class="loader" style="display:none"></div>
-	<p>Mise à jour de l'image</p>
+	<p>Mise à jour des informations de l'image</p>
 	
 	<form role="form" method="post" id="updatemedia_form">
-		<div class="form-group">
-			<label class="control-label">Nouvelle image*</label>
-			<input type="file" class="form-control" name="path" id="path" value=""/>
-		</div>
+		
 		<div class="form-group">
 			<label class="control-label">Titre*</label>
 			<input type="text" class="form-control" name="title" id="title" value="{{media.title}}"/>
@@ -108,7 +105,6 @@
 								 
 			</label>
 		</div>	
-		
 		<button type="submit" class="bttn"  id="btnUpdateMedia" data-id="{{media.id}}">Envoyer →</button>
 	</form>
 

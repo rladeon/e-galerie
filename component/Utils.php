@@ -107,6 +107,66 @@ class Utils
 
 		return $randomString;
 	}
+	public function upload_file($uploadDirectory)
+	{
+		$currentDir = getcwd();
+
+		$errors = []; // Store all foreseen and unforseen errors here
+
+		$fileExtensions = ['jpeg','jpg','png']; // Get all the file extensions
+
+		$fileName = $_FILES['path']['name'];
+		$fileSize = $_FILES['path']['size']/1024;
+		$fileTmpName  = $_FILES['path']['tmp_name'];
+		$fileType = $_FILES['path']['type'];
+		$fileExtension = strtolower(end(explode('.',$fileName)));
+
+		$uploadPath = $currentDir . $uploadDirectory . basename($fileName); 
+
+		if (isset($_POST['upload']))
+		{
+
+			if (! in_array($fileExtension,$fileExtensions)) 
+			{
+				$errors[] = "This file extension is not allowed. Please upload a JPEG or PNG file";
+			}
+
+			if ($fileSize > 2000000) 
+			{
+				$errors[] = "This file is more than 2MB. Sorry, it has to be less than or equal to 2MB";
+			}
+
+			if (empty($errors)) 
+			{
+				$didUpload = move_uploaded_file($fileTmpName, $uploadPath);
+
+				if ($didUpload) 
+				{
+					return array("result" => true, 
+					"filename" => $fileName,
+					"fileSize" => $fileSize,
+					"fileType" => $fileType,
+					"fileExtension" => $fileExtension,
+					"message" => "The file " . basename($fileName) . " has been uploaded"
+					);
+				}
+				else
+				{
+					return array("result" => false, "message" => "An error occurred somewhere. Try again or contact the admin");
+				}
+			} 
+			else
+			{
+				$val = "";
+				foreach ($errors as $error) 
+				{
+					$val .= $error . "These are the errors" . "\n";
+				}
+				return array("result" => false, "message" => $val);
+			}
+		}
+	}
+	
 }
 
 ?>

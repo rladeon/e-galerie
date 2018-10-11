@@ -515,6 +515,7 @@ $(function(){
         $('.alert-danger').hide();
 		$('#btnUpdateMedia').hide();
 			$(".loader").show();
+			//var filedata = document.getElementById("path").files;
 			
 			$("body").css("background-color", "#f2ebea");
 			$form = $(this);

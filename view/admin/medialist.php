@@ -28,7 +28,7 @@
 							{% endif %}
 						</td>
 						<td>
-						<a href="{{root}}admin/updatemedia/id/{{value.id}}" class="btn btn-primary">éditer</a><a href="#" data-id="{{value.id}}" class="btn btn-danger deletemedia">supprimer</a>
+						<a href="{{root}}admin/updatemedia/id/{{value.id}}" class="btn btn-primary">infos</a><a href="{{root}}admin/updateimage/id/{{value.id}}" class="btn btn-primary">éditer l'image</a><a href="#" data-id="{{value.id}}" class="btn btn-danger deletemedia">supprimer</a>
 						</td>						
 					</tr>
 					{% endfor %}
