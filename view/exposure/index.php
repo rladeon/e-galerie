@@ -18,7 +18,7 @@
 								
 				<div id="small-images">
 				{% for index,value in media %}
-						{% if value.id_exposure == main.id %}
+						{% if value.id_exposure == main.id and value.archiver == 0 %}
 							
 						<a href="{{root}}{{value.path_large}}" class="js-smartPhoto">
 							<img src="{{root}}{{value.path_mid}}" width="100%"/>
@@ -33,7 +33,7 @@
 		<div class="col-md-4">
 			<div class="example-2 card">
 				{% for index,value in media %}
-					{% if value.id_exposure == main.id and value.default_img == 1 %}
+					{% if value.id_exposure == main.id and value.default_img == 1 and value.archiver == 0 %}
 						<div class="wrapper" style="background: url({{root}}{{value.path_large}}) center/cover no-repeat">
 					{% endif %}
 				{% endfor %}
@@ -127,11 +127,32 @@
 			<div><b>Pays:</b> {{main.country}}</div>
 	</div>
 	</div>
-	<div class="row">
-		<div class="col-md-4">
-			<h2>Archives</h2>
-			<i class="fa fa-archive" style="font-size:36px"></i><span style="font-size:36px">2018</span>
+	
+	{% for year,archivers in getarchiver %}
+	
+		<div><i class="fa fa-archive" style="font-size:36px"></i><span style="font-size:36px">{{year}}</span></div>
+		{% for index,archiver in archivers %}
+		<div class="col-md-4">	
+								
+				<a href="{{root}}exposure/show/archiver/{{slug}}">
+					<div>
+						{% for index,value in media %}
+							{% if value.id_exposure == archiver.id_exposure and value.archiver == 1 and value.default_img == 1 %}
+								
+							<a href="{{root}}{{value.path_large}}" class="js-smartPhoto">
+								<img src="{{root}}{{value.path_mid}}" width="100%"/>
+							</a>								
+							{% endif %}
+						{% endfor %}
+						<span>{{archiver.title}}</span>
+					</div>
+				</a>
+				
+			
 		</div>
-	</div>
+		{% endfor %}
+		
+	{% endfor %}
+	
 </div>
 {% endblock %}

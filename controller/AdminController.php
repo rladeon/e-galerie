@@ -569,9 +569,9 @@ class AdminController extends Controller
 			else
 			{
 				$list = array(
-				"id"=>$medias->id,
-				"title"=>$medias->title,
-				
+				"id" => $medias->id,
+				"title" => $medias->title,
+				"path" => $medias->path_mid,
 				);
 				echo $this->twig->render($this->className.'/updateimage.php',
 					[

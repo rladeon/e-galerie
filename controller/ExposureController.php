@@ -71,14 +71,50 @@ class ExposureController extends Controller
 					"path_mid" => $value->path_mid,
 					"path_thumb" => $value->path_thumb,
 					"id_exposure" =>$value->id_exposure,
-					"default_img" =>$value->default_img
+					"default_img" =>$value->default_img,
+					"archiver" => $value->archiver,
 					
 				);
 		}
 		
+		$mapper = spot()->mapper('Model\Archiver');
+		// Where can be called directly from the mapper
+		$posts = $mapper->all();
+		$list_all_archiver = null;
+		
+		foreach( $posts as $key=>$value)
+		{
+			$list_all_archiver[$value->year_expo] = array(
+					
+					"id" => $value->id,
+					"id_exposure" => $value->id_exposure,
+					"resume" => $value->resume,
+					"year_expo" => $value->year_expo,	
+				);
+		}
 		$mapper = spot()->mapper('Model\Network');
 		$net = $mapper->all()->first();
 		$breadcrumb = $this->utils->build_breadcrumb(array("Expositions"=> "exposure/index"),$net->home_url);
+		$mapper = spot()->mapper('Model\Exposure');
+		
+		$outdated = $mapper->all()->where(['date_start >' => \DateTime::createFromFormat('Y-m-d', date('Y-m-d') )->format("Y-m-d")])
+		->order(['date_start'=>"ASC"]);
+		$list_archiver = null;
+		
+		foreach( $outdated as $key=>$value)
+		{
+			if(!empty($list_all_archiver[(int)$value->date_start->format("Y")]))
+			{				
+				$list_archiver[$value->date_start->format("Y")][] = array(
+					
+					"title" => $value->title,
+					"slug" => $value->slug,
+					"id_exposure" => $value->id,					
+					
+				);
+			}
+		}
+		//var_dump($list_archiver);
 		if(empty($list))
 		{
 			$message = "Il n'y a pas d'exposition de prévu";
@@ -88,6 +124,7 @@ class ExposureController extends Controller
 				"root" => $this->root,
 				"main"=>$list,
 				"message" => $message,
+				"getarchiver" => $list_archiver,
 				]
 			);
 		}
@@ -101,6 +138,7 @@ class ExposureController extends Controller
 				"media" => $list_media,
 				"invite" => $list_invite,
 				"alreadybooked" => $this->alreadybooked($book->id),
+				"getarchiver" => $list_archiver,
 				]
 			);
 		}
