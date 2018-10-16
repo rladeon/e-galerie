@@ -734,15 +734,35 @@ class ExposureController extends Controller
 			$list = array(
 				"resume"=> $archive->resume,
 			);
+			
+			$mapper = spot()->mapper('Model\Media');
+			// Where can be called directly from the mapper
+			$posts = $mapper->all()->where(['id_exposure' => $expo->id, 'archiver' => 1]);
+			$list_media = null;
+			
+			foreach( $posts as $key=>$value)
+			{
+				$list_media[$value->id] = array(
+						
+						"path_large" => $value->path_large,
+						"path_mid" => $value->path_mid,
+						"path_thumb" => $value->path_thumb,
+						"id_exposure" =>$value->id_exposure,
+							
+					);
+			}
+		
 			$mapper = spot()->mapper('Model\Network');
 			$net = $mapper->all()->first();
-			$breadcrumb = $this->utils->build_breadcrumb(array("Expositions"=> "exposure/index", "Archive"=>"exposure/show/archiver/".filter_var($param["archiver"], FILTER_SANITIZE_STRING)),$net->home_url);
+			$breadcrumb = $this->utils->build_breadcrumb(array("Expositions" => "exposure/index",
+			"Archive" => "exposure/show/archiver/".filter_var($param["archiver"], 
+			FILTER_SANITIZE_STRING)), $net->home_url);
 			echo $this->twig->render($this->className.'/show.php',
 						["title" => "Ancienne exposition",
 						"breadcrumb" => $breadcrumb,
 						"root" => $this->root,
 						"archive" => $list,
-					
+						"media" => $list_media,
 						]
 					);
 		}

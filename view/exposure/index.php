@@ -119,13 +119,15 @@
 			{% endif %}
 		</div>
 	{% endif %}
-	<div class="col-md-4">
-	<h2> Adresse </h2>
-			<div>{{main.address}}</div>
-			<div><b>Code postal:</b> {{main.zipcode}}</div>
-			<div><b>Commune:</b> {{main.city}}</div>
-			<div><b>Pays:</b> {{main.country}}</div>
-	</div>
+	{% if main != null %}
+		<div class="col-md-4">
+		<h2> Adresse </h2>
+				<div>{{main.address}}</div>
+				<div><b>Code postal:</b> {{main.zipcode}}</div>
+				<div><b>Commune:</b> {{main.city}}</div>
+				<div><b>Pays:</b> {{main.country}}</div>
+		</div>
+		{% endif %}
 	</div>
 	
 	{% for year,archivers in getarchiver %}
@@ -133,22 +135,16 @@
 		<div><i class="fa fa-archive" style="font-size:36px"></i><span style="font-size:36px">{{year}}</span></div>
 		{% for index,archiver in archivers %}
 		<div class="col-md-4">	
-								
-				
-					<div><a href="{{root}}exposure/show/archiver/{{archiver.slug}}">
-						{% for index,value in media %}
-							{% if value.id_exposure == archiver.id_exposure and value.archiver == 1 and value.default_img == 1 %}
-								
-							
-								<img src="{{root}}{{value.path_mid}}" width="100%"/>
+					
+			<div><a href="{{root}}exposure/show/archiver/{{archiver.slug}}">
+				{% for index,value in media %}
+					{% if value.id_exposure == archiver.id_exposure and value.archiver == 1 and value.default_img == 1 %}
+						<img src="{{root}}{{value.path_mid}}" width="100%"/>
 															
-							{% endif %}
-						{% endfor %}
+					{% endif %}
+				{% endfor %}
 						<span>{{archiver.title}}</span></a>
-					</div>
-				
-				
-			
+					</div>				
 		</div>
 		{% endfor %}
 		
