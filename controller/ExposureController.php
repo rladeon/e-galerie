@@ -710,5 +710,42 @@ class ExposureController extends Controller
 				die();
 		}
 	}
+	public function show($param)
+	{	
+		$slug = filter_var($param["archiver"], FILTER_SANITIZE_STRING);
+		$mapper = spot()->mapper('Model\Exposure');
+		$expo = $mapper->where(["slug" => $slug])->first();
+		
+		if($expo == false)
+		{
+			echo $this->twig->render("error/error_404.php",
+				["title" => "error",
+				"breadcrumb" => "",
+				"root" => $this->root,
+				
+				]
+			);
+		
+		}
+		else
+		{
+			$mapper = spot()->mapper('Model\Archiver');
+			$archive = $mapper->where(["id_exposure" => $expo->id])->first();
+			$list = array(
+				"resume"=> $archive->resume,
+			);
+			$mapper = spot()->mapper('Model\Network');
+			$net = $mapper->all()->first();
+			$breadcrumb = $this->utils->build_breadcrumb(array("Expositions"=> "exposure/index", "Archive"=>"exposure/show/archiver/".filter_var($param["archiver"], FILTER_SANITIZE_STRING)),$net->home_url);
+			echo $this->twig->render($this->className.'/show.php',
+						["title" => "Ancienne exposition",
+						"breadcrumb" => $breadcrumb,
+						"root" => $this->root,
+						"archive" => $list,
+					
+						]
+					);
+		}
+	}
 }
 ?>

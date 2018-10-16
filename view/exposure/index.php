@@ -134,19 +134,19 @@
 		{% for index,archiver in archivers %}
 		<div class="col-md-4">	
 								
-				<a href="{{root}}exposure/show/archiver/{{slug}}">
-					<div>
+				
+					<div><a href="{{root}}exposure/show/archiver/{{archiver.slug}}">
 						{% for index,value in media %}
 							{% if value.id_exposure == archiver.id_exposure and value.archiver == 1 and value.default_img == 1 %}
 								
-							<a href="{{root}}{{value.path_large}}" class="js-smartPhoto">
+							
 								<img src="{{root}}{{value.path_mid}}" width="100%"/>
-							</a>								
+															
 							{% endif %}
 						{% endfor %}
-						<span>{{archiver.title}}</span>
+						<span>{{archiver.title}}</span></a>
 					</div>
-				</a>
+				
 				
 			
 		</div>
