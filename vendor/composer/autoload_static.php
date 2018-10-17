@@ -40,10 +40,6 @@ class ComposerStaticInit875fd26db772f7ab3aac48a7f413a02d
         array (
             'Model\\' => 6,
         ),
-        'G' => 
-        array (
-            'Gumlet\\' => 7,
-        ),
         'D' => 
         array (
             'Doctrine\\Common\\Cache\\' => 22,
@@ -102,10 +98,6 @@ class ComposerStaticInit875fd26db772f7ab3aac48a7f413a02d
         'Model\\' => 
         array (
             0 => __DIR__ . '/../..' . '/model',
-        ),
-        'Gumlet\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/gumlet/php-image-resize/lib',
         ),
         'Doctrine\\Common\\Cache\\' => 
         array (

@@ -576,7 +576,20 @@ class AdminController extends Controller
 					$path = "/public/images/".$year."/".$id."/";
 					$ret = $this->utils->upload_file($path);
 					$message = $ret["message"];
+					if(!empty($ret["result"]) && $ret["result"] == true)
+					{
+						$sizes = array("-large."=>1000, "-mid."=>300, "-thumb."=>100); 
+						$uploadpath = $ret["uploadpath"];
+												
+						foreach($sizes as $key=>$value)
+						{
+							$this->utils->darkroom($uploadpath, $ret["path"].'/'.$this->utils->remove_extension($ret["filename"]).$key.$ret["fileExtension"], $width = 0, $height = $value);
+							
+						}
 						
+						header('HTTP/1.0 302');
+						header("Location: ".$this->root."admin/medialist"); 
+					}
 				}
 				$list = array(
 				"id" => $medias->id,
