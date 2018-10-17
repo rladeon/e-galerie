@@ -123,23 +123,6 @@ class MediaController extends Controller
 		}
 		
 	}
-	public function updateimage()
-	{
-		$this->session->start();
-		if(!$this->utils->isadmin())
-		{
-			$message = "La session a expirée.";
-				
-		}
-		else
-		{
-			$year = date("Y");
-			$id = $media->id;
-			$path = "public/images/".$year."/".$id."/";
-			$ret = $this->utils->upload_file($path);
-			$message = $ret["message"];
-			
-		}
-	}
+	
 }
  ?>

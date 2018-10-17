@@ -13,7 +13,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<form role="form" method="post" id="updateimage_form" action="{{root}}media/updateimage" enctype="multipart/form-data">
+		<form role="form" method="post" id="updateimage_form" action="{{root}}admin/updateimage/id/{{media.id}}" enctype="multipart/form-data">
 			
 			<div class="form-group">
 				<label class="control-label">Nouvelle image*</label>

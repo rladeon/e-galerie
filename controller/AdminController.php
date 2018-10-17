@@ -568,6 +568,16 @@ class AdminController extends Controller
 			}
 			else
 			{
+				$message = "";
+				if(!empty($_POST["id"]) && $_POST["id"] == $param["id"])
+				{
+					$year = date("Y");
+					$id = $medias->id;
+					$path = "/public/images/".$year."/".$id."/";
+					$ret = $this->utils->upload_file($path);
+					$message = $ret["message"];
+						
+				}
 				$list = array(
 				"id" => $medias->id,
 				"title" => $medias->title,
@@ -579,7 +589,7 @@ class AdminController extends Controller
 					  "root" => $this->root,
 					 	"error" => false,			  
 						"media" => $list,
-						
+						"message" => $message,
 						
 					]);
 			}
