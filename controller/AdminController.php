@@ -552,6 +552,7 @@ class AdminController extends Controller
 		if($this->utils->isadmin())
 		{
 			$mapper = spot()->mapper('Model\Media');
+			$mapper->migrate();
 			$medias = $mapper->where(["id"=>$param["id"]])->first();
 			
 			$list = null;
@@ -580,12 +581,34 @@ class AdminController extends Controller
 					{
 						$sizes = array("-large."=>1000, "-mid."=>300, "-thumb."=>100); 
 						$uploadpath = $ret["uploadpath"];
-												
+						$currentDir = getcwd();
+						
 						foreach($sizes as $key=>$value)
 						{
-							$this->utils->darkroom($uploadpath, $ret["path"].'/'.$this->utils->remove_extension($ret["filename"]).$key.$ret["fileExtension"], $width = 0, $height = $value);
+							$this->utils->resize_image($uploadpath, $ret["path"].'/'.$this->utils->remove_extension($ret["filename"]).$key.$this->utils->get_extension($ret["filename"]), $width = 0, $height = $value);
+							$filepath = $path.$this->utils->remove_extension($ret["filename"]).$key.$this->utils->get_extension($ret["filename"]);
 							
+							if( $value == 1000 )
+							{
+								unlink($currentDir.'/'.$medias->path_large);
+								$medias->path_large = $filepath;
+							}
+							else if( $value == 300)
+							{
+								unlink($currentDir.'/'.$medias->path_mid);
+								$medias->path_mid = $filepath;
+							}
+							else
+							{
+								unlink($currentDir.'/'.$medias->path_thumb);
+								$medias->path_thumb = $filepath;
+							}
+							$medias->extension = $ret["fileExtension"];
+							$medias->timestamp = time();
+							$mapper->update($medias);
+						
 						}
+						
 						
 						header('HTTP/1.0 302');
 						header("Location: ".$this->root."admin/medialist"); 

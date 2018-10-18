@@ -172,7 +172,11 @@ class Utils
 	{
 		return preg_replace('/\\.[^.\\s]{3,4}$/', '', $filename);
 	}
-	public function darkroom($img, $to, $width = 0, $height = 0)
+	public function get_extension($path)
+	{
+		return pathinfo($path, PATHINFO_EXTENSION);
+	}
+	public function resize_image($img, $to, $width = 0, $height = 0)
 	{
  
 	$dimensions = getimagesize($img);

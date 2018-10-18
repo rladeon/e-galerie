@@ -12,6 +12,7 @@ function spot() {
           'user' => 'root',
           'password' => 'root',
           'host' => 'localhost',
+		  /*'host' => 'db',*/
           'driver' => 'pdo_mysql',
       ]);
       $spot = new \Spot\Locator($cfg);
