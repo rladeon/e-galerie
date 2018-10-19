@@ -380,7 +380,7 @@ class AdminController extends Controller
 		if($this->utils->isadmin())
 		{
 			$mapper = spot()->mapper('Model\Media');
-			$medias = $mapper->all();
+			$medias = $mapper->all()->order(["timestamp" => "DESC"]);
 			$mapper = spot()->mapper('Model\Book');
 			$b = $mapper->all();
 			$mapper = spot()->mapper('Model\Content');
@@ -586,21 +586,21 @@ class AdminController extends Controller
 						foreach($sizes as $key=>$value)
 						{
 							$this->utils->resize_image($uploadpath, $ret["path"].'/'.$this->utils->remove_extension($ret["filename"]).$key.$this->utils->get_extension($ret["filename"]), $width = 0, $height = $value);
-							$filepath = $path.$this->utils->remove_extension($ret["filename"]).$key.$this->utils->get_extension($ret["filename"]);
+							$filepath = "public/images/".$year."/".$id."/".$this->utils->remove_extension($ret["filename"]).$key.$this->utils->get_extension($ret["filename"]);
 							
 							if( $value == 1000 )
 							{
-								unlink($currentDir.'/'.$medias->path_large);
+								unlink($currentDir."/".$medias->path_large);
 								$medias->path_large = $filepath;
 							}
 							else if( $value == 300)
 							{
-								unlink($currentDir.'/'.$medias->path_mid);
+								unlink($currentDir."/".$medias->path_mid);
 								$medias->path_mid = $filepath;
 							}
 							else
 							{
-								unlink($currentDir.'/'.$medias->path_thumb);
+								unlink($currentDir."/".$medias->path_thumb);
 								$medias->path_thumb = $filepath;
 							}
 							$medias->extension = $ret["fileExtension"];
@@ -609,7 +609,7 @@ class AdminController extends Controller
 						
 						}
 						
-						
+						unlink($uploadpath);
 						header('HTTP/1.0 302');
 						header("Location: ".$this->root."admin/medialist"); 
 					}
@@ -629,6 +629,26 @@ class AdminController extends Controller
 						
 					]);
 			}
+		}
+		else
+		{
+			echo $this->twig->render($this->className.'/login.php',
+					[
+					  "title" => "Admin",					  
+					  "root" => $this->root,					  
+					]);
+		}
+	}
+	public function createmedia()
+	{
+		if($this->utils->isadmin())
+		{
+			echo $this->twig->render($this->className.'/createmedia.php',
+					[
+					  "title" => "Admin",					
+					  "root" => $this->root,					 	
+						
+					]);
 		}
 		else
 		{

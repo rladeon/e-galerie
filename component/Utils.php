@@ -120,10 +120,17 @@ class Utils
 		$fileTmpName  = $_FILES['path']['tmp_name'];
 		$fileType = $_FILES['path']['type'];
 		$fileExtension = strtolower(end(explode('.',$fileName)));
-
-		$uploadPath = $currentDir . $uploadDirectory . basename($fileName); 
 		
-		if (isset($_POST['upload']))
+		$uploadPath = $currentDir . $uploadDirectory . basename($fileName); 
+		if(!is_dir($currentDir . $uploadDirectory))
+		{
+			if(!mkdir($currentDir . $uploadDirectory, 0700))
+			{
+				$error = "le dossier: ".$currentDir . $uploadDirectory." n'a pas été créé.";
+				return array("result" => false, "message" => $error);
+			}
+		}		
+		 if (isset($_POST['upload']))
 		{
 
 			if (! in_array($fileExtension,$fileExtensions)) 

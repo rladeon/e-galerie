@@ -10,7 +10,7 @@ class Media extends \Spot\Entity
     {
       return [
         'id'        => ['type' => 'integer', 'primary' => true, 'autoincrement' => true],
-        'title'      => ['type' => 'string', 'required' => true, 'unique' => true],
+        'title'      => ['type' => 'string', ],
 		'path_large'      => ['type' => 'string', 'required' => true],
 		'path_mid'      => ['type' => 'string', 'required' => true],
 		'path_thumb'      => ['type' => 'string', 'required' => true],
