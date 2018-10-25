@@ -51,7 +51,12 @@
         </li>
         <li>
            <a class="s-sidebar__nav-link" href="{{root}}admin/medialist">
-              <i class="fa fa-file-picture-o"></i><em>Media</em>
+              <i class="fa fa-file-picture-o"></i><em>Média</em>
+           </a>
+        </li>
+		<li>
+           <a class="s-sidebar__nav-link" href="{{root}}invite/getall">
+              <i class="fa fa-ticket"></i><em>Invitation</em>
            </a>
         </li>
 		<li>

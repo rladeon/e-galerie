@@ -489,11 +489,11 @@ $(function(){
 	});
 });
 $(function(){
-	function after_updatemedia(data) 
+	function after_deletemedia(data) 
     {
 		$(".loader").css("display", "none");
 		$("body").css("background-color", "white");
-		$('#btnUpdateMedia').show();
+		
 		 if(data.result == 'error')
         {               
             $('.alert-danger').html(data.errors);            
@@ -508,23 +508,23 @@ $(function(){
 		}
     }
 
-	$('#updatemedia_form').on('submit', function(e)
+	$('.deletemedia').on('click', function(e)
       {
 		e.preventDefault();
 		$('.alert-success').hide();
         $('.alert-danger').hide();
-		$('#btnUpdateMedia').hide();
+		
 			$(".loader").show();
-			//var filedata = document.getElementById("path").files;
+			
 			
 			$("body").css("background-color", "#f2ebea");
 			$form = $(this);
-			var id = $('#btnUpdateMedia').data("id");
+			var id = $('.deletemedia').data("id");
             $.ajax({
-                type: "POST",
-                url: '/e-galerie/media/update/id/'+id,
-                data: $form.serialize(),
-                success: after_updatemedia,
+                type: "GET",
+                url: '/e-galerie/media/delete/id/'+id,
+                
+                success: after_deletemedia,
                 dataType: 'json' 
             }); 
 			

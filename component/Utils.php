@@ -113,7 +113,7 @@ class Utils
 
 		$errors = []; // Store all foreseen and unforseen errors here
 
-		$fileExtensions = ['jpeg','jpg','png']; // Get all the file extensions
+		$fileExtensions = ['jpeg','jpg','png','pdf']; // Get all the file extensions
 
 		$fileName = $_FILES['path']['name'];
 		$fileSize = $_FILES['path']['size']/1024;

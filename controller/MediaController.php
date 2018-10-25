@@ -152,6 +152,58 @@ class MediaController extends Controller
 		}
 		
 	}
+	public function delete($param)
+	{
+		$this->session->start();
+		if(!$this->utils->isadmin())
+		{
+			echo json_encode(array("result"=>'error', 
+				"errors"=>"La session a expirée."));
+				die();
+		}
+		else
+		{
+			$mediaMapper = spot()->mapper('Model\Media');
+			$mediaMapper->migrate();
+			$media = $mediaMapper->where(["id"=>$param["id"]])->first();
+			$currentDir = getcwd();
+			if( $media == false)
+			{
+				echo json_encode(array("result"=>'error', 
+					"errors"=>"L'id de l'image n'existe pas."));
+					die();
+			}
+			else
+			{	if(is_file(	$currentDir."/".$media->path_large ))
+				{
+					unlink($currentDir."/".$media->path_large);
+				}
+				if(is_file(	$currentDir."/".$media->path_mid ))
+				{
+					unlink($currentDir."/".$media->path_mid);
+				}
+				if(is_file(	$currentDir."/".$media->path_thumb ))
+				{
+					unlink($currentDir."/".$media->path_thumb);
+				}
+				
+				$mediaMapper->delete(["id"=>$param["id"]]);
+				$media = $mediaMapper->where(["id"=>$param["id"]])->first();
+				if($media != false)
+				{
+					echo json_encode(array("result"=>'error', 
+					"errors"=>"L'image n'a pas été supprimée."));
+					die();
+				}
+				else
+				{
+					echo json_encode(array("result"=>'success', 
+					"message"=>"L'image a été supprimée."));
+					die();
+				}
+			}
+		}
+	}
 	
 	
 }
