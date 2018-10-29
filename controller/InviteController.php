@@ -294,11 +294,44 @@ class InviteController extends Controller
 			$inviteMapper = spot()->mapper('Model\invite');
 			$inviteMapper->migrate();
 			$invite = $inviteMapper->where(["id" => $param["id"]])->first();
-			unlink(getcwd().$invite->path);
+			$currentDir = getcwd();
+			if(is_file($currentDir."/".$invite->path))
+			{
+				unlink($currentDir."/".$invite->path);
+			}
+			else
+			{				
+				echo json_encode(array("result"=>'error', 
+					"errors"=>"Le fichier n'existe pas."));
+					die();
+			}
 			$year = date("Y");
-			$path = "public/files/".$year."/".$param["id"]."/";
-			rmdir(getcwd().$path);
+			$path = "/public/files/".$year."/".$param["id"]."/";
+			if(is_dir(	$currentDir.$path ))
+			{
+				rmdir($currentDir.$path);
+			}
+			else
+			{
+				echo json_encode(array("result"=>'error', 
+					"errors"=>"Le dossier n'existe pas."));
+					die();
+			}
+			
 			$inviteMapper->delete(["id" => $param["id"]]);
+			$invite = $inviteMapper->where(["id" => $param["id"]])->first();
+			if($invite == false )
+			{
+				echo json_encode(array("result"=>'success', 
+					"errors"=>"L'invitation a été supprimée."));
+					die();
+			}
+			else
+			{
+				echo json_encode(array("result"=>'error', 
+					"errors"=>"L'invitation n'a pas été supprimée."));
+					die();
+			}
 
 		}
 	}

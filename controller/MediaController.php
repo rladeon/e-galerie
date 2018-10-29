@@ -186,7 +186,12 @@ class MediaController extends Controller
 				{
 					unlink($currentDir."/".$media->path_thumb);
 				}
-				
+				$year = date("Y");
+				$path_ = "/public/images/".$year."/".$param["id"]."/";
+				if(is_dir(	$currentDir.$path_ ))
+				{
+					rmdir($currentDir.$path_);
+				}
 				$mediaMapper->delete(["id"=>$param["id"]]);
 				$media = $mediaMapper->where(["id"=>$param["id"]])->first();
 				if($media != false)

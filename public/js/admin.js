@@ -515,11 +515,10 @@ $(function(){
         $('.alert-danger').hide();
 		
 			$(".loader").show();
-			
-			
+						
 			$("body").css("background-color", "#f2ebea");
-			$form = $(this);
-			var id = $('.deletemedia').data("id");
+			
+			var id = $(this).data("id");
             $.ajax({
                 type: "GET",
                 url: '/e-galerie/media/delete/id/'+id,
@@ -545,24 +544,21 @@ $(function(){
         }
 		else
 		{
-			$('.alert-success').html(data.message);            
-            $('.alert-success').show();
-            $('.alert-danger').hide();
+			window.location.replace("/e-galerie/invite/getall");
 		}
     }
 
-	$('.deleteinvite').on('click', function(e)
+	$('a.deleteinvite').on('click', function(e)
       {
 		e.preventDefault();
 		$('.alert-success').hide();
         $('.alert-danger').hide();
 		
-			$(".loader").show();
-			
+			$(".loader").show();			
 			
 			$("body").css("background-color", "#f2ebea");
-			$form = $(this);
-			var id = $('.deleteinvite').data("id");
+			
+			var id = $(this).data("id");
             $.ajax({
                 type: "GET",
                 url: '/e-galerie/invite/delete/id/'+id,
