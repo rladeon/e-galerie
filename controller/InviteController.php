@@ -204,6 +204,7 @@ class InviteController extends Controller
 					    "invite" => $list,	
 						"exposure" => $exposure,
 						"message" => $m,
+						"myexpo" => $invite->id_exposure,
 					]);
 			}
 		}
@@ -275,6 +276,30 @@ class InviteController extends Controller
 				header('HTTP/1.0 302');
 			    header("Location: ".$this->root."invite/getall");
 			}
+		}
+	}
+	public function delete($param)
+	{
+		$this->session->start();
+		if(!$this->utils->isadmin())
+		{
+			echo $this->twig->render('admin/login.php',
+					[
+					  "title" => "Admin",					  
+					  "root" => $this->root,					  
+					]);
+		}
+		else
+		{
+			$inviteMapper = spot()->mapper('Model\invite');
+			$inviteMapper->migrate();
+			$invite = $inviteMapper->where(["id" => $param["id"]])->first();
+			unlink(getcwd().$invite->path);
+			$year = date("Y");
+			$path = "public/files/".$year."/".$param["id"]."/";
+			rmdir(getcwd().$path);
+			$inviteMapper->delete(["id" => $param["id"]]);
+
 		}
 	}
 }

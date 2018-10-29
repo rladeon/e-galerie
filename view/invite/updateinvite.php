@@ -18,7 +18,7 @@
 			<select name="exposure" id="exposure" class="form-control">
 				<option value="">Choisir une exposition</option>
 				{% for value in exposure %}
-					{% if value.title != invite.expo %}
+					{% if value.id != invite.expo %}
 					<option value="{{value.id}}">{{value.title}}</option>
 					{% else %}
 					<option value="{{value.id}}" selected>{{value.title}}</option>

@@ -531,3 +531,46 @@ $(function(){
 	
 	});
 });
+$(function(){
+	function after_deleteinvite(data) 
+    {
+		$(".loader").css("display", "none");
+		$("body").css("background-color", "white");
+		
+		 if(data.result == 'error')
+        {               
+            $('.alert-danger').html(data.errors);            
+            $('.alert-success').hide();
+            $('.alert-danger').show();              
+        }
+		else
+		{
+			$('.alert-success').html(data.message);            
+            $('.alert-success').show();
+            $('.alert-danger').hide();
+		}
+    }
+
+	$('.deleteinvite').on('click', function(e)
+      {
+		e.preventDefault();
+		$('.alert-success').hide();
+        $('.alert-danger').hide();
+		
+			$(".loader").show();
+			
+			
+			$("body").css("background-color", "#f2ebea");
+			$form = $(this);
+			var id = $('.deleteinvite').data("id");
+            $.ajax({
+                type: "GET",
+                url: '/e-galerie/invite/delete/id/'+id,
+                
+                success: after_deleteinvite,
+                dataType: 'json' 
+            }); 
+			
+	
+	});
+});

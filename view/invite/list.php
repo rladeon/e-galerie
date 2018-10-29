@@ -25,7 +25,7 @@
 						</td>
 						<td>{{value.exposure}}</td>
 						<td>
-						<a href="{{root}}invite/updateinvite/id/{{value.id}}" class="btn btn-primary">éditer</a><a href="#" data-id="{{value.id}}" class="btn btn-danger deletemedia">supprimer</a>
+						<a href="{{root}}invite/updateinvite/id/{{value.id}}" class="btn btn-primary">éditer</a><a href="#" data-id="{{value.id}}" class="btn btn-danger deleteinvite">supprimer</a>
 						</td>						
 					</tr>
 					{% endfor %}
