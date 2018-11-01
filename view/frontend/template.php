@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <title>{{ title }}</title>
         <meta name="viewport" content="width=device-width" />		
@@ -14,7 +14,7 @@
     </head>
     <body>
 	<div>
-      <header id="header" role="banner" class="main-header">
+      <header id="header" class="main-header">
 			<div class="header-inner">
 		 
 				<div class="header-logo">
@@ -45,27 +45,29 @@
 	
 		</header>
       <div class="topnav" id="myTopnav">
-  <a href="{{ root }}" class="active">Accueil</a>
-  <a href="{{ root }}about/index">Présentation</a>
-  <a href="{{ root }}gallery/index">Galerie photo</a>
-  <a href="{{ root }}exposure/index">Expositions</a>
-  <a href="{{ root }}book/show/page/christiane-ladeon-l-endometriose-de-l-ombre-a-la-lumiere">Livre</a>
-  <a href="{{ root }}press/index">Presse</a>
-  <a href="{{ root }}contact/index">Contact</a>
-  <a href="{{ root }}user/account">Mon compte </a>
-  {% if (session.logged_in != null) and (session.logged_in == true) %}
-						
-  <a href="{{ root }}user/logout"><span class='glyphicon glyphicon-off' aria-hidden="true"></span></a>
- {% endif %}
-  
-  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-    <i class="fa fa-bars"></i>
-  </a>
-</div>
-</div>
-{% block content %}{% endblock %}
-	  
-		
+		  <a href="{{ root }}" class="active">Accueil</a>
+		  <a href="{{ root }}about/index">Présentation</a>
+		  <a href="{{ root }}gallery/index">Galerie photo</a>
+		  <a href="{{ root }}exposure/index">Expositions</a>
+		  <a href="{{ root }}book/show/page/christiane-ladeon-l-endometriose-de-l-ombre-a-la-lumiere">Livre</a>
+		  <a href="{{ root }}press/index">Presse</a>
+		  <a href="{{ root }}contact/index">Contact</a>
+		  <a href="{{ root }}user/account">Mon compte </a>
+		  {% if (session.logged_in != null) and (session.logged_in == true) %}
+								
+		  <a href="{{ root }}user/logout"><span class='glyphicon glyphicon-off' aria-hidden="true"></span></a>
+		 {% endif %}
+		  
+		  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+			<i class="fa fa-bars"></i>
+		  </a>
+		</div>
+
+
+	  </div>
+		<div>
+			{% block content %}{% endblock %}
+		</div>
 		<!-- FOOTER -->
       <footer class="sticky-footer">
         <div class="container">

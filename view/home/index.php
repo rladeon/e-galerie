@@ -132,11 +132,11 @@
 			</div>
 		
 		</section>
-		<div class="flex" style="float: left; width:100%">
+		<div class="flex"  >
 						<a href="{{root}}gallery/index" class="bttn" >Voir tous les tableaux</a>
 					</div>
 			
-		<section id="latest" class="main-section second-section">
+		<section id="news" class="main-section third-section">
 			<div class="container">
 				<h1>Mon actualité</h1>
 				
