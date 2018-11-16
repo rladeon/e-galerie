@@ -107,20 +107,29 @@ class Utils
 
 		return $randomString;
 	}
-	public function upload_file($uploadDirectory)
+	public function upload_file($uploadDirectory, $type=null)
 	{
 		$currentDir = getcwd();
 
 		$errors = []; // Store all foreseen and unforseen errors here
-
-		$fileExtensions = ['jpeg','jpg','png','pdf']; // Get all the file extensions
+		if(empty($type))
+		{
+			$fileExtensions = ['jpeg','jpg','png','pdf']; // Get all the file extensions
+		}
+		else
+		{
+			$fileExtensions = ['jpeg','jpg','png']; // Get all the file extensions
+		}
 
 		$fileName = $_FILES['path']['name'];
 		$fileSize = $_FILES['path']['size']/1024;
 		$fileTmpName  = $_FILES['path']['tmp_name'];
 		$fileType = $_FILES['path']['type'];
 		$fileExtension = strtolower(end(explode('.',$fileName)));
-		
+		if(empty($_FILES['path']['name']))
+		{
+			return array("result" => false, "message" => "Il faut choisir une image.");
+		}
 		$uploadPath = $currentDir . $uploadDirectory . basename($fileName); 
 		if(!is_dir($currentDir . $uploadDirectory))
 		{

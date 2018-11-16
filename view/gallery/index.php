@@ -5,14 +5,15 @@
 		<p class="arianelink txtcenter"><i class="fa fa-home"></i>{{breadcrumb | raw}}</p>
 		{# Loop through several photos #}
 		<ul id="filters" class="clearfix">
-			<li><span class="filter active" data-filter=".fruit, .paysage">Tout</span></li>
+			<li><span class="filter active" data-filter=".fruit, .paysage, .arbre, .illustration">Tout</span></li>
 			<li><span class="filter" data-filter=".fruit">Végétaux</span></li>
 			<li><span class="filter" data-filter=".paysage">paysage</span></li>
-						
+			<li><span class="filter" data-filter=".arbre">Arbres et fleurs</span></li>
+			<li><span class="filter" data-filter=".illustration">illustrations</span></li>
 		</ul>			
 			<div id="portfoliolist" >
 			{% for key,entry in gallery %}
-				<div class="portfolio {{entry.datacateg}} " data-cat="{{entry.datacateg}}">
+				<!--<div class="portfolio {{entry.datacateg}} " data-cat="{{entry.datacateg}}">
 					<div class="portfolio-wrapper">			
 						<a href="{{root}}{{entry.path_large}}" class="js-smartPhoto" data-caption="{{entry.title}}" data-id="{{entry.title}}" data-group="{{entry.category}}">
 						<img src="{{root}}{{entry.path_mid}}" />
@@ -26,7 +27,16 @@
 						</div>
 					</div>
 				
-				</div>								
+				</div>		-->		
+				<div class="portfolio {{entry.datacateg}} " data-cat="{{entry.datacateg}}">
+					<div class="">			
+						<a href="{{root}}{{entry.path_large}}" class="js-smartPhoto" data-caption="{{entry.title}}" data-id="{{entry.title}}" data-group="{{entry.category}}">
+						<img src="{{root}}{{entry.path_mid}}" />
+						</a>
+						
+					</div>
+				
+				</div>					
 			{% endfor %}						
 		</div>
 </div>

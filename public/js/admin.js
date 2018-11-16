@@ -489,11 +489,11 @@ $(function(){
 	});
 });
 $(function(){
-	function after_deletemedia(data) 
+	function after_updatemedia(data) 
     {
 		$(".loader").css("display", "none");
 		$("body").css("background-color", "white");
-		
+		$('#btnUpdateMedia').show();
 		 if(data.result == 'error')
         {               
             $('.alert-danger').html(data.errors);            
@@ -508,7 +508,50 @@ $(function(){
 		}
     }
 
-	$('.deletemedia').on('click', function(e)
+	$('#updatemedia_form').on('submit', function(e)
+      {
+		e.preventDefault();
+		$('.alert-success').hide();
+        $('.alert-danger').hide();
+		$('#btnUpdateMedia').hide();
+		
+			$(".loader").show();
+			
+			$("body").css("background-color", "#f2ebea");
+			$form = $(this);
+			
+			var id = $("#btnUpdateMedia").data("id");
+
+            $.ajax({
+                type: "POST",
+                url: '/e-galerie/media/updatemedia/id/'+id,
+                data: $form.serialize(),
+                success: after_updatemedia,
+                dataType: 'json' 
+            }); 
+			
+	
+	});
+});
+$(function(){
+	function after_deletemedia(data) 
+    {
+		$(".loader").css("display", "none");
+		$("body").css("background-color", "white");
+		
+		 if(data.result == 'error')
+        {               
+            $('.alert-danger').html(data.errors);            
+            $('.alert-success').hide();
+            $('.alert-danger').show();              
+        }
+		else
+		{
+			window.location.replace("/e-galerie/admin/medialist");
+		}
+    }
+
+	$('a.deletemedia').on('click', function(e)
       {
 		e.preventDefault();
 		$('.alert-success').hide();

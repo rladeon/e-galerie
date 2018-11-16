@@ -639,25 +639,6 @@ class AdminController extends Controller
 					]);
 		}
 	}
-	public function createmedia()
-	{
-		if($this->utils->isadmin())
-		{
-			echo $this->twig->render($this->className.'/createmedia.php',
-					[
-					  "title" => "Admin",					
-					  "root" => $this->root,					 	
-						
-					]);
-		}
-		else
-		{
-			echo $this->twig->render($this->className.'/login.php',
-					[
-					  "title" => "Admin",					  
-					  "root" => $this->root,					  
-					]);
-		}
-	}
+	
 }
 ?>

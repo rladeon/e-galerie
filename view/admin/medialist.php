@@ -1,7 +1,7 @@
 {% extends 'frontend/admin_template.php' %}
 {% block content %}
 <div class="container">
-<a href="{{root}}admin/createmedia"  class="btn btn-primary">Ajouter une image</a>
+<a href="{{root}}media/create"  class="btn btn-primary">Ajouter une image</a>
 <div class="alert alert-success alert-dismissible" style="display: none" role="alert">
 	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 </div>
@@ -28,7 +28,7 @@
 							{% endif %}
 						</td>
 						<td>
-						<a href="{{root}}admin/updatemedia/id/{{value.id}}" class="btn btn-primary">infos</a><a href="{{root}}admin/updateimage/id/{{value.id}}" class="btn btn-primary">éditer l'image</a><a href="#" data-id="{{value.id}}" class="btn btn-danger deletemedia">supprimer</a>
+						<a href="{{root}}admin/updatemedia/id/{{value.id}}" class="btn btn-primary">infos</a><a href="{{root}}media/update/id/{{value.id}}" class="btn btn-primary">éditer l'image</a><a href="#" data-id="{{value.id}}" class="btn btn-danger deletemedia">supprimer</a>
 						</td>						
 					</tr>
 					{% endfor %}
