@@ -299,7 +299,7 @@ class MediaController extends Controller
 						foreach($sizes as $key=>$value)
 						{
 							$this->utils->resize_image($uploadpath, $ret["path"].'/'.$this->utils->remove_extension($ret["filename"]).$key.$this->utils->get_extension($ret["filename"]), $width = 0, $height = $value);
-							$filepath = "public/images/".$year."/".$id."/".$this->utils->remove_extension($ret["filename"]).$key.$this->utils->get_extension($ret["filename"]);
+							//$filepath = "public/images/".$year."/".$id."/".$this->utils->remove_extension($ret["filename"]).$key.$this->utils->get_extension($ret["filename"]);
 							
 							if( $value == 1000 )
 							{
@@ -316,6 +316,7 @@ class MediaController extends Controller
 								unlink($currentDir."/".$medias->path_thumb);
 								$medias->path_thumb = $filepath;
 							}
+							$this->utils->resize_image($uploadpath, $ret["path"].'/'.$this->utils->remove_extension($ret["filename"]).$key.$this->utils->get_extension($ret["filename"]), $width = 0, $height = $value);
 							$medias->extension = $ret["fileExtension"];
 							$medias->timestamp = time();
 							$mapper->update($medias);

@@ -5,11 +5,12 @@
 		<p class="arianelink txtcenter"><i class="fa fa-home"></i>{{breadcrumb | raw}}</p>
 		{# Loop through several photos #}
 		<ul id="filters" class="clearfix">
-			<li><span class="filter active" data-filter=".fruit, .paysage, .arbre, .illustration">Tout</span></li>
-			<li><span class="filter" data-filter=".fruit">Végétaux</span></li>
+			<li><span class="filter active" data-filter=".fruit, .paysage, .arbre, .illustration, .abstrait">Tout</span></li>
+			<li><span class="filter" data-filter=".fruit">Fruit</span></li>
 			<li><span class="filter" data-filter=".paysage">paysage</span></li>
 			<li><span class="filter" data-filter=".arbre">Arbres et fleurs</span></li>
 			<li><span class="filter" data-filter=".illustration">illustrations</span></li>
+			<li><span class="filter" data-filter=".abstrait">Aquarelles abstraites</span></li>
 		</ul>			
 			<div id="portfoliolist" >
 			{% for key,entry in gallery %}
