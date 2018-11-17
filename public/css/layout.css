@@ -62,7 +62,8 @@
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-o-box-sizing: border-box;
-	width:23%;
+	/*width:23%;*/
+	max-width: 100%;
 	margin:1%;
 	display:none;
 	

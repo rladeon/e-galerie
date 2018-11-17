@@ -32,7 +32,7 @@
 				<div class="portfolio {{entry.datacateg}} " data-cat="{{entry.datacateg}}">
 					<div class="">			
 						<a href="{{root}}{{entry.path_large}}" class="js-smartPhoto" data-caption="{{entry.title}}" data-id="{{entry.title}}" data-group="{{entry.category}}">
-						<img src="{{root}}{{entry.path_mid}}" />
+						<img src="{{root}}{{entry.path_thumb}}" />
 						</a>
 						
 					</div>
