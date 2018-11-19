@@ -183,6 +183,10 @@ class MediaController extends Controller
 				"title" => $medias->title,
 				"path" => $medias->path_mid,
 				);
+				/*if(is_file(	getcwd()."/".$medias->path_large ))
+					{
+						echo "OK";
+					}else { echo "KO"; }*/
 				echo $this->twig->render($this->className.'/update.php',
 					[
 					  "title" => "Admin",					
@@ -289,6 +293,19 @@ class MediaController extends Controller
 				{
 					$year = date("Y");
 					$id = $medias->id;
+					$currentDir = getcwd();
+					if(is_file(	$currentDir."/".$medias->path_large ))
+					{
+						unlink($currentDir."/".$medias->path_large);
+					}
+					if(is_file(	$currentDir."/".$medias->path_mid ))
+					{
+						unlink($currentDir."/".$medias->path_mid);
+					}
+					if(is_file(	$currentDir."/".$medias->path_thumb ))
+					{
+						unlink($currentDir."/".$medias->path_thumb);
+					}
 					$path = "/public/images/".$year."/".$id."/";
 					$ret = $this->utils->upload_file($path, "image");
 					$message = $ret["message"];
@@ -296,27 +313,23 @@ class MediaController extends Controller
 					if(!empty($ret["result"]) && $ret["result"] == true)
 					{
 						$sizes = array("-large."=>1000, "-mid."=>300, "-thumb."=>100); 
-						$uploadpath = $ret["uploadpath"];
-						$currentDir = getcwd();
+						$uploadpath = $ret["uploadpath"];						
 						
 						foreach($sizes as $key=>$value)
 						{
-							$this->utils->resize_image($uploadpath, $ret["path"].'/'.$this->utils->remove_extension($ret["filename"]).$key.$this->utils->get_extension($ret["filename"]), $width = 0, $height = $value);
-							//$filepath = "public/images/".$year."/".$id."/".$this->utils->remove_extension($ret["filename"]).$key.$this->utils->get_extension($ret["filename"]);
-							
+							//$this->utils->resize_image($uploadpath, $ret["path"].'/'.$this->utils->remove_extension($ret["filename"]).$key.$this->utils->get_extension($ret["filename"]), $width = 0, $height = $value);
+							$filepath = "public/images/".$year."/".$id."/".$this->utils->remove_extension($ret["filename"]).$key.$this->utils->get_extension($ret["filename"]);
+								
 							if( $value == 1000 )
-							{
-								unlink($currentDir."/".$medias->path_large);
+							{								
 								$medias->path_large = $filepath;
 							}
 							else if( $value == 300)
-							{
-								unlink($currentDir."/".$medias->path_mid);
+							{								
 								$medias->path_mid = $filepath;
 							}
 							else
-							{
-								unlink($currentDir."/".$medias->path_thumb);
+							{								
 								$medias->path_thumb = $filepath;
 							}
 							$this->utils->resize_image($uploadpath, $ret["path"].'/'.$this->utils->remove_extension($ret["filename"]).$key.$this->utils->get_extension($ret["filename"]), $width = 0, $height = $value);
