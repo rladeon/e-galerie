@@ -105,6 +105,27 @@
 								 
 			</label>
 		</div>	
+		<div class="form-group">
+			<label class="control-label">Image d'archive</label>
+			<label class="radio-inline">
+			{% if media.archiver == 1 %}
+				<input type="radio" name="archiver" id="Radios4" value="1" checked>
+			{% else %}
+				<input type="radio" name="archiver" id="Radios4" value="1" >
+			{% endif %}
+			Oui
+								 
+			</label>
+			<label class="radio-inline">
+			{% if media.archiver == 0 %}
+				<input type="radio" name="archiver" id="Radios5" value="0" checked>
+			{% else %}
+				<input type="radio" name="archiver" id="Radios5" value="0" >
+			{% endif %}
+			Non
+								 
+			</label>
+		</div>	
 		<button type="submit" class="bttn"  id="btnUpdateMedia" data-id="{{media.id}}">Envoyer →</button>
 	</form>
 

@@ -234,6 +234,8 @@ class MediaController extends Controller
 				$id_content = empty($_POST["content"])?null:$_POST["content"];
 				$id_book = empty($_POST["book"])?null:$_POST["book"];
 				$id_exposure = empty($_POST["exposure"])?null:$_POST["exposure"];
+				$archiver = empty($_POST["archiver"])?null:$_POST["archiver"];
+				
 				$media->title = $title;
 				$media->category = $category;
 				$media->datacateg = $datacateg;
@@ -242,6 +244,7 @@ class MediaController extends Controller
 				$media->id_content = $id_content;
 				$media->id_book = $id_book;
 				$media->id_exposure = $id_exposure;
+				$media->archiver = $archiver;
 					
 					$myNewMedia = $mediaMapper->update($media);
 					

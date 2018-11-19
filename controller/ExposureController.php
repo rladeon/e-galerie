@@ -97,7 +97,7 @@ class ExposureController extends Controller
 		$breadcrumb = $this->utils->build_breadcrumb(array("Expositions"=> "exposure/index"),$net->home_url);
 		$mapper = spot()->mapper('Model\Exposure');
 		
-		$outdated = $mapper->all()->where(['date_start >' => \DateTime::createFromFormat('Y-m-d', date('Y-m-d') )->format("Y-m-d")])
+		$outdated = $mapper->all()->where(['date_start <' => \DateTime::createFromFormat('Y-m-d', date('Y-m-d') )->format("Y-m-d")])
 		->order(['date_start'=>"ASC"]);
 		$list_archiver = null;
 		
