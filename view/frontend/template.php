@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="{{ root }}public/css/smartphoto.min.css">
 		<link rel="stylesheet" href="{{ root }}public/css/justifiedGallery.min.css" />
 		<link href="{{ root }}public/css/style.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="{{ root }}public/css/jquery-eu-cookie-law-popup.css"/>
 		<script src="https://www.google.com/recaptcha/api.js"></script>
     </head>
     <body>
@@ -65,6 +66,20 @@
 
 
 	  </div>
+	  <!-- RGPD pop up -->
+	  <div class="eupopup eupopup-container eupopup-container-block">
+  <div class="eupopup-markup">
+    <div class="eupopup-head">Ce site utilise des cookies</div>
+    <div class="eupopup-body">Nous utilisons des cookies pour vous garantir la meilleure expérience sur notre site. Si vous continuez à utiliser le site, nous supposerons que vous accepter tous les cookies sur ce site.</div>
+    <div class="eupopup-buttons">
+      <a href="#" class="eupopup-button eupopup-button_1">Continuer</a>
+      
+    </div>
+    <div class="clearfix"></div>
+    <a href="#" class="eupopup-closebutton">x</a>
+  </div>
+</div>
+<!-- fin RGPD -->
 		<div>
 			{% block content %}{% endblock %}
 		</div>
@@ -93,6 +108,7 @@ function myFunction() {
 	<script src="{{ root }}public/js/jquery-smartphoto.min.js"></script>
 	<script src="{{ root }}public/js/jquery.justifiedGallery.min.js"></script>
 	<script src="{{ root }}public/js/form.js"></script>
+	<script src="{{ root }}public/js/jquery-eu-cookie-law-popup.js"></script>
 	<!--Banner-->
 	<script type="text/javascript">
     jQuery(document).ready(function(){

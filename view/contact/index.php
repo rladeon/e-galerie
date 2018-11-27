@@ -52,7 +52,7 @@
 					  
 					  -->
 							  <div class="g-recaptcha" 
-							  data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI">
+							  data-sitekey="6Leg3nwUAAAAAOcFpKcmgWE7h0tcGVFI_p0Uz6kg">
 							  </div>
 						</div>
 				</div>

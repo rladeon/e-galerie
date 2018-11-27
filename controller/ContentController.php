@@ -179,7 +179,7 @@ class ContentController extends Controller
 		$content = "";
 		$book = spot()->mapper('Model\Content');
 
-		$content = $book->where(["title"=>"cgu"])->first();
+		$content = $book->where(["title"=>"politique de confidentialité"])->first();
 		echo $this->twig->render($this->className.'/legitmention.php',
 			["title" => "RGPD",
 			"breadcrumb" => $breadcrumb,
