@@ -7,7 +7,7 @@
 	<div id="mygallery">
 		{% for index,value in media %}
 		<div class="col-md-4">
-			<a href="{{root}}{{value.path_large}}" class="js-smartPhoto">
+			<a href="{{root}}{{value.path_mid}}" class="js-smartPhoto">
 				<img src="{{root}}{{value.path_mid}}" width="100%"/>
 			</a>								
 		</div>

@@ -60,6 +60,11 @@
            </a>
         </li>
 		<li>
+           <a class="s-sidebar__nav-link" href="{{root}}archiver/getall">
+              <i class="fa fa-ticket"></i><em>Archive</em>
+           </a>
+        </li>
+		<li>
            <a class="s-sidebar__nav-link" href="{{root}}user/logout">
               <i class="fa fa-power-off"></i><em>Se déconnecter</em>
            </a>

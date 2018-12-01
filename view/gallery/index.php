@@ -6,9 +6,9 @@
 		{# Loop through several photos #}
 		<ul id="filters" class="clearfix">
 			<li><span class="filter active" data-filter=".fruit, .paysage, .arbre, .illustration, .abstrait">Tout</span></li>
-			<li><span class="filter" data-filter=".paysage">Le paysage</span></li>
+			<li><span class="filter" data-filter=".paysage">Paysage</span></li>
 			<li><span class="filter" data-filter=".fruit">Fruit</span></li>			
-			<li><span class="filter" data-filter=".arbre">fleurs</span></li>
+			<li><span class="filter" data-filter=".arbre">Fleurs</span></li>
 			<li><span class="filter" data-filter=".illustration">illustrations</span></li>
 			<li><span class="filter" data-filter=".abstrait">Aquarelles abstraites</span></li>
 		</ul>			

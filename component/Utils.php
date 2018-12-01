@@ -133,7 +133,7 @@ class Utils
 		$uploadPath = $currentDir . $uploadDirectory . basename($fileName); 
 		if(!is_dir($currentDir . $uploadDirectory))
 		{
-			if(!mkdir($currentDir . $uploadDirectory, 0700))
+			if(!mkdir($currentDir . $uploadDirectory, 0755))
 			{
 				$error = "le dossier: ".$currentDir . $uploadDirectory." n'a pas été créé.";
 				return array("result" => false, "message" => $error);
